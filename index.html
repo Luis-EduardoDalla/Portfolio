@@ -508,42 +508,21 @@
             font-size: 1.2rem;
         }
 
-        /* Seção Projetos - Carrossel */
+        /* Seção Projetos - Cards atualizados */
         .projects {
             padding: 6rem 5%;
             max-width: 1200px;
             margin: 0 auto;
-            position: relative;
-            overflow: hidden;
         }
 
         .projects-container {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2.5rem;
-            width: 100%;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 2rem;
-        }
-
-        .projects-container::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .projects-container::-webkit-scrollbar-track {
-            background: var(--bg-color);
-            border-radius: 10px;
-        }
-
-        .projects-container::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 10px;
         }
 
         .project-card {
-            min-width: 300px;
+            width: 100%;
             min-height: 280px;
             border-radius: 20px;
             background: transparent;
@@ -555,8 +534,6 @@
             border: 2px solid var(--gray-color);
             background-color: var(--card-bg);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            scroll-snap-align: start;
-            flex-shrink: 0;
         }
 
         .project-card:hover {
@@ -687,40 +664,6 @@
         .project-card:hover .project-button {
             opacity: 1;
             transform: translateY(0);
-        }
-
-        /* Controles do carrossel */
-        .carousel-controls {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .carousel-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .carousel-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 10px rgba(255, 100, 0, 0.5);
-        }
-
-        .carousel-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
         }
 
         /* Seção Contato */
@@ -888,17 +831,6 @@
                 right: 20px;
                 top: 28px;
                 
-            }
-
-            /* Ajustes do carrossel para mobile */
-            .projects-container {
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .project-card {
-                min-width: 85%;
-                scroll-snap-align: center;
             }
         }
 
@@ -1079,46 +1011,6 @@
                         <button class="project-button">Ver Detalhes</button>
                     </div>
                 </div>
-                <!-- Novos cards de projetos adicionados -->
-                <div class="project-card">
-                    <div class="project-card-details">
-                        <img src="PORT01/projeto04.png" alt="E-commerce Responsivo" class="project-image">
-                        <div class="project-info">
-                            <h3>E-commerce Responsivo</h3>
-                            <p>Loja virtual com design responsivo, carrinho de compras e integração com pagamentos.</p>
-                            <div class="project-tags">
-                                <span>HTML5</span>
-                                <span>CSS3</span>
-                                <span>JavaScript</span>
-                                <span>UI/UX</span>
-                            </div>
-                        </div>
-                        <button class="project-button">Ver Detalhes</button>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-card-details">
-                        <img src="PORT01/projeto05.png" alt="Dashboard Analytics" class="project-image">
-                        <div class="project-info">
-                            <h3>Dashboard Analytics</h3>
-                            <p>Painel administrativo com visualização de dados e gráficos interativos.</p>
-                            <div class="project-tags">
-                                <span>DataViz</span>
-                                <span>UI Design</span>
-                                <span>JavaScript</span>
-                            </div>
-                        </div>
-                        <button class="project-button">Ver Detalhes</button>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-controls">
-                <button class="carousel-btn prev-btn" aria-label="Projeto anterior">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button class="carousel-btn next-btn" aria-label="Próximo projeto">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
             </div>
         </section>
 
@@ -1334,48 +1226,6 @@
 
         // Atualizar ano no footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
-
-        // Carrossel de projetos
-        const projectsContainer = document.querySelector('.projects-container');
-        const projectCards = document.querySelectorAll('.project-card');
-        const prevBtn = document.querySelector('.prev-btn');
-        const nextBtn = document.querySelector('.next-btn');
-        let currentIndex = 0;
-        const cardWidth = projectCards[0].offsetWidth + 40; // Largura do card + gap
-
-        function updateCarousel() {
-            projectsContainer.scrollTo({
-                left: currentIndex * cardWidth,
-                behavior: 'smooth'
-            });
-            
-            // Atualizar estado dos botões
-            prevBtn.disabled = currentIndex === 0;
-            nextBtn.disabled = currentIndex >= projectCards.length - 1;
-        }
-
-        prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateCarousel();
-            }
-        });
-
-        nextBtn.addEventListener('click', () => {
-            if (currentIndex < projectCards.length - 1) {
-                currentIndex++;
-                updateCarousel();
-            }
-        });
-
-        // Atualizar estado inicial dos botões
-        updateCarousel();
-
-        // Ajustar carrossel no redimensionamento da tela
-        window.addEventListener('resize', () => {
-            cardWidth = projectCards[0].offsetWidth + 40;
-            updateCarousel();
-        });
     </script>
 </body>
 </html>
