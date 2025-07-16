@@ -508,40 +508,21 @@
             font-size: 1.2rem;
         }
 
-        /* Seção Projetos - Atualizada para carrossel */
+        /* Seção Projetos - Cards atualizados */
         .projects {
             padding: 6rem 5%;
             max-width: 1200px;
             margin: 0 auto;
-            overflow: hidden;
         }
 
         .projects-container {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2.5rem;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            padding-bottom: 20px;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .projects-container::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .projects-container::-webkit-scrollbar-track {
-            background: var(--bg-color);
-            border-radius: 10px;
-        }
-
-        .projects-container::-webkit-scrollbar-thumb {
-            background-color: var(--primary-color);
-            border-radius: 10px;
         }
 
         .project-card {
-            min-width: 300px;
+            width: 100%;
             min-height: 280px;
             border-radius: 20px;
             background: transparent;
@@ -553,8 +534,6 @@
             border: 2px solid var(--gray-color);
             background-color: var(--card-bg);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            scroll-snap-align: start;
-            flex: 0 0 auto;
         }
 
         .project-card:hover {
@@ -685,30 +664,6 @@
         .project-card:hover .project-button {
             opacity: 1;
             transform: translateY(0);
-        }
-
-        /* Controles do carrossel */
-        .carousel-controls {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .carousel-btn {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: var(--gray-color);
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            transition: all 0.3s ease;
-        }
-
-        .carousel-btn.active {
-            background-color: var(--primary-color);
-            transform: scale(1.2);
         }
 
         /* Seção Contato */
@@ -877,17 +832,6 @@
                 top: 28px;
                 
             }
-
-            /* Ajustes do carrossel para mobile */
-            .projects-container {
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .project-card {
-                min-width: 85%;
-                scroll-snap-align: center;
-            }
         }
 
         @media (max-width: 576px) {
@@ -902,10 +846,6 @@
             
             .section-title {
                 font-size: 2rem;
-            }
-
-            .project-card {
-                min-width: 90%;
             }
         }
 
@@ -1071,44 +1011,6 @@
                         <button class="project-button">Ver Detalhes</button>
                     </div>
                 </div>
-                <!-- Novos cards adicionados -->
-                <div class="project-card">
-                    <div class="project-card-details">
-                        <img src="PORT01/projeto04.png" alt="Portfólio Pessoal" class="project-image">
-                        <div class="project-info">
-                            <h3>Portfólio Pessoal</h3>
-                            <p>Website pessoal responsivo para exibição de projetos e habilidades profissionais.</p>
-                            <div class="project-tags">
-                                <span>HTML5</span>
-                                <span>CSS3</span>
-                                <span>JavaScript</span>
-                            </div>
-                        </div>
-                        <button class="project-button">Ver Detalhes</button>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-card-details">
-                        <img src="PORT01/projeto05.png" alt="E-commerce Minimalista" class="project-image">
-                        <div class="project-info">
-                            <h3>E-commerce Minimalista</h3>
-                            <p>Design de loja virtual com foco em experiência do usuário e conversão de vendas.</p>
-                            <div class="project-tags">
-                                <span>UI/UX</span>
-                                <span>Figma</span>
-                                <span>Protótipo</span>
-                            </div>
-                        </div>
-                        <button class="project-button">Ver Detalhes</button>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-controls">
-                <button class="carousel-btn active" data-index="0"></button>
-                <button class="carousel-btn" data-index="1"></button>
-                <button class="carousel-btn" data-index="2"></button>
-                <button class="carousel-btn" data-index="3"></button>
-                <button class="carousel-btn" data-index="4"></button>
             </div>
         </section>
 
@@ -1324,43 +1226,6 @@
 
         // Atualizar ano no footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
-
-        // Controles do carrossel de projetos
-        const projectsContainer = document.querySelector('.projects-container');
-        const carouselBtns = document.querySelectorAll('.carousel-btn');
-        const projectCards = document.querySelectorAll('.project-card');
-        const cardWidth = projectCards[0].offsetWidth + parseInt(getComputedStyle(projectsContainer).gap);
-
-        // Função para atualizar os botões ativos
-        function updateActiveButton() {
-            const scrollPosition = projectsContainer.scrollLeft;
-            const activeIndex = Math.round(scrollPosition / cardWidth);
-            
-            carouselBtns.forEach((btn, index) => {
-                if (index === activeIndex) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-        }
-
-        // Evento de scroll no container
-        projectsContainer.addEventListener('scroll', updateActiveButton);
-
-        // Evento de clique nos botões do carrossel
-        carouselBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const index = parseInt(btn.getAttribute('data-index'));
-                projectsContainer.scrollTo({
-                    left: index * cardWidth,
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Atualizar inicialmente
-        updateActiveButton();
     </script>
 </body>
 </html>
