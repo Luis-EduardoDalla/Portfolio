@@ -1295,55 +1295,75 @@
             console.log('Tema alterado para:', newTheme);
         });
 
-// Menu Burger - Solução Completa
-const overlay = document.createElement('div');
-overlay.classList.add('overlay');
-document.body.appendChild(overlay);
+// Menu Burger 
+document.addEventListener('DOMContentLoaded', function() {
+    // Criar overlay
+    const overlay = document.createElement('div');
+    overlay.classList.add('overlay');
+    document.body.appendChild(overlay);
 
-const burger = document.querySelector('.burger');
-const navLinks = document.querySelector('.nav-links');
-const navLinksItems = document.querySelectorAll('.nav-links li a'); // Selecionamos os links diretamente
+    // Elementos do menu
+    const burger = document.querySelector('.burger');
+    const navLinks = document.querySelector('.nav-links');
+    const navItems = document.querySelectorAll('.nav-links li'); // Todos os itens do menu
 
-function closeMobileMenu() {
-    navLinks.classList.remove('active');
-    burger.classList.remove('toggle');
-    overlay.classList.remove('active');
-}
+    // Função para fechar o menu
+    function closeMenu() {
+        navLinks.classList.remove('active');
+        burger.classList.remove('toggle');
+        overlay.classList.remove('active');
+        
+        // Resetar animações dos itens
+        navItems.forEach(item => {
+            item.style.animation = '';
+        });
+    }
 
-// Abrir/fechar menu
-burger.addEventListener('click', function() {
-    navLinks.classList.toggle('active');
-    burger.classList.toggle('toggle');
-    overlay.classList.toggle('active');
-});
-
-// Fechar ao clicar no overlay
-overlay.addEventListener('click', closeMobileMenu);
-
-// Navegação mobile
-navLinksItems.forEach(link => {
-    link.addEventListener('click', function(e) {
-        if (window.innerWidth <= 768) {
-            e.preventDefault();
-            const targetSection = this.getAttribute('href');
-            
-            // Fecha o menu primeiro
-            closeMobileMenu();
-            
-            // Aguarda o menu fechar antes de scrollar
-            setTimeout(() => {
-                const section = document.querySelector(targetSection);
-                if (section) {
-                    window.scrollTo({
-                        top: section.offsetTop - 70,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Atualiza a URL sem recarregar
-                    history.pushState(null, null, targetSection);
-                }
-            }, 300); // Tempo igual à duração da animação do menu
+    // Abrir/fechar menu ao clicar no ícone
+    burger.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+        burger.classList.toggle('toggle');
+        overlay.classList.toggle('active');
+        
+        // Animar itens quando o menu abre
+        if (navLinks.classList.contains('active')) {
+            navItems.forEach((item, index) => {
+                item.style.animation = `navLinkFade 0.5s ease forwards ${index/7 + 0.3}s`;
+            });
         }
+    });
+
+    // Fechar menu ao clicar no overlay
+    overlay.addEventListener('click', closeMenu);
+
+    // Navegação por todas as seções
+    navItems.forEach(item => {
+        const link = item.querySelector('a');
+        
+        link.addEventListener('click', function(e) {
+            // Apenas para mobile
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                
+                // Fecha o menu primeiro
+                closeMenu();
+                
+                // Scroll suave após o menu fechar
+                setTimeout(() => {
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Atualiza a URL
+                        history.pushState(null, null, targetId);
+                    }
+                }, 300); // Tempo da animação do menu
+            }
+        });
     });
 });
         
