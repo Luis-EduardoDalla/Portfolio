@@ -190,14 +190,18 @@
         header {
            background-color: rgba(255, 255, 255, 0.65);
            backdrop-filter: blur(8px);
-           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-           margin: 10px;
-           border-radius: 12px;
-           width: calc(100% - 20px);
-           width: 100%;
+           -webkit-backdrop-filter: blur(8px);
+           box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+           position: fixed;
+           top: 0; /* Mantém margem superior */
+           left: 0; /* Centraliza */
+           transform: translateX(-50%); /* Ajuste fino de centralização */
+           width: 100%; /* Largura reduzida (ajuste este valor) */
+           max-width: 1200px; /* Largura máxima opcional */
            z-index: 1000;
-           -webkit-backdrop-filter: blur(10px);
-           transition: all 0.5s ease;
+           border-radius: 12px; /* Bordas arredondadas */
+           margin: 0 auto; /* Centralização extra */
+           transition: all 0.3s ease;
         }
 
         nav {
