@@ -1295,17 +1295,15 @@
             console.log('Tema alterado para:', newTheme);
         });
 
-// Menu Burger - Versão Corrigida
+// Menu Burger - Solução Definitiva
 document.addEventListener('DOMContentLoaded', function() {
-    // Criar overlay
-    const overlay = document.createElement('div');
-    overlay.classList.add('overlay');
-    document.body.appendChild(overlay);
-
     // Elementos do menu
     const burger = document.querySelector('.burger');
     const navLinks = document.querySelector('.nav-links');
     const navItems = document.querySelectorAll('.nav-links li');
+    const overlay = document.createElement('div');
+    overlay.classList.add('overlay');
+    document.body.appendChild(overlay);
 
     // Função para fechar o menu
     function closeMenu() {
@@ -1333,42 +1331,42 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fechar menu ao clicar no overlay
     overlay.addEventListener('click', closeMenu);
 
-    // Navegação corrigida
+    // Navegação corrigida - SOLUÇÃO DEFINITIVA
     navItems.forEach(item => {
         const link = item.querySelector('a');
         
         link.addEventListener('click', function(e) {
             const target = this.getAttribute('href');
             
-            // Fecha o menu primeiro
+            // Fecha o menu imediatamente
             closeMenu();
             
             // Se for precos.html
             if (target === 'precos.html') {
                 setTimeout(() => {
                     window.location.href = target;
-                }, 300);
+                }, 100); // Pequeno delay para garantir que o menu fechou
                 return;
             }
             
             // Para links âncora (#home, #about, etc)
-            e.preventDefault();
-            
-            setTimeout(() => {
-                const section = document.querySelector(target);
-                if (section) {
-                    window.scrollTo({
-                        top: section.offsetTop - 70,
-                        behavior: 'smooth'
-                    });
-                    history.pushState(null, null, target);
-                }
-            }, 300);
+            if (target.startsWith('#')) {
+                e.preventDefault();
+                setTimeout(() => {
+                    const section = document.querySelector(target);
+                    if (section) {
+                        window.scrollTo({
+                            top: section.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                        history.pushState(null, null, target);
+                    }
+                }, 100); // Pequeno delay para garantir que o menu fechou
+            }
         });
     });
 });
 
-        
         // Copiar e-mail
         document.getElementById('copyEmail').addEventListener('click', function(e) {
             e.preventDefault();
