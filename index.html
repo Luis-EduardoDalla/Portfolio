@@ -1319,6 +1319,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Menu Burger - Versão Final Testada
+    document.addEventListener('DOMContentLoaded', function() {
+    // Elementos do menu
     const burger = document.querySelector('.burger');
     const nav = document.querySelector('.nav-links');
     const navItems = document.querySelectorAll('.nav-links li');
@@ -1329,60 +1331,77 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.appendChild(overlay);
     }
 
+    // Função para alternar o menu
     function toggleMenu() {
         nav.classList.toggle('active');
         burger.classList.toggle('toggle');
         overlay.classList.toggle('active');
         
-        // Ajuste de pointer-events
+        // Controle de pointer-events
+        overlay.style.pointerEvents = nav.classList.contains('active') ? 'auto' : 'none';
+        
+        // Animações dos itens do menu
         if (nav.classList.contains('active')) {
-            overlay.style.pointerEvents = 'auto';
             navItems.forEach((item, index) => {
                 item.style.animation = `navLinkFade 0.5s ease forwards ${index/7 + 0.3}s`;
             });
         } else {
-            overlay.style.pointerEvents = 'none';
+            navItems.forEach(item => {
+                item.style.animation = '';
+            });
         }
     }
 
+    // Eventos do menu burger e overlay
     burger.addEventListener('click', toggleMenu);
     overlay.addEventListener('click', toggleMenu);
 
-    // Navegação garantida
+    // Sistema de navegação principal
     navItems.forEach(item => {
         const link = item.querySelector('a');
         
         link.addEventListener('click', function(e) {
             const target = this.getAttribute('href');
             
-            // Fecha o menu
+            // Fecha o menu se estiver aberto
             if (nav.classList.contains('active')) {
                 toggleMenu();
             }
             
-            // Links externos
-            if (target === 'precos.html') {
+            // Links para outras páginas (como precos.html)
+            if (target.includes('.html')) {
+                e.preventDefault();
                 setTimeout(() => {
                     window.location.href = target;
                 }, 300);
                 return;
             }
             
-            // Links âncora
+            // Links âncora (#home, #about, etc)
             if (target.startsWith('#')) {
                 e.preventDefault();
                 setTimeout(() => {
                     const section = document.querySelector(target);
                     if (section) {
-                        const y = section.getBoundingClientRect().top + window.scrollY - 70;
-                        window.scrollTo({ top: y, behavior: 'smooth' });
-                        history.pushState(null, null, target);
+                        const yOffset = -70; // Ajuste para o header
+                        const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                        
+                        window.scrollTo({
+                            top: y,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Atualiza a URL sem recarregar
+                        if (history.pushState) {
+                            history.pushState(null, null, target);
+                        } else {
+                            window.location.hash = target;
+                        }
                     }
                 }, 300);
             }
         });
     });
-});
         // Copiar e-mail
         document.getElementById('copyEmail').addEventListener('click', function(e) {
             e.preventDefault();
