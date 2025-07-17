@@ -252,6 +252,9 @@
         .burger {
             display: none;
             cursor: pointer;
+            ursor: pointer;
+            z-index: 1002;
+            position: relative; /* Adicionado para garantir posicionamento */
         }
         
         .burger div {
@@ -807,6 +810,9 @@
  
             .burger {
                 display: block;
+                position: absolute;
+                right: 20px;
+                top: 20px;
             }
             
             .nav-links {
@@ -1290,17 +1296,17 @@ document.getElementById('copyEmail').addEventListener('click', function(e) {
         
         // Menu Burger Mobile
     const burger = document.querySelector('.burger');
-    const navLinks = document.querySelector('.nav-links');
-    const navItems = document.querySelectorAll('.nav-links li');
+const navLinks = document.querySelector('.nav-links');
 
-    // Verifica se os elementos existem (para evitar erros)
-    if(burger && navLinks) {
-        burger.addEventListener('click', () => {
-            // Alternar menu
-            navLinks.classList.toggle('active');
-            // Animação do burger
-            burger.classList.toggle('toggle');
-        });
+if(burger && navLinks) {
+    burger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        burger.classList.toggle('toggle');
+        
+        // Debug: Verifica se as classes estão sendo aplicadas
+        console.log('Menu status:', navLinks.classList.contains('active') ? 'Aberto' : 'Fechado');
+    });
+}
 
         // Fechar menu ao clicar nos itens (apenas mobile)
         navItems.forEach(item => {
