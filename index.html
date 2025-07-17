@@ -193,14 +193,14 @@
            -webkit-backdrop-filter: blur(8px);
            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
            position: fixed;
-           top: 12px; /* Mantém margem superior */
-           left: 50%; /* Centraliza */
-           transform: translateX(-50%); /* Ajuste fino de centralização */
-           width: 82%; /* Largura (ajuste este valor) */
-           max-width: 1200px; /* Largura máxima opcional */
+           top: 12px;
+           left: 50%;
+           transform: translateX(-50%);
+           width: 82%;
+           max-width: 1200px;
            z-index: 1000;
-           border-radius: 12px; /* Bordas arredondadas */
-           margin: 0 auto; /* Centralização extra */
+           border-radius: 12px;
+           margin: 0 auto;
            transition: all 0.3s ease;
         }
 
@@ -249,12 +249,12 @@
             width: 100%;
         }
 
+        /* Menu Burger e Navbar Mobile */
         .burger {
             display: none;
             cursor: pointer;
-            ursor: pointer;
             z-index: 1002;
-            position: relative; /* Adicionado para garantir posicionamento */
+            position: relative;
         }
         
         .burger div {
@@ -265,7 +265,7 @@
             transition: all 0.3s ease;
         }
 
-      /* Toggle button */
+        /* Toggle button */
         .theme-toggle {
             position: absolute;
             right: 20px;
@@ -800,88 +800,89 @@
 
         @media (max-width: 768px) {
             header {
-            border-radius: 20px;
-            width: 96%; /* Aumentei a largura */
-            left: 50%;
-            transform: translateX(-50%);
-            top: 5px;
-            padding: 2px 3%; /* Ajuste no padding */
-    }
+                border-radius: 20px;
+                width: 96%;
+                left: 50%;
+                transform: translateX(-50%);
+                top: 5px;
+                padding: 2px 3%;
+            }
  
             .burger {
                 display: block;
                 position: absolute;
-                right: 60px;
+                right: 20px;
                 top: 20px;
             }
             
             .nav-links {
-                position: static;
+                position: fixed;
                 right: 0;
-                top: 60px;
-                left: 50%;
-                background-color: transparent;
-                width: 100%;
-                flex-direction: row;
+                top: 0;
+                height: 100vh;
+                width: 60%;
+                max-width: 300px;
+                background-color: var(--bg-color);
+                flex-direction: column;
                 align-items: center;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-                transform: translateY(-150%);
-                transition: transform 0.3s ease;
+                justify-content: center;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in-out;
+                z-index: 1001;
+                padding: 0;
+                margin: 0;
             }
 
             .nav-links.active {
-                transform: translateY(0);
+                transform: translateX(0);
             }
 
             .nav-links li {
-                margin: 0.8rem 0;
+                margin: 1.5rem 0;
+                opacity: 0;
+                width: 100%;
                 text-align: center;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 0.5rem 0;
+                display: block;
                 width: 100%;
             }
 
             /* Animação dos links */
             @keyframes navLinkFade {
-              from {
+                from {
+                    opacity: 0;
+                    transform: translateX(50px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+
+            /* Overlay quando menu está aberto */
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(5px);
+                z-index: 1000;
                 opacity: 0;
-                transform: translateX(50px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
 
-             /* Overlay quando menu está aberto */
-               .overlay {
-               position: fixed;
-               top: 0;
-               left: 0;
-               width: 100%;
-               height: 100%;
-               background-color: rgba(0, 0, 0, 0.5);
-               backdrop-filter: blur(5px);
-               z-index: 1000;
-               opacity: 0;
-               visibility: hidden;
-               transition: all 0.3s ease;
-    }
-
-    .overlay.active {
-        opacity: 1;
-        visibility: visible;
-    }
-}
-
-            /* Menu Burger e Navbar Mobile - Parte 3: Animação do ícone */
-               .toggle .line1 {
-                  transform: rotate(-45deg) translate(-5px, 6px);
-}
-               .toggle .line2 {
-                  opacity: 0;
-}
-                .toggle .line3 {
-                  transform: rotate(45deg) translate(-5px, -6px);
-}
+            .overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
 
             .hero {
                 flex-direction: column;
@@ -910,7 +911,6 @@
                 position: fixed;
                 right: 24px;
                 top: 26px;
-                
             }
         }
 
@@ -929,7 +929,7 @@
             }
         }
 
-        /* Animação do menu hamburguer */
+        /* Animação do ícone hamburger */
         .toggle .line1 {
             transform: rotate(-45deg) translate(-5px, 6px);
         }
@@ -961,11 +961,10 @@
                 <li><a href="precos.html">Preços</a></li>
             </ul>
             <div class="burger">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-    </div>   
-        
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>   
         </nav>
     </header>
 
@@ -986,7 +985,6 @@
                     <a href="#contact" class="btn-outline">Contato</a>
                 </div>
             </div>
-            
         </section>
 
         <section id="about" class="about section-animate">
@@ -1060,7 +1058,7 @@
                                 <span>JavaScript</span>
                             </div>
                         </div>
-                        <button class="project-button" onclick="window.open('https://sabiooculto.github.io/sabio', '_blank') ">Ver Detalhes</button>
+                        <button class="project-button" onclick="window.open('https://sabiooculto.github.io/sabio', '_blank')">Ver Detalhes</button>
                     </div>
                 </div>
                 <div class="project-card">
@@ -1090,7 +1088,7 @@
                                 <span>Marketing</span>
                             </div>
                         </div>
-                       <button class="project-button" onclick="window.open('https://ricardosantt.github.io/VITALIS', '_blank')">Ver Detalhes</button>
+                        <button class="project-button" onclick="window.open('https://ricardosantt.github.io/VITALIS', '_blank')">Ver Detalhes</button>
                     </div>
                 </div>
             </div>
@@ -1108,8 +1106,8 @@
                         <a href="https://wa.me/5546991207326" aria-label="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
                         <a href="https://www.tiktok.com/@dallawebart" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                         <a href="eduardodalla.dev@gmail.com" id="copyEmail" aria-label="Copiar e-mail">
-        <i class="fas fa-envelope"></i>
-    </a>
+                            <i class="fas fa-envelope"></i>
+                        </a>
                     </div>
                 </div>
                 <form class="contact-form">
@@ -1140,7 +1138,7 @@
                         }
                     },
                     "color": {
-                        "value": "#ff6400" // Laranja para combinar com seu tema
+                        "value": "#ff6400"
                     },
                     "shape": {
                         "type": "star",
@@ -1196,11 +1194,11 @@
                     "events": {
                         "onhover": {
                             "enable": true,
-                            "mode": "grab" // Partículas seguem o mouse
+                            "mode": "grab"
                         },
                         "onclick": {
                             "enable": true,
-                            "mode": "push" // Clica para criar mais partículas
+                            "mode": "push"
                         }
                     }
                 }
@@ -1220,12 +1218,11 @@
                 });
             };
 
-            // Disparar a animação quando a página carrega e quando o usuário rola
             window.addEventListener('load', animateOnScroll);
             window.addEventListener('scroll', animateOnScroll);
         });
 
-        // Scroll suave para links internos (modificado para movimento linear)
+        // Scroll suave para links internos
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1237,7 +1234,7 @@
                     const targetPosition = targetElement.offsetTop - 70;
                     const startPosition = window.pageYOffset;
                     const distance = targetPosition - startPosition;
-                    const duration = 800; // Duração em ms
+                    const duration = 800;
                     let startTime = null;
                     
                     function animation(currentTime) {
@@ -1249,7 +1246,6 @@
                     }
                     
                     function ease(t, b, c, d) {
-                        // Easing function para movimento linear
                         return c * t / d + b;
                     }
                     
@@ -1277,139 +1273,106 @@
         // Dark/Light mode toggle
         const themeToggle = document.querySelector('.theme-toggle');
 
-// Debug: verifica se o botão existe
-if (!themeToggle) {
-    console.error('Erro: Botão .theme-toggle não encontrado no HTML!');
-} else {
-    console.log('Botão de tema encontrado com sucesso.');
-}
+        if (!themeToggle) {
+            console.error('Erro: Botão .theme-toggle não encontrado no HTML!');
+        } else {
+            console.log('Botão de tema encontrado com sucesso.');
+        }
 
-// Carrega tema salvo ou usa 'light' como padrão
-const savedTheme = localStorage.getItem('theme') || 'light';
-document.body.setAttribute('data-theme', savedTheme);
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.body.setAttribute('data-theme', savedTheme);
 
-// Debug: verifica o tema inicial
-console.log('Tema inicial:', savedTheme);
+        console.log('Tema inicial:', savedTheme);
 
-// Alterna tema no clique
-themeToggle.addEventListener('click', () => {
-    const currentTheme = document.body.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    document.body.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    
-    // Debug: verifica a troca
-    console.log('Tema alterado para:', newTheme);
-});
-
-        // Menu Burger CORRIGIDO
-    const burger = document.querySelector('.burger');
-    const navLinks = document.querySelector('.nav-links');
-    const navItems = document.querySelectorAll('.nav-links li');
-    
-    if (burger && navLinks) {
-        burger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            burger.classList.toggle('toggle');
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            console.log('Tema alterado para:', newTheme);
         });
-        
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    navLinks.classList.remove('active');
-                    burger.classList.remove('toggle');
+
+        // Menu Burger
+        const overlay = document.createElement('div');
+        overlay.classList.add('overlay');
+        document.body.appendChild(overlay);
+
+        const burger = document.querySelector('.burger');
+        const navLinks = document.querySelector('.nav-links');
+        const navItems = document.querySelectorAll('.nav-links li');
+
+        if (burger && navLinks) {
+            burger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                burger.classList.toggle('toggle');
+                overlay.classList.toggle('active');
+                
+                if (navLinks.classList.contains('active')) {
+                    navItems.forEach((link, index) => {
+                        link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+                    });
+                } else {
+                    navItems.forEach(link => {
+                        link.style.animation = '';
+                    });
                 }
             });
-        });
-    }
-
-               // Menu Burger - Parte 1: Criação do overlay
-const overlay = document.createElement('div');
-overlay.classList.add('overlay');
-document.body.appendChild(overlay);
-
-// Menu Burger - Parte 2: Seleção dos elementos
-const burger = document.querySelector('.burger');
-const navLinks = document.querySelector('.nav-links');
-const navItems = document.querySelectorAll('.nav-links li');
-
-// Menu Burger - Parte 3: Lógica do clique
-if (burger && navLinks) {
-    burger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        burger.classList.toggle('toggle');
-        overlay.classList.toggle('active');
-        
-        // Anima os links do menu
-        if (navLinks.classList.contains('active')) {
-            navItems.forEach((link, index) => {
-                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-            });
-        } else {
-            navItems.forEach(link => {
-                link.style.animation = '';
-            });
-        }
-    });
-    
-    // Fechar menu ao clicar no overlay
-    overlay.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        burger.classList.remove('toggle');
-        overlay.classList.remove('active');
-        navItems.forEach(link => {
-            link.style.animation = '';
-        });
-    });
-    
-    // Fechar menu ao clicar em um item
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            if (window.innerWidth <= 768) {
+            
+            overlay.addEventListener('click', () => {
                 navLinks.classList.remove('active');
                 burger.classList.remove('toggle');
                 overlay.classList.remove('active');
                 navItems.forEach(link => {
                     link.style.animation = '';
                 });
-            }
-        });
-    });
-}
-        
-document.getElementById('copyEmail').addEventListener('click', function(e) {
-    e.preventDefault();
-    const email = 'eduardodalla.dev'; 
-    
-    // Cria um elemento temporário para copiar
-    const tempInput = document.createElement('input');
-    tempInput.value = email + '@gmail.com'; // Adiciona o domínio completo aqui
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    
-    try {
-        // Executa a cópia
-        const successful = document.execCommand('copy');
-        if (successful) {
-            // Feedback visual
-            const icon = this.querySelector('i');
-            icon.classList.remove('fa-envelope');
-            icon.classList.add('fa-check');
+            });
             
-            setTimeout(() => {
-                icon.classList.remove('fa-check');
-                icon.classList.add('fa-envelope');
-            }, 2000);
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navLinks.classList.remove('active');
+                        burger.classList.remove('toggle');
+                        overlay.classList.remove('active');
+                        navItems.forEach(link => {
+                            link.style.animation = '';
+                        });
+                    }
+                });
+            });
         }
-    } catch (err) {
-        console.error('Falha ao copiar e-mail:', err);
-    }
-    
-    document.body.removeChild(tempInput);
-});
         
+        // Copiar e-mail
+        document.getElementById('copyEmail').addEventListener('click', function(e) {
+            e.preventDefault();
+            const email = 'eduardodalla.dev'; 
+            
+            const tempInput = document.createElement('input');
+            tempInput.value = email + '@gmail.com';
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    const icon = this.querySelector('i');
+                    icon.classList.remove('fa-envelope');
+                    icon.classList.add('fa-check');
+                    
+                    setTimeout(() => {
+                        icon.classList.remove('fa-check');
+                        icon.classList.add('fa-envelope');
+                    }, 2000);
+                }
+            } catch (err) {
+                console.error('Falha ao copiar e-mail:', err);
+            }
+            
+            document.body.removeChild(tempInput);
+        });
         
+        // Ano atual
         document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
 </body>
