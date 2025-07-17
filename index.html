@@ -249,18 +249,6 @@
             width: 100%;
         }
 
-        .burger {
-            display: none;
-            cursor: pointer;
-        }
-
-        .burger div {
-            width: 25px;
-            height: 3px;
-            background-color: var(--text-color);
-            margin: 5px;
-            transition: all 0.3s ease;
-        }
 
         /* Toggle button */
         .theme-toggle {
@@ -814,10 +802,6 @@
                 margin: 1rem 0;
             }
 
-            .burger {
-                display: block;
-            }
-
             .hero {
                 flex-direction: column;
                 text-align: center;
@@ -1152,16 +1136,6 @@
             // Disparar a animação quando a página carrega e quando o usuário rola
             window.addEventListener('load', animateOnScroll);
             window.addEventListener('scroll', animateOnScroll);
-        });
-
-        // Menu mobile
-        const burger = document.querySelector('.burger');
-        const navLinks = document.querySelector('.nav-links');
-        const navLinksItems = document.querySelectorAll('.nav-links li');
-
-        burger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            burger.classList.toggle('toggle');
         });
 
         navLinksItems.forEach(item => {
