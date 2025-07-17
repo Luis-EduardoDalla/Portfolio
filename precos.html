@@ -138,6 +138,186 @@
             margin-bottom: 0.8rem;
         }
 
+        /* === NAVBAR RESPONSIVA DO CÓDIGO PRINCIPAL === */
+        header {
+           background-color: rgba(255, 255, 255, 0.65);
+           backdrop-filter: blur(8px);
+           -webkit-backdrop-filter: blur(8px);
+           box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+           position: fixed;
+           top: 12px;
+           left: 50%;
+           transform: translateX(-50%);
+           width: 82%;
+           max-width: 1200px;
+           z-index: 1000;
+           border-radius: 12px;
+           margin: 0 auto;
+           transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] header {
+         background-color: rgba(23, 23, 24, 0.75);
+         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            transition: color 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-color);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        /* Toggle button */
+        .theme-toggle {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 1001;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-toggle i {
+            display: none;
+        }
+
+        .theme-toggle .fa-sun {
+            display: inline-block;
+        }
+        
+        [data-theme="dark"] .theme-toggle .fa-sun {
+            display: none;
+        }
+
+        [data-theme="dark"] .theme-toggle .fa-moon {
+            display: inline-block;
+        }
+
+        /* Responsividade da Navbar */
+        @media (max-width: 768px) {
+            header {
+                border-radius: 20px;
+                width: 96%;
+                left: 50%;
+                transform: translateX(-50%);
+                top: 5px;
+                padding: 2px 3%;
+            }
+            
+            .nav-links {
+                position: fixed;
+                right: 0;
+                top: 70px;
+                left: 0;
+                background-color: var(--card-bg);
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+                border-radius: 0 0 15px 15px;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .nav-links li {
+                margin: 0.8rem 0;
+                text-align: center;
+                width: 100%;
+            }
+
+            .burger {
+                display: block;
+            }
+
+            .theme-toggle {
+                position: fixed;
+                right: 24px;
+                top: 26px;
+            }
+        }
+
+        /* Animação do menu hamburguer */
+        .toggle .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        .toggle .line2 {
+            opacity: 0;
+        }
+        .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
         @media (max-width: 768px) {
             .pricing-container {
                 grid-template-columns: 1fr;
@@ -168,6 +348,11 @@
                 <li><a href="index.html#contact">Contato</a></li>
                 <li><a href="precos.html" class="active">Preços</a></li>
             </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
         </nav>
     </header>
 
@@ -253,10 +438,8 @@
     <script>
         // Seus scripts existentes COMPLETOS
         document.addEventListener('DOMContentLoaded', function() {
-            particlesJS('particles-js', {
-                /* Sua configuração de partículas existente */
-            });
-
+            // Configuração das partículas (se necessário)
+            
             // Animação de scroll
             const animateOnScroll = () => {
                 const sections = document.querySelectorAll('.section-animate');
@@ -269,18 +452,31 @@
             };
             window.addEventListener('load', animateOnScroll);
             window.addEventListener('scroll', animateOnScroll);
+
+            // Menu hamburguer
+            const burger = document.querySelector('.burger');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if(burger && navLinks) {
+                burger.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                    burger.classList.toggle('toggle');
+                });
+            }
         });
 
         // Dark/Light mode toggle
         const themeToggle = document.querySelector('.theme-toggle');
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        document.body.setAttribute('data-theme', currentTheme);
+        if(themeToggle) {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            document.body.setAttribute('data-theme', currentTheme);
 
-        themeToggle.addEventListener('click', () => {
-            const newTheme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            document.body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        });
+            themeToggle.addEventListener('click', () => {
+                const newTheme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                document.body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        }
 
         // Atualizar ano no footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
