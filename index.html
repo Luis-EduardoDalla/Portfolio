@@ -1346,12 +1346,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (target === 'precos.html') {
                     closeMenu();
                     setTimeout(() => {
-                        window.location.href = target; // Redireciona diretamente
+                        window.location.href = target;
                     }, 300);
                     return;
                 }
                 
-                // Para links âncora
+                // Para links âncora (#home, #about, etc)
                 e.preventDefault();
                 closeMenu();
                 
@@ -1369,7 +1369,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
         
         // Copiar e-mail
         document.getElementById('copyEmail').addEventListener('click', function(e) {
