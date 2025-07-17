@@ -1305,27 +1305,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // Elementos do menu
     const burger = document.querySelector('.burger');
     const navLinks = document.querySelector('.nav-links');
-    const navItems = document.querySelectorAll('.nav-links li'); // Todos os itens do menu
+    const navItems = document.querySelectorAll('.nav-links li');
 
     // Função para fechar o menu
     function closeMenu() {
         navLinks.classList.remove('active');
         burger.classList.remove('toggle');
         overlay.classList.remove('active');
-        
-        // Resetar animações dos itens
         navItems.forEach(item => {
             item.style.animation = '';
         });
     }
 
-    // Abrir/fechar menu ao clicar no ícone
+    // Abrir/fechar menu
     burger.addEventListener('click', function() {
         navLinks.classList.toggle('active');
         burger.classList.toggle('toggle');
         overlay.classList.toggle('active');
         
-        // Animar itens quando o menu abre
         if (navLinks.classList.contains('active')) {
             navItems.forEach((item, index) => {
                 item.style.animation = `navLinkFade 0.5s ease forwards ${index/7 + 0.3}s`;
@@ -1336,48 +1333,43 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fechar menu ao clicar no overlay
     overlay.addEventListener('click', closeMenu);
 
-    // Navegação por todas as seções
+    // Navegação
     navItems.forEach(item => {
         const link = item.querySelector('a');
         
         link.addEventListener('click', function(e) {
             // Apenas para mobile
             if (window.innerWidth <= 768) {
-                const targetId = this.getAttribute('href');
+                const target = this.getAttribute('href');
                 
-                // Verifica se é um link para outra página (como precos.html)
-                if (targetId.includes('.html')) {
-                    // Fecha o menu e redireciona após um pequeno delay
+                // Se for precos.html
+                if (target === 'precos.html') {
                     closeMenu();
                     setTimeout(() => {
-                        window.location.href = targetId;
+                        window.location.href = target; // Redireciona diretamente
                     }, 300);
                     return;
                 }
                 
-                // Para links âncora na mesma página
+                // Para links âncora
                 e.preventDefault();
-                
-                // Fecha o menu primeiro
                 closeMenu();
                 
-                // Scroll suave após o menu fechar
                 setTimeout(() => {
-                    const targetSection = document.querySelector(targetId);
-                    if (targetSection) {
+                    const section = document.querySelector(target);
+                    if (section) {
                         window.scrollTo({
-                            top: targetSection.offsetTop - 70,
+                            top: section.offsetTop - 70,
                             behavior: 'smooth'
                         });
-                        
-                        // Atualiza a URL
-                        history.pushState(null, null, targetId);
+                        history.pushState(null, null, target);
                     }
-                }, 300); // Tempo da animação do menu
+                }, 300);
             }
         });
     });
 });
+
         
         // Copiar e-mail
         document.getElementById('copyEmail').addEventListener('click', function(e) {
