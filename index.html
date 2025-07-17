@@ -1343,8 +1343,20 @@ document.addEventListener('DOMContentLoaded', function() {
         link.addEventListener('click', function(e) {
             // Apenas para mobile
             if (window.innerWidth <= 768) {
-                e.preventDefault();
                 const targetId = this.getAttribute('href');
+                
+                // Verifica se é um link para outra página (como precos.html)
+                if (targetId.includes('.html')) {
+                    // Fecha o menu e redireciona após um pequeno delay
+                    closeMenu();
+                    setTimeout(() => {
+                        window.location.href = targetId;
+                    }, 300);
+                    return;
+                }
+                
+                // Para links âncora na mesma página
+                e.preventDefault();
                 
                 // Fecha o menu primeiro
                 closeMenu();
