@@ -1150,24 +1150,6 @@
             window.addEventListener('scroll', animateOnScroll);
         });
 
-        // Menu mobile
-        const burger = document.querySelector('.burger');
-        const navLinks = document.querySelector('.nav-links');
-        const navLinksItems = document.querySelectorAll('.nav-links li');
-
-        burger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            burger.classList.toggle('toggle');
-        });
-
-
-        navLinksItems.forEach(item => {
-            item.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                burger.classList.remove('toggle');
-            });
-        });
-
         // Scroll suave para links internos (modificado para movimento linear)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
