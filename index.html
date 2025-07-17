@@ -811,7 +811,7 @@
             .burger {
                 display: block;
                 position: absolute;
-                right: 20px;
+                right: 60px;
                 top: 20px;
             }
             
@@ -1263,6 +1263,27 @@ themeToggle.addEventListener('click', () => {
     console.log('Tema alterado para:', newTheme);
 });
 
+        // Menu Burger CORRIGIDO
+    const burger = document.querySelector('.burger');
+    const navLinks = document.querySelector('.nav-links');
+    const navItems = document.querySelectorAll('.nav-links li');
+    
+    if (burger && navLinks) {
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            burger.classList.toggle('toggle');
+        });
+        
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('active');
+                    burger.classList.remove('toggle');
+                }
+            });
+        });
+    }
+
 document.getElementById('copyEmail').addEventListener('click', function(e) {
     e.preventDefault();
     const email = 'eduardodalla.dev'; 
@@ -1294,31 +1315,7 @@ document.getElementById('copyEmail').addEventListener('click', function(e) {
     document.body.removeChild(tempInput);
 });
         
-        // Menu Burger Mobile
-    const burger = document.querySelector('.burger');
-const navLinks = document.querySelector('.nav-links');
-
-if(burger && navLinks) {
-    burger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        burger.classList.toggle('toggle');
         
-        // Debug: Verifica se as classes estão sendo aplicadas
-        console.log('Menu status:', navLinks.classList.contains('active') ? 'Aberto' : 'Fechado');
-    });
-}
-
-        // Fechar menu ao clicar nos itens (apenas mobile)
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                if(window.innerWidth <= 768) {
-                    navLinks.classList.remove('active');
-                    burger.classList.remove('toggle');
-                }
-            });
-        });
-    }
-        // Atualizar ano no footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
 </body>
