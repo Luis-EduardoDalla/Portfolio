@@ -249,22 +249,6 @@
             width: 100%;
         }
 
-        /* Menu Burger e Navbar Mobile */
-        .burger {
-            display: none;
-            cursor: pointer;
-            z-index: 1002;
-            position: relative;
-        }
-        
-        .burger div {
-            width: 25px;
-            height: 3px;
-            background-color: var(--text-color);
-            margin: 5px;
-            transition: all 0.3s ease;
-        }
-
         /* Toggle button */
         .theme-toggle {
             position: fixed;
@@ -302,6 +286,107 @@
 
         [data-theme="dark"] .theme-toggle .fa-moon {
             display: inline-block;
+        }
+
+        /* NOVA NAVBAR MOBILE */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 350px;
+            height: 100vh;
+            background-color: var(--card-bg);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1002;
+            transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray-color);
+            margin-bottom: 20px;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .mobile-nav-links a {
+            display: block;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        .mobile-nav-links a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .mobile-nav-links a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .mobile-nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        /* Menu Burger */
+        .burger {
+            display: none;
+            cursor: pointer;
+            z-index: 1003;
+            position: relative;
+        }
+        
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-color);
+            margin: 5px;
+            transition: all 0.3s ease;
         }
 
         /* Seção Hero com partículas */
@@ -810,79 +895,11 @@
  
             .burger {
                 display: block;
-                position: absolute;
-                right: 20px;
-                top: 20px;
             }
             
+            /* Esconde a nav desktop */
             .nav-links {
-                position: fixed;
-                right: 0;
-                top: 0;
-                height: 100vh;
-                width: 60%;
-                max-width: 300px;
-                background-color: var(--bg-color);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-                transform: translateX(100%);
-                transition: transform 0.5s ease-in-out;
-                z-index: 1002;
-                padding: 12px 0;
-                margin: 0;
-            }
-
-            .nav-links.active {
-                transform: translateX(0);
-            }
-
-            .nav-links li {
-                margin: 1.5rem 0;
-                opacity: 0;
-                width: 100%;
-                text-align: center;
-            }
-
-            .nav-links a {
-                font-size: 1.2rem;
-                padding: 0.5rem 0;
-                display: block;
-                width: 100%;
-            }
-
-            /* Animação dos links */
-            @keyframes navLinkFade {
-                from {
-                    opacity: 0;
-                    transform: translateX(50px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateX(0);
-                }
-            }
-
-            /* Overlay quando menu está aberto */
-            .overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 1001;
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s ease;
-                pointer-events: none;
-            }
-
-            .overlay.active {
-                opacity: 1;
-                visibility: visible;
-                pointer-events: auto;
+                display: none;
             }
 
             .hero {
@@ -969,7 +986,36 @@
         </nav>
     </header>
 
-    <div class="overlay"></div>
+    <!-- Nova Navbar Mobile -->
+    <div class="mobile-nav-overlay"></div>
+    <div class="mobile-nav">
+        <div class="mobile-nav-header">
+            <h3>Menu</h3>
+            <button class="close-btn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-nav-links">
+            <a href="#home">
+                <i class="fas fa-home"></i> Início
+            </a>
+            <a href="#about">
+                <i class="fas fa-user"></i> Sobre
+            </a>
+            <a href="#skills">
+                <i class="fas fa-code"></i> Habilidades
+            </a>
+            <a href="#projects">
+                <i class="fas fa-project-diagram"></i> Projetos
+            </a>
+            <a href="#contact">
+                <i class="fas fa-envelope"></i> Contato
+            </a>
+            <a href="precos.html">
+                <i class="fas fa-tags"></i> Preços
+            </a>
+        </div>
+    </div>
 
     <main>
         <section id="home" class="hero">
@@ -1304,80 +1350,84 @@
             }
         });
 
-        // Menu Burger - Versão Corrigida
+        // Controle da navbar mobile
         const burger = document.querySelector('.burger');
-        const nav = document.querySelector('.nav-links');
-        const navItems = document.querySelectorAll('.nav-links li');
-        const overlay = document.querySelector('.overlay');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
+        const closeBtn = document.querySelector('.close-btn');
 
-        function toggleMenu() {
-            // Alterna o menu
-            nav.classList.toggle('active');
+        function toggleMobileNav() {
+            mobileNav.classList.toggle('active');
+            mobileNavOverlay.classList.toggle('active');
             burger.classList.toggle('toggle');
-            overlay.classList.toggle('active');
             
-            // Anima os itens do menu
-            if (nav.classList.contains('active')) {
-                navItems.forEach((item, index) => {
-                    item.style.animation = `navLinkFade 0.5s ease forwards ${index/7 + 0.3}s`;
-                });
-            } else {
-                navItems.forEach(item => {
-                    item.style.animation = '';
-                });
-            }
+            // Bloqueia/libera scroll do body
+            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
         }
 
         // Event listeners
-        burger.addEventListener('click', toggleMenu);
-        overlay.addEventListener('click', toggleMenu);
+        burger.addEventListener('click', toggleMobileNav);
+        closeBtn.addEventListener('click', toggleMobileNav);
+        mobileNavOverlay.addEventListener('click', toggleMobileNav);
 
-        // Fecha o menu quando um link é clicado
-        navItems.forEach(item => {
-    const link = item.querySelector('a');
-    
-    link.addEventListener('click', function(e) {
-        const target = this.getAttribute('href');
-        
-        // Fecha o menu se estiver aberto
-        if (nav.classList.contains('active')) {
-            toggleMenu();
-        }
-        
-        // Links para outras páginas (como precos.html)
-        if (target.includes('.html')) {
-            e.preventDefault();
-            setTimeout(() => {
-                window.location.href = target;
-            }, 300); // Pequeno delay para animação do menu
-            return;
-        }
-        
-        // Links âncora (#home, #about, etc)
-        if (target.startsWith('#')) {
-            e.preventDefault();
-            setTimeout(() => {
-                const section = document.querySelector(target);
-                if (section) {
-                    const yOffset = -70; // Ajuste para o header
-                    const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                    
-                    window.scrollTo({
-                        top: y,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Atualiza a URL sem recarregar
-                    if (history.pushState) {
-                        history.pushState(null, null, target);
-                    } else {
-                        window.location.hash = target;
-                    }
+        // Fecha o menu e navega ao clicar em um link
+        document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const target = this.getAttribute('href');
+                
+                // Fecha o menu
+                toggleMobileNav();
+                
+                // Links para outras páginas
+                if (target.includes('.html')) {
+                    e.preventDefault();
+                    setTimeout(() => {
+                        window.location.href = target;
+                    }, 400);
+                    return;
                 }
-            }, 300); // Pequeno delay para animação do menu
-        }
-    });
-});
+                
+                // Links âncora
+                if (target.startsWith('#')) {
+                    e.preventDefault();
+                    setTimeout(() => {
+                        const section = document.querySelector(target);
+                        if (section) {
+                            const yOffset = -70;
+                            const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                            
+                            window.scrollTo({
+                                top: y,
+                                behavior: 'smooth'
+                            });
+                            
+                            if (history.pushState) {
+                                history.pushState(null, null, target);
+                            }
+                        }
+                    }, 400);
+                }
+            });
+        });
+
+        // Copiar e-mail
+        document.getElementById('copyEmail').addEventListener('click', function(e) {
+            e.preventDefault();
+            const email = 'eduardodalla.dev@gmail.com';
+            
+            navigator.clipboard.writeText(email).then(() => {
+                const icon = this.querySelector('i');
+                icon.classList.remove('fa-envelope');
+                icon.classList.add('fa-check');
+                
+                setTimeout(() => {
+                    icon.classList.remove('fa-check');
+                    icon.classList.add('fa-envelope');
+                }, 2000);
+            }).catch(err => {
+                console.error('Falha ao copiar e-mail:', err);
+            });
+        });
         
         // Ano atual
         document.getElementById('current-year').textContent = new Date().getFullYear();
