@@ -267,7 +267,7 @@
 
         /* Toggle button */
         .theme-toggle {
-            position: absolute;
+            position: fixed;
             right: 20px;
             top: 20px;
             background: none;
@@ -969,6 +969,8 @@
         </nav>
     </header>
 
+    <div class="overlay"></div>
+
     <main>
         <section id="home" class="hero">
             <div id="particles-js"></div>
@@ -1273,17 +1275,17 @@
 
         // Dark/Light mode toggle
         const themeToggle = document.querySelector('.theme-toggle');
-
-        if (!themeToggle) {
-            console.error('Erro: Botão .theme-toggle não encontrado no HTML!');
-        } else {
-            console.log('Botão de tema encontrado com sucesso.');
-        }
-
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.body.setAttribute('data-theme', savedTheme);
 
-        console.log('Tema inicial:', savedTheme);
+        // Atualiza o ícone do tema baseado no tema salvo
+        if (savedTheme === 'dark') {
+            document.querySelector('.theme-toggle .fa-sun').style.display = 'none';
+            document.querySelector('.theme-toggle .fa-moon').style.display = 'inline-block';
+        } else {
+            document.querySelector('.theme-toggle .fa-sun').style.display = 'inline-block';
+            document.querySelector('.theme-toggle .fa-moon').style.display = 'none';
+        }
 
         themeToggle.addEventListener('click', () => {
             const currentTheme = document.body.getAttribute('data-theme');
@@ -1292,143 +1294,70 @@
             document.body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             
-            console.log('Tema alterado para:', newTheme);
-        });
-
-// Verificação de camadas sobrepostas
-document.addEventListener('DOMContentLoaded', function() {
-    // Verifica se há elementos cobrindo os links
-    const navLinks = document.querySelectorAll('.nav-links a');
-    
-    navLinks.forEach(link => {
-        // Testa se o elemento está sendo clicado
-        link.addEventListener('click', function(e) {
-            console.log('Elemento clicado:', this);
-            
-            // Verifica se há elementos sobrepostos
-            const elementsAtPoint = document.elementsFromPoint(e.clientX, e.clientY);
-            console.log('Elementos no ponto de clique:', elementsAtPoint);
-            
-            // Verifica especificamente o overlay
-            const overlay = document.querySelector('.overlay');
-            if (elementsAtPoint.includes(overlay)) {
-                console.warn('Overlay está bloqueando o clique!');
-                overlay.style.pointerEvents = 'none';
+            // Atualiza os ícones
+            if (newTheme === 'dark') {
+                document.querySelector('.theme-toggle .fa-sun').style.display = 'none';
+                document.querySelector('.theme-toggle .fa-moon').style.display = 'inline-block';
+            } else {
+                document.querySelector('.theme-toggle .fa-sun').style.display = 'inline-block';
+                document.querySelector('.theme-toggle .fa-moon').style.display = 'none';
             }
         });
-    });
 
-    // Menu Burger - Versão Final Testada
-    document.addEventListener('DOMContentLoaded', function() {
-    // Elementos do menu
-    const burger = document.querySelector('.burger');
-    const nav = document.querySelector('.nav-links');
-    const navItems = document.querySelectorAll('.nav-links li');
-    const overlay = document.querySelector('.overlay') || document.createElement('div');
-    
-    if (!document.querySelector('.overlay')) {
-        overlay.classList.add('overlay');
-        document.body.appendChild(overlay);
-    }
+        // Menu Burger - Versão Corrigida
+        const burger = document.querySelector('.burger');
+        const nav = document.querySelector('.nav-links');
+        const navItems = document.querySelectorAll('.nav-links li');
+        const overlay = document.querySelector('.overlay');
 
-    // Função para alternar o menu
-    function toggleMenu() {
-        nav.classList.toggle('active');
-        burger.classList.toggle('toggle');
-        overlay.classList.toggle('active');
-        
-        // Controle de pointer-events
-        overlay.style.pointerEvents = nav.classList.contains('active') ? 'auto' : 'none';
-        
-        // Animações dos itens do menu
-        if (nav.classList.contains('active')) {
-            navItems.forEach((item, index) => {
-                item.style.animation = `navLinkFade 0.5s ease forwards ${index/7 + 0.3}s`;
-            });
-        } else {
-            navItems.forEach(item => {
-                item.style.animation = '';
-            });
-        }
-    }
-
-    // Eventos do menu burger e overlay
-    burger.addEventListener('click', toggleMenu);
-    overlay.addEventListener('click', toggleMenu);
-
-    // Sistema de navegação principal
-    navItems.forEach(item => {
-        const link = item.querySelector('a');
-        
-        link.addEventListener('click', function(e) {
-            const target = this.getAttribute('href');
+        function toggleMenu() {
+            // Alterna o menu
+            nav.classList.toggle('active');
+            burger.classList.toggle('toggle');
+            overlay.classList.toggle('active');
             
-            // Fecha o menu se estiver aberto
+            // Anima os itens do menu
             if (nav.classList.contains('active')) {
-                toggleMenu();
+                navItems.forEach((item, index) => {
+                    item.style.animation = `navLinkFade 0.5s ease forwards ${index/7 + 0.3}s`;
+                });
+            } else {
+                navItems.forEach(item => {
+                    item.style.animation = '';
+                });
             }
-            
-            // Links para outras páginas (como precos.html)
-            if (target.includes('.html')) {
-                e.preventDefault();
-                setTimeout(() => {
-                    window.location.href = target;
-                }, 300);
-                return;
-            }
-            
-            // Links âncora (#home, #about, etc)
-            if (target.startsWith('#')) {
-                e.preventDefault();
-                setTimeout(() => {
-                    const section = document.querySelector(target);
-                    if (section) {
-                        const yOffset = -70; // Ajuste para o header
-                        const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                        
-                        window.scrollTo({
-                            top: y,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Atualiza a URL sem recarregar
-                        if (history.pushState) {
-                            history.pushState(null, null, target);
-                        } else {
-                            window.location.hash = target;
-                        }
-                    }
-                }, 300);
-            }
+        }
+
+        // Event listeners
+        burger.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        // Fecha o menu quando um link é clicado
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (nav.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
         });
-    });
+
         // Copiar e-mail
         document.getElementById('copyEmail').addEventListener('click', function(e) {
             e.preventDefault();
-            const email = 'eduardodalla.dev'; 
+            const email = 'eduardodalla.dev@gmail.com';
             
-            const tempInput = document.createElement('input');
-            tempInput.value = email + '@gmail.com';
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            
-            try {
-                const successful = document.execCommand('copy');
-                if (successful) {
-                    const icon = this.querySelector('i');
-                    icon.classList.remove('fa-envelope');
-                    icon.classList.add('fa-check');
-                    
-                    setTimeout(() => {
-                        icon.classList.remove('fa-check');
-                        icon.classList.add('fa-envelope');
-                    }, 2000);
-                }
-            } catch (err) {
+            navigator.clipboard.writeText(email).then(() => {
+                const icon = this.querySelector('i');
+                icon.classList.remove('fa-envelope');
+                icon.classList.add('fa-check');
+                
+                setTimeout(() => {
+                    icon.classList.remove('fa-check');
+                    icon.classList.add('fa-envelope');
+                }, 2000);
+            }).catch(err => {
                 console.error('Falha ao copiar e-mail:', err);
-            }
-            
-            document.body.removeChild(tempInput);
+            });
         });
         
         // Ano atual
