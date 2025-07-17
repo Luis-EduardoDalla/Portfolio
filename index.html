@@ -1295,7 +1295,7 @@
             console.log('Tema alterado para:', newTheme);
         });
 
-// Menu Burger - Solução Definitiva
+// Menu Burger - Solução Final
 document.addEventListener('DOMContentLoaded', function() {
     // Elementos do menu
     const burger = document.querySelector('.burger');
@@ -1331,7 +1331,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fechar menu ao clicar no overlay
     overlay.addEventListener('click', closeMenu);
 
-    // Navegação corrigida - SOLUÇÃO DEFINITIVA
+    // Navegação corrigida - SOLUÇÃO FINAL
     navItems.forEach(item => {
         const link = item.querySelector('a');
         
@@ -1345,7 +1345,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (target === 'precos.html') {
                 setTimeout(() => {
                     window.location.href = target;
-                }, 100); // Pequeno delay para garantir que o menu fechou
+                }, 100);
                 return;
             }
             
@@ -1355,18 +1355,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => {
                     const section = document.querySelector(target);
                     if (section) {
+                        const yOffset = -70; // Ajuste para o header fixo
+                        const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                        
                         window.scrollTo({
-                            top: section.offsetTop - 70,
+                            top: y,
                             behavior: 'smooth'
                         });
                         history.pushState(null, null, target);
                     }
-                }, 100); // Pequeno delay para garantir que o menu fechou
+                }, 100);
             }
         });
     });
 });
-
         // Copiar e-mail
         document.getElementById('copyEmail').addEventListener('click', function(e) {
             e.preventDefault();
