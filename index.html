@@ -1295,76 +1295,90 @@
             console.log('Tema alterado para:', newTheme);
         });
 
-// Menu Burger - Solução Final
+// Verificação de camadas sobrepostas
 document.addEventListener('DOMContentLoaded', function() {
-    // Elementos do menu
-    const burger = document.querySelector('.burger');
-    const navLinks = document.querySelector('.nav-links');
-    const navItems = document.querySelectorAll('.nav-links li');
-    const overlay = document.createElement('div');
-    overlay.classList.add('overlay');
-    document.body.appendChild(overlay);
-
-    // Função para fechar o menu
-    function closeMenu() {
-        navLinks.classList.remove('active');
-        burger.classList.remove('toggle');
-        overlay.classList.remove('active');
-        navItems.forEach(item => {
-            item.style.animation = '';
+    // Verifica se há elementos cobrindo os links
+    const navLinks = document.querySelectorAll('.nav-links a');
+    
+    navLinks.forEach(link => {
+        // Testa se o elemento está sendo clicado
+        link.addEventListener('click', function(e) {
+            console.log('Elemento clicado:', this);
+            
+            // Verifica se há elementos sobrepostos
+            const elementsAtPoint = document.elementsFromPoint(e.clientX, e.clientY);
+            console.log('Elementos no ponto de clique:', elementsAtPoint);
+            
+            // Verifica especificamente o overlay
+            const overlay = document.querySelector('.overlay');
+            if (elementsAtPoint.includes(overlay)) {
+                console.warn('Overlay está bloqueando o clique!');
+                overlay.style.pointerEvents = 'none';
+            }
         });
+    });
+
+    // Menu Burger - Versão Final Testada
+    const burger = document.querySelector('.burger');
+    const nav = document.querySelector('.nav-links');
+    const navItems = document.querySelectorAll('.nav-links li');
+    const overlay = document.querySelector('.overlay') || document.createElement('div');
+    
+    if (!document.querySelector('.overlay')) {
+        overlay.classList.add('overlay');
+        document.body.appendChild(overlay);
     }
 
-    // Abrir/fechar menu
-    burger.addEventListener('click', function() {
-        navLinks.classList.toggle('active');
+    function toggleMenu() {
+        nav.classList.toggle('active');
         burger.classList.toggle('toggle');
         overlay.classList.toggle('active');
         
-        if (navLinks.classList.contains('active')) {
+        // Ajuste de pointer-events
+        if (nav.classList.contains('active')) {
+            overlay.style.pointerEvents = 'auto';
             navItems.forEach((item, index) => {
                 item.style.animation = `navLinkFade 0.5s ease forwards ${index/7 + 0.3}s`;
             });
+        } else {
+            overlay.style.pointerEvents = 'none';
         }
-    });
+    }
 
-    // Fechar menu ao clicar no overlay
-    overlay.addEventListener('click', closeMenu);
+    burger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
 
-    // Navegação corrigida - SOLUÇÃO FINAL
+    // Navegação garantida
     navItems.forEach(item => {
         const link = item.querySelector('a');
         
         link.addEventListener('click', function(e) {
             const target = this.getAttribute('href');
             
-            // Fecha o menu imediatamente
-            closeMenu();
+            // Fecha o menu
+            if (nav.classList.contains('active')) {
+                toggleMenu();
+            }
             
-            // Se for precos.html
+            // Links externos
             if (target === 'precos.html') {
                 setTimeout(() => {
                     window.location.href = target;
-                }, 100);
+                }, 300);
                 return;
             }
             
-            // Para links âncora (#home, #about, etc)
+            // Links âncora
             if (target.startsWith('#')) {
                 e.preventDefault();
                 setTimeout(() => {
                     const section = document.querySelector(target);
                     if (section) {
-                        const yOffset = -70; // Ajuste para o header fixo
-                        const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                        
-                        window.scrollTo({
-                            top: y,
-                            behavior: 'smooth'
-                        });
+                        const y = section.getBoundingClientRect().top + window.scrollY - 70;
+                        window.scrollTo({ top: y, behavior: 'smooth' });
                         history.pushState(null, null, target);
                     }
-                }, 100);
+                }, 300);
             }
         });
     });
