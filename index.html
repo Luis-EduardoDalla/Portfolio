@@ -1219,22 +1219,33 @@
 
         // Dark/Light mode toggle
         const themeToggle = document.querySelector('.theme-toggle');
-        const currentTheme = localStorage.getItem('theme');
 
-        if (currentTheme) {
-            document.body.setAttribute('data-theme', currentTheme);
-        }
+// Debug: verifica se o botão existe
+if (!themeToggle) {
+    console.error('Erro: Botão .theme-toggle não encontrado no HTML!');
+} else {
+    console.log('Botão de tema encontrado com sucesso.');
+}
 
-        themeToggle.addEventListener('click', () => {
-            let theme = document.body.getAttribute('data-theme');
-            if (theme === 'dark') {
-                document.body.setAttribute('data-theme', 'light');
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.body.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
-            }
-        });
+// Carrega tema salvo ou usa 'light' como padrão
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.body.setAttribute('data-theme', savedTheme);
+
+// Debug: verifica o tema inicial
+console.log('Tema inicial:', savedTheme);
+
+// Alterna tema no clique
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.body.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    
+    // Debug: verifica a troca
+    console.log('Tema alterado para:', newTheme);
+});
+
 
         // Atualizar ano no footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
