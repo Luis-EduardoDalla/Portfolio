@@ -1045,7 +1045,10 @@
                         <a href="https://www.linkedin.com/in/luis-eduardo-palavissini-dalla-valle" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                         <a href="https://github.com/Luis-EduardoDalla" aria-label="GitHub"><i class="fab fa-github"></i></a>
                         <a href="https://wa.me/5546991207326" aria-label="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://www.tiktok.com/@sdallawebart" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.tiktok.com/@dallawebart" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" id="email-icon" aria-label="E-mail">
+        <i class="fas fa-envelope"></i>
+    </a>
                     </div>
                 </div>
                 <form class="contact-form">
@@ -1239,7 +1242,38 @@ themeToggle.addEventListener('click', () => {
     console.log('Tema alterado para:', newTheme);
 });
 
+document.getElementById('copyEmail').addEventListener('click', function(e) {
+    e.preventDefault();
+    const email = 'eduardodalla.dev'; 
+    
+    // Cria um elemento temporário para copiar
+    const tempInput = document.createElement('input');
+    tempInput.value = email + '@gmail.com'; // Adiciona o domínio completo aqui
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    
+    try {
+        // Executa a cópia
+        const successful = document.execCommand('copy');
+        if (successful) {
+            // Feedback visual
+            const icon = this.querySelector('i');
+            icon.classList.remove('fa-envelope');
+            icon.classList.add('fa-check');
+            
+            setTimeout(() => {
+                icon.classList.remove('fa-check');
+                icon.classList.add('fa-envelope');
+            }, 2000);
+        }
+    } catch (err) {
+        console.error('Falha ao copiar e-mail:', err);
+    }
+    
+    document.body.removeChild(tempInput);
+});
 
+    
         // Atualizar ano no footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
