@@ -829,7 +829,7 @@
                 box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
                 transform: translateX(100%);
                 transition: transform 0.5s ease-in-out;
-                z-index: 1001;
+                z-index: 1002;
                 padding: 0;
                 margin: 0;
             }
@@ -873,15 +873,17 @@
                 height: 100%;
                 background-color: rgba(0, 0, 0, 0.5);
                 backdrop-filter: blur(5px);
-                z-index: 1000;
+                z-index: 1001;
                 opacity: 0;
                 visibility: hidden;
                 transition: all 0.3s ease;
+                pointer-events: none;
             }
 
             .overlay.active {
                 opacity: 1;
                 visibility: visible;
+                pointer-events: auto;
             }
 
             .hero {
@@ -1321,22 +1323,32 @@
             });
             
             overlay.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                burger.classList.remove('toggle');
-                overlay.classList.remove('active');
-                navItems.forEach(link => {
-                    link.style.animation = '';
+                 if (e.target === overlay) {
+                  navLinks.classList.remove('active');
+                  burger.classList.remove('toggle');
+                  overlay.classList.remove('active');
+                  navItems.forEach(link => {
+                  link.style.animation = '';
                 });
             });
             
             navItems.forEach(item => {
-                item.addEventListener('click', () => {
+                item.addEventListener('click', (e) => {
                     if (window.innerWidth <= 768) {
+                        e.stopPropagation();
                         navLinks.classList.remove('active');
                         burger.classList.remove('toggle');
                         overlay.classList.remove('active');
                         navItems.forEach(link => {
-                            link.style.animation = '';
+                        link.style.animation = '';
+                             });
+
+                        const targetId = item.querySelector('a').getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                        window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'  // <- Animação suave
                         });
                     }
                 });
