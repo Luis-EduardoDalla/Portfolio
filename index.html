@@ -1334,31 +1334,50 @@
 
         // Fecha o menu quando um link é clicado
         navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                if (nav.classList.contains('active')) {
-                    toggleMenu();
-                }
-            });
-        });
-
-        // Copiar e-mail
-        document.getElementById('copyEmail').addEventListener('click', function(e) {
+    const link = item.querySelector('a');
+    
+    link.addEventListener('click', function(e) {
+        const target = this.getAttribute('href');
+        
+        // Fecha o menu se estiver aberto
+        if (nav.classList.contains('active')) {
+            toggleMenu();
+        }
+        
+        // Links para outras páginas (como precos.html)
+        if (target.includes('.html')) {
             e.preventDefault();
-            const email = 'eduardodalla.dev@gmail.com';
-            
-            navigator.clipboard.writeText(email).then(() => {
-                const icon = this.querySelector('i');
-                icon.classList.remove('fa-envelope');
-                icon.classList.add('fa-check');
-                
-                setTimeout(() => {
-                    icon.classList.remove('fa-check');
-                    icon.classList.add('fa-envelope');
-                }, 2000);
-            }).catch(err => {
-                console.error('Falha ao copiar e-mail:', err);
-            });
-        });
+            setTimeout(() => {
+                window.location.href = target;
+            }, 300); // Pequeno delay para animação do menu
+            return;
+        }
+        
+        // Links âncora (#home, #about, etc)
+        if (target.startsWith('#')) {
+            e.preventDefault();
+            setTimeout(() => {
+                const section = document.querySelector(target);
+                if (section) {
+                    const yOffset = -70; // Ajuste para o header
+                    const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    
+                    window.scrollTo({
+                        top: y,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Atualiza a URL sem recarregar
+                    if (history.pushState) {
+                        history.pushState(null, null, target);
+                    } else {
+                        window.location.hash = target;
+                    }
+                }
+            }, 300); // Pequeno delay para animação do menu
+        }
+    });
+});
         
         // Ano atual
         document.getElementById('current-year').textContent = new Date().getFullYear();
