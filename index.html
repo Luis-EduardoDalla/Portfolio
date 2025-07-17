@@ -839,9 +839,49 @@
                 width: 100%;
             }
 
-            .burger {
-                display: block;
-            }
+            /* Animação dos links */
+            @keyframes navLinkFade {
+              from {
+                opacity: 0;
+                transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+             /* Overlay quando menu está aberto */
+               .overlay {
+               position: fixed;
+               top: 0;
+               left: 0;
+               width: 100%;
+               height: 100%;
+               background-color: rgba(0, 0, 0, 0.5);
+               backdrop-filter: blur(5px);
+               z-index: 1000;
+               opacity: 0;
+               visibility: hidden;
+               transition: all 0.3s ease;
+    }
+
+    .overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+            /* Menu Burger e Navbar Mobile - Parte 3: Animação do ícone */
+               .toggle .line1 {
+                  transform: rotate(-45deg) translate(-5px, 6px);
+}
+               .toggle .line2 {
+                  opacity: 0;
+}
+                .toggle .line3 {
+                  transform: rotate(45deg) translate(-5px, -6px);
+}
 
             .hero {
                 flex-direction: column;
@@ -1284,6 +1324,60 @@ themeToggle.addEventListener('click', () => {
         });
     }
 
+               // Menu Burger - Parte 1: Criação do overlay
+const overlay = document.createElement('div');
+overlay.classList.add('overlay');
+document.body.appendChild(overlay);
+
+// Menu Burger - Parte 2: Seleção dos elementos
+const burger = document.querySelector('.burger');
+const navLinks = document.querySelector('.nav-links');
+const navItems = document.querySelectorAll('.nav-links li');
+
+// Menu Burger - Parte 3: Lógica do clique
+if (burger && navLinks) {
+    burger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        burger.classList.toggle('toggle');
+        overlay.classList.toggle('active');
+        
+        // Anima os links do menu
+        if (navLinks.classList.contains('active')) {
+            navItems.forEach((link, index) => {
+                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+            });
+        } else {
+            navItems.forEach(link => {
+                link.style.animation = '';
+            });
+        }
+    });
+    
+    // Fechar menu ao clicar no overlay
+    overlay.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        burger.classList.remove('toggle');
+        overlay.classList.remove('active');
+        navItems.forEach(link => {
+            link.style.animation = '';
+        });
+    });
+    
+    // Fechar menu ao clicar em um item
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                navLinks.classList.remove('active');
+                burger.classList.remove('toggle');
+                overlay.classList.remove('active');
+                navItems.forEach(link => {
+                    link.style.animation = '';
+                });
+            }
+        });
+    });
+}
+        
 document.getElementById('copyEmail').addEventListener('click', function(e) {
     e.preventDefault();
     const email = 'eduardodalla.dev'; 
