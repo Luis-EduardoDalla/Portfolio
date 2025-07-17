@@ -1297,63 +1297,66 @@
         });
 
         // Menu Burger
-        const overlay = document.createElement('div');
-        overlay.classList.add('overlay');
-        document.body.appendChild(overlay);
+const overlay = document.createElement('div');
+overlay.classList.add('overlay');
+document.body.appendChild(overlay);
 
-        const burger = document.querySelector('.burger');
-        const navLinks = document.querySelector('.nav-links');
-        const navItems = document.querySelectorAll('.nav-links li');
+const burger = document.querySelector('.burger');
+const navLinks = document.querySelector('.nav-links');
+const navItems = document.querySelectorAll('.nav-links li');
 
-        if (burger && navLinks) {
-            burger.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                burger.classList.toggle('toggle');
-                overlay.classList.toggle('active');
-                
-                if (navLinks.classList.contains('active')) {
-                    navItems.forEach((link, index) => {
-                        link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-                    });
-                } else {
-                    navItems.forEach(link => {
-                        link.style.animation = '';
-                    });
-                }
+if (burger && navLinks) {
+    burger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        burger.classList.toggle('toggle');
+        overlay.classList.toggle('active');
+        
+        if (navLinks.classList.contains('active')) {
+            navItems.forEach((link, index) => {
+                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
             });
-            
-            overlay.addEventListener('click', () => {
-                 if (e.target === overlay) {
-                  navLinks.classList.remove('active');
-                  burger.classList.remove('toggle');
-                  overlay.classList.remove('active');
-                  navItems.forEach(link => {
-                  link.style.animation = '';
-                });
-            });
-            
-            navItems.forEach(item => {
-                item.addEventListener('click', (e) => {
-                    if (window.innerWidth <= 768) {
-                        e.stopPropagation();
-                        navLinks.classList.remove('active');
-                        burger.classList.remove('toggle');
-                        overlay.classList.remove('active');
-                        navItems.forEach(link => {
-                        link.style.animation = '';
-                             });
-
-                        const targetId = item.querySelector('a').getAttribute('href');
-                        const targetElement = document.querySelector(targetId);
-                        if (targetElement) {
-                        window.scrollTo({
-                        top: targetElement.offsetTop - 70,
-                        behavior: 'smooth'  // <- Animação suave
-                        });
-                    }
-                });
+        } else {
+            navItems.forEach(link => {
+                link.style.animation = '';
             });
         }
+    });
+    
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            navLinks.classList.remove('active');
+            burger.classList.remove('toggle');
+            overlay.classList.remove('active');
+            navItems.forEach(link => {
+                link.style.animation = '';
+            });
+        }
+    });
+    
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                e.stopPropagation();
+                
+                navLinks.classList.remove('active');
+                burger.classList.remove('toggle');
+                overlay.classList.remove('active');
+                navItems.forEach(link => {
+                    link.style.animation = '';
+                });
+
+                const targetId = item.querySelector('a').getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+}
         
         // Copiar e-mail
         document.getElementById('copyEmail').addEventListener('click', function(e) {
