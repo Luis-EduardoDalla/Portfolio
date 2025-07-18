@@ -962,27 +962,25 @@
             transform: rotate(45deg) translate(-5px, -6px);
         }
 
-        .profile-photo {
+        .about-image {
     position: relative;
 }
-.profile-photo:hover::after {
+.about-image::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(
-        circle at center,
-        var(--primary-color) 0%,
-        transparent 70%
-    );
-    animation: particle-explosion 1s ease-out;
+    top: -30px;
+    left: -30px;
+    width: calc(100% + 60px);
+    height: calc(100% + 60px);
+    background: 
+        radial-gradient(circle, transparent 60%, var(--primary-color) 60.5%) 50% 50% / 20px 20px;
+    animation: particle-vortex 20s linear infinite;
     border-radius: 50%;
+    opacity: 0.7;
 }
-@keyframes particle-explosion {
-    from { transform: scale(0); opacity: 1; }
-    to { transform: scale(2); opacity: 0; }
+@keyframes particle-vortex {
+    from { transform: rotate(0deg) scale(1); }
+    to { transform: rotate(360deg) scale(1.2); }
 }
     
     </style>
