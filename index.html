@@ -962,11 +962,10 @@
             transform: rotate(45deg) translate(-5px, -6px);
         }
 
-        .about-image {
+        .profile-photo {
     position: relative;
-    overflow: visible;
 }
-.about-image::after {
+.profile-photo:hover::after {
     content: '';
     position: absolute;
     top: 0;
@@ -975,18 +974,15 @@
     height: 100%;
     background: radial-gradient(
         circle at center,
-        var(--primary-color) 2px,
-        transparent 3px
+        var(--primary-color) 0%,
+        transparent 70%
     );
-    background-size: 20px 20px;
-    animation: particles 4s linear infinite;
-    opacity: 0;
-    z-index: 2;
+    animation: particle-explosion 1s ease-out;
+    border-radius: 50%;
 }
-@keyframes particles {
-    0% { transform: scale(1); opacity: 0; }
-    50% { opacity: 0.4; }
-    100% { transform: scale(1.5); opacity: 0; }
+@keyframes particle-explosion {
+    from { transform: scale(0); opacity: 1; }
+    to { transform: scale(2); opacity: 0; }
 }
     
     </style>
