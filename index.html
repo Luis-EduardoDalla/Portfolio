@@ -777,7 +777,7 @@
         .contact-container {
             display: flex;
             gap: 4rem;
-            align-items: center;
+            align-items: flex-start;;
             justify-content: space-between;
             max-width: 1200px;
             margin: 0 auto;
@@ -785,6 +785,14 @@
 
         .contact-info {
             flex: 1;
+            max-width: 600px;
+        }
+
+        /* Wrapper para os botões */
+        .social-links-wrapper {
+               display: flex;
+               justify-content: flex-end;
+               flex: 1;
         }
 
         .contact-info h3 {
@@ -802,7 +810,6 @@
             display: flex;
             gap: 1.5rem;
             flex-wrap: wrap;
-            justify-content: flex-end;
         }
              /* Animação de confirmação */
             .fa-check {
@@ -931,13 +938,18 @@
 
             .contact-container {
                 flex-direction: column;
-                gap: 2rem;
             }
 
             .theme-toggle {
                 position: fixed;
                 right: 24px;
                 top: 26px;
+            }
+
+            .social-links-wrapper {
+                 justify-content: center;
+                 width: 100%;
+                 margin-top: 2rem;            
             }
         }
 
@@ -1156,19 +1168,18 @@
         <section id="contact" class="contact section-animate">
             <h2 class="section-title">Contato</h2>
             <div class="contact-container">
-                <div class="contact-text">
+                <div class="contact-info">
                     <h3>Vamos trabalhar juntos!</h3>
                     <p>Estou aberto a oportunidades como Desenvolvedor Front-End Junior, Designer Gráfico ou Generalista Digital, bem como projetos freelancers para expandir meu portfólio.</p>
                     </div>
-                    
+
+             <div class="social-links-wrapper">
                     <div class="social-links">
                         <a href="https://www.linkedin.com/in/luis-eduardo-palavissini-dalla-valle" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                         <a href="https://github.com/Luis-EduardoDalla" aria-label="GitHub"><i class="fab fa-github"></i></a>
                         <a href="https://wa.me/5546991207326" aria-label="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
                         <a href="https://www.tiktok.com/@dallawebart" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                        <a href="eduardodalla.dev@gmail.com" id="copyEmail" aria-label="Copiar e-mail">
-                            <i class="fas fa-envelope"></i>
-                        </a>
+                        <a href="eduardodalla.dev@gmail.com" id="copyEmail" aria-label="Copiar e-mail"><i class="fas fa-envelope"></i> </a>
                     </div>
                 </div>
             
