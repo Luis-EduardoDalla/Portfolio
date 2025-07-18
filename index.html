@@ -961,32 +961,6 @@
         .toggle .line3 {
             transform: rotate(45deg) translate(-5px, -6px);
         }
-
-        .digital-hover-effect {
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    width: calc(100% + 10px);
-    height: calc(100% + 10px);
-    border-radius: 50%;
-    background: conic-gradient(
-        transparent,
-        var(--primary-color),
-        transparent
-    );
-    opacity: 0;
-    transition: opacity 0.4s;
-    z-index: -1;
-}
-
-.profile-photo:hover ~ .digital-hover-effect {
-    opacity: 0.7;
-    animation: rotate 3s linear infinite;
-}
-
-@keyframes rotate {
-    to { transform: rotate(360deg); }
-}
     
     </style>
 </head>
@@ -1079,7 +1053,6 @@
                 </div>
                 <div class="about-image">
                     <img src="PORT01/Luis01.png" alt="Luis Eduardo Dalla Valle" class="profile-photo">
-                    <div class="digital-hover-effect"></div>
                 </div>
             </div>
         </section>
