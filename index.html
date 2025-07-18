@@ -776,9 +776,11 @@
 
         .contact-container {
             display: flex;
-            gap: 2rem;
+            gap: 4rem;
             align-items: center;
             justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .contact-info {
@@ -799,6 +801,8 @@
         .social-links {
             display: flex;
             gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
              /* Animação de confirmação */
             .fa-check {
@@ -927,6 +931,7 @@
 
             .contact-container {
                 flex-direction: column;
+                gap: 2rem;
             }
 
             .theme-toggle {
@@ -1151,9 +1156,11 @@
         <section id="contact" class="contact section-animate">
             <h2 class="section-title">Contato</h2>
             <div class="contact-container">
-                <div class="contact-info">
+                <div class="contact-text">
                     <h3>Vamos trabalhar juntos!</h3>
                     <p>Estou aberto a oportunidades como Desenvolvedor Front-End Junior, Designer Gráfico ou Generalista Digital, bem como projetos freelancers para expandir meu portfólio.</p>
+                    </div>
+                    
                     <div class="social-links">
                         <a href="https://www.linkedin.com/in/luis-eduardo-palavissini-dalla-valle" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                         <a href="https://github.com/Luis-EduardoDalla" aria-label="GitHub"><i class="fab fa-github"></i></a>
