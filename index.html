@@ -964,23 +964,32 @@
 
         .about-image {
     position: relative;
+    display: inline-block;
 }
-.about-image::after {
-    content: '';
+
+.particles {
     position: absolute;
-    top: -30px;
-    left: -30px;
-    width: calc(100% + 60px);
-    height: calc(100% + 60px);
-    background: 
-        radial-gradient(circle, transparent 60%, var(--primary-color) 60.5%) 50% 50% / 20px 20px;
-    animation: particle-vortex 20s linear infinite;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
-    opacity: 0.7;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
-@keyframes particle-vortex {
-    from { transform: rotate(0deg) scale(1); }
-    to { transform: rotate(360deg) scale(1.2); }
+
+.profile-photo:hover ~ .particles {
+    opacity: 1;
+    background: 
+        radial-gradient(circle, var(--primary-color) 1px, transparent 1px) 0 0 / 20px 20px,
+        radial-gradient(circle, var(--primary-color) 1px, transparent 1px) 10px 10px / 20px 20px;
+    animation: particle-rain 1s linear infinite;
+}
+
+@keyframes particle-rain {
+    from { transform: translateY(0) rotate(0deg); }
+    to { transform: translateY(100px) rotate(360deg); }
 }
     
     </style>
@@ -1074,6 +1083,7 @@
                 </div>
                 <div class="about-image">
                     <img src="PORT01/Luis01.png" alt="Luis Eduardo Dalla Valle" class="profile-photo">
+                    <div class="particles"></div>
                 </div>
             </div>
         </section>
