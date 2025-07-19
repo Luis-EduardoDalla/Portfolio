@@ -507,6 +507,66 @@
             flex: 1;
             display: flex;
             justify-content: center;
+            position: relative;
+        }
+
+        /* Container para os ícones ao redor da foto */
+        .tech-icons-container {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        /* Estilo base para os ícones */
+        .tech-icon {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            font-size: 24px;
+            color: var(--primary-color);
+            transition: all 0.5s ease;
+            animation: float 4s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        /* Animação de flutuação suave */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+        }
+
+        /* Posicionamento dos ícones específicos */
+        .tech-icon.html {
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation-delay: 0.1s;
+        }
+
+        .tech-icon.css {
+            bottom: 30px;
+            left: 60%;
+            animation-delay: 0.3s;
+        }
+
+        .tech-icon.js {
+            bottom: 30px;
+            right: 60%;
+            animation-delay: 0.5s;
         }
 
         blockquote {
@@ -1003,6 +1063,21 @@
                 flex-direction: column;
             }
 
+            .about-image {
+                margin-bottom: 80px; /* Espaço para os ícones */
+            }
+
+            .tech-icons-container {
+                width: 320px;
+                height: 320px;
+            }
+
+            .tech-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
             .contact-container {
                 flex-direction: column;
             }
@@ -1032,6 +1107,17 @@
             
             .section-title {
                 font-size: 2rem;
+            }
+
+            .tech-icons-container {
+                width: 280px;
+                height: 280px;
+            }
+
+            .tech-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 18px;
             }
         }
 
@@ -1141,6 +1227,18 @@
                 </div>
                 <div class="about-image">
                     <img src="PORT01/Luis01.png" alt="Luis Eduardo Dalla Valle" class="profile-photo">
+                    <!-- Container para os ícones de tecnologia -->
+                    <div class="tech-icons-container">
+                        <div class="tech-icon html" 
+                            <i class="fab fa-html5"></i>
+                        </div>
+                        <div class="tech-icon css" 
+                            <i class="fab fa-css3-alt"></i>
+                        </div>
+                        <div class="tech-icon js" 
+                            <i class="fab fa-js"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1357,6 +1455,27 @@
 
             window.addEventListener('load', animateOnScroll);
             window.addEventListener('scroll', animateOnScroll);
+
+            // Animação personalizada para os ícones de tecnologia
+            const techIcons = document.querySelectorAll('.tech-icon');
+            techIcons.forEach(icon => {
+                // Adiciona tooltip
+                const tooltip = document.createElement('span');
+                tooltip.className = 'tech-tooltip';
+                tooltip.textContent = icon.getAttribute('data-tooltip');
+                icon.appendChild(tooltip);
+                
+                // Adiciona efeito de hover
+                icon.addEventListener('mouseenter', () => {
+                    icon.style.transform = 'scale(1.2)';
+                    icon.style.boxShadow = '0 8px 20px rgba(255, 100, 0, 0.3)';
+                });
+                
+                icon.addEventListener('mouseleave', () => {
+                    icon.style.transform = '';
+                    icon.style.boxShadow = '';
+                });
+            });
         });
 
         // Scroll suave para links internos
