@@ -924,9 +924,7 @@
 
             .hero-content h1 {
                  font-size: 2.2rem; /* Reduz o tamanho (era 4rem) */
-                 letter-spacing: 0.9px; /* Reduz o espaçamento entre letras */
                  line-height: 1; /* Ajusta o espaçamento vertical */
-                 margin-bottom: 0.5rem; /* Reduz a margem inferior */
             }
 
             .hero-content h1.name-blur {
@@ -967,7 +965,7 @@
 
             .name-line {
                  display: block;
-                 margin-bottom: -0.5rem; /* Ajuste fino do espaçamento */
+                 white-space: nowrap;
            }
  
             .burger {
@@ -1110,15 +1108,15 @@
             <div id="particles-js"></div>
             <div class="hero-content">
                 <h1 class="name-blur">
-                     <span class="name-line">
-                             <span class="name-word">LUIS</span>
-                             <span class="name-word">EDUARDO</span>
-                       </span>
-                        <span class="name-line">
-                            <span class="name-word">DALLA</span>
-                            <span class="name-word">VALLE</span>
-                        </span>
-                </h1>
+                      <div class="name-line">
+                              <span class="name-word">LUIS</span>
+                               <span class="name-word">EDUARDO</span>
+                           </div>
+                       <div class="name-line">
+                                <span class="name-word">DALLA</span>
+                                <span class="name-word">VALLE</span>
+                  </div>
+              </h1>
                 <h2>Desenvolvedor Front-End | Designer Gráfico | Social Media</h2>
                 <p>Unindo tecnologia e design para criar experiências digitais memoráveis</p>
                 <div class="hero-buttons">
