@@ -929,6 +929,28 @@
                  margin-bottom: 0.5rem; /* Reduz a margem inferior */
             }
 
+            .hero-content h1.name-blur {
+                display: flex;
+                flex-direction: column;
+                line-height: 1.1;
+           }
+
+            .name-word:nth-child(1)::after {
+                content: " ";
+                white-space: pre;
+                display: inline-block;
+           }
+
+            .name-word:nth-child(2) {
+                margin-right: 0;
+                display: inline-block;
+           }
+
+             .name-word:nth-child(3) {
+                display: block;
+                margin-top: -0.3rem;
+           }
+
             .hero-content h2 {
                   font-size: 1.2rem; /* Reduz o tamanho */
                   margin-bottom: 1.5rem; /* Ajusta espaçamento */
