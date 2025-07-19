@@ -1457,25 +1457,18 @@
             window.addEventListener('scroll', animateOnScroll);
 
             // Animação personalizada para os ícones de tecnologia
-            const techIcons = document.querySelectorAll('.tech-icon');
-            techIcons.forEach(icon => {
-                // Adiciona tooltip
-                const tooltip = document.createElement('span');
-                tooltip.className = 'tech-tooltip';
-                tooltip.textContent = icon.getAttribute('data-tooltip');
-                icon.appendChild(tooltip);
-                
-                // Adiciona efeito de hover
-                icon.addEventListener('mouseenter', () => {
-                    icon.style.transform = 'scale(1.2)';
-                    icon.style.boxShadow = '0 8px 20px rgba(255, 100, 0, 0.3)';
-                });
-                
-                icon.addEventListener('mouseleave', () => {
-                    icon.style.transform = '';
-                    icon.style.boxShadow = '';
-                });
-            });
+           const techIcons = document.querySelectorAll('.tech-icon');
+                 techIcons.forEach(icon => {
+                 icon.addEventListener('mouseenter', () => {
+                 icon.style.transform = 'scale(1.2)';
+                 icon.style.boxShadow = '0 8px 20px rgba(255, 100, 0, 0.3)';
+             });
+    
+                 icon.addEventListener('mouseleave', () => {
+                 icon.style.transform = '';
+                 icon.style.boxShadow = '';
+                  });
+             });
         });
 
         // Scroll suave para links internos
