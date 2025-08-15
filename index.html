@@ -1029,6 +1029,13 @@ function setupStaticEventListeners() {
 
 // ==================== SCROLL SUAVE ====================
 function initSmoothScroll() {
+
+// Verifica se é mobile
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  
+  // Se for mobile, não inicializa o smooth scroll
+  if (isMobile) return;
+  
   const smoothScroll = {
     target: document.documentElement || document.body,
     scrollY: 0,
