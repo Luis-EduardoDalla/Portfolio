@@ -5,6 +5,85 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eduardo Dalla Valle - Contato</title>
   <style>
+/* Matrix Loader Styles */
+    @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+    
+    .matrix-loader-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: #e8e8e8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 1s ease;
+    }
+
+    .matrix-loader-container.loaded {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .ai-matrix-loader {
+      width: 180px;
+      height: 160px;
+      margin: 30px auto;
+      position: relative;
+      perspective: 800px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+    }
+
+    .digit {
+      color: #1e1e1e;
+      font-family: 'Anton', sans-serif;
+      font-size: 18px;
+      text-align: center;
+      animation:
+        matrix-fall 2s infinite,
+        matrix-flicker 0.5s infinite;
+      opacity: 0;
+    }
+
+    .digit:nth-child(1) { animation-delay: 0.1s; }
+    .digit:nth-child(2) { animation-delay: 0.3s; }
+    .digit:nth-child(3) { animation-delay: 0.5s; }
+    .digit:nth-child(4) { animation-delay: 0.7s; }
+    .digit:nth-child(5) { animation-delay: 0.9s; }
+    .digit:nth-child(6) { animation-delay: 1.1s; }
+    .digit:nth-child(7) { animation-delay: 1.3s; }
+    .digit:nth-child(8) { animation-delay: 1.5s; }
+    .digit:nth-child(9) { animation-delay: 1.7s; }
+
+    @keyframes matrix-fall {
+      0% {
+        transform: translateY(-50px) rotateX(90deg);
+        opacity: 0;
+      }
+      20%, 80% {
+        transform: translateY(0) rotateX(0deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(50px) rotateX(-90deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes matrix-flicker {
+      0%, 19%, 21%, 100% {
+        opacity: 0.8;
+      }
+      20% {
+        opacity: 0.2;
+      }
+    }
+
     @import url('https://fonts.googleapis.com/css2?family=Anton&family=B612+Mono:wght@400;700&family=Poppins:wght@700&display=swap');
     
     * {
@@ -568,6 +647,23 @@
   </style>
 </head>
 <body>
+
+   <!-- Loader Matrix -->
+  <div class="matrix-loader-container">
+    <div class="ai-matrix-loader">
+      <div class="digit">E</div>
+      <div class="digit">D</div>
+      <div class="digit">V</div>
+      <div class="digit">L</div>
+      <div class="digit">E</div>
+      <div class="digit">D</div>
+      <div class="digit">V</div>
+      <div class="digit">L</div>
+      <div class="digit">E</div>
+    </div>
+  </div>
+
+
   <!-- Background -->
   <div class="background-pattern"></div>
   <div class="background-image"></div>
@@ -635,73 +731,202 @@
   </footer>
 
   <script>
-    // Animação de desfoque para o título
+     // ==================== INICIALIZAÇÃO ====================
     document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(() => {
-        document.getElementById('mainTitle').classList.add('animate');
-      }, 500);
-    });
-
-    // Efeitos hover nos botões
-    document.querySelectorAll('.nav-button').forEach(button => {
-      button.addEventListener('mouseenter', () => {
-        if (!button.classList.contains('contact-active')) {
-          button.style.backgroundColor = '#1e1e1e';
-          button.style.color = '#e8e8e8';
-        }
-      });
+      // Inicia o loader imediatamente
+      const loader = document.querySelector('.matrix-loader-container');
       
-      button.addEventListener('mouseleave', () => {
-        if (!button.classList.contains('contact-active')) {
-          button.style.backgroundColor = 'transparent';
-          button.style.color = '#1e1e1e';
-        }
-      });
-    });
-
-    // Menu Mobile - Atualizado
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const mobileMenuContainer = document.querySelector('.mobile-menu-container');
-    const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
-
-    mobileMenuToggle.addEventListener('click', function() {
-      this.classList.toggle('active');
-      mobileMenuContainer.classList.toggle('active');
-      
-      // Toggle body overflow
-      if (this.classList.contains('active')) {
+      if (loader) {
+        // Configura estado inicial
+        document.body.classList.add('loading');
         document.body.style.overflow = 'hidden';
+
+        // Timer principal (3 segundos)
+        setTimeout(initAllAnimations, 1000);
       } else {
-        document.body.style.overflow = '';
+        // Fallback se não houver loader
+        initAllAnimations();
       }
+
+      // Configura eventos estáticos (hover, clicks)
+      setupStaticEventListeners();
     });
 
-    // Fechar menu ao clicar em um link
-    mobileMenuLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenuToggle.classList.remove('active');
-        mobileMenuContainer.classList.remove('active');
-        document.body.style.overflow = '';
+    // ==================== CONTROLE PRINCIPAL DAS ANIMAÇÕES ====================
+    function initAllAnimations() {
+      console.log('Iniciando todas as animações após 1 segundos');
+      
+      // Remove o loader
+      const loader = document.querySelector('.matrix-loader-container');
+      if (loader) {
+        loader.classList.add('loaded');
+        setTimeout(() => {
+          loader.remove();
+          document.body.classList.remove('loading');
+          document.body.style.overflow = '';
+        }, 1000);
+      }
+
+      // 1. Animação do Título
+      const mainTitle = document.getElementById('mainTitle');
+      if (mainTitle) {
+        mainTitle.style.transition = 'opacity 2.5s ease-out, filter 2.5s ease-out';
+        mainTitle.classList.add('animate');
+      }
+
+      // 2. Animação dos Botões - Corrigida
+      const buttons = document.querySelectorAll('.nav-button');
+      buttons.forEach((button, index) => {
+        // Remove todas as animações/transições prévias
+        button.style.animation = 'none';
+        button.style.transition = 'none';
         
-        // Atualizar link ativo
-        mobileMenuLinks.forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
+        // Reseta para estado inicial
+        button.style.opacity = '0';
+        button.style.transform = 'translateY(20px)';
+        
+        // Força recálculo do layout
+        void button.offsetWidth;
+        
+        // Aplica animação com delay
+        setTimeout(() => {
+          button.style.transition = 'opacity 1s ease, transform 1s ease';
+          button.style.opacity = '1';
+          button.style.transform = 'translateY(0)';
+        }, 100 * index);
       });
-    });
 
-    // Fechar menu ao clicar fora
-    mobileMenuContainer.addEventListener('click', function(e) {
-      if (e.target === this) {
-        mobileMenuToggle.classList.remove('active');
-        this.classList.remove('active');
-        document.body.style.overflow = '';
+      // 3. Animação dos outros elementos (subtitle, contact-info, etc.)
+      const elementsToAnimate = [
+        { selector: '.subtitle', delay: 100 },
+        { selector: '.contact-info', delay: 200 },
+        { selector: '.social-links', delay: 300 },
+        { selector: 'footer', delay: 400 }
+      ];
+
+      elementsToAnimate.forEach(item => {
+        const element = document.querySelector(item.selector);
+        if (element) {
+          setTimeout(() => {
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+          }, item.delay);
+        }
+      });
+
+      // 4. Scroll Suave
+      initSmoothScroll();
+    }
+
+    // ==================== CONFIGURAÇÃO DE EVENTOS ESTÁTICOS ====================
+    function setupStaticEventListeners() {
+      // Menu Mobile
+      const menuToggle = document.querySelector('.mobile-menu-toggle');
+      const menuContainer = document.querySelector('.mobile-menu-container');
+      
+      if (menuToggle && menuContainer) {
+        menuToggle.addEventListener('click', function() {
+          this.classList.toggle('active');
+          menuContainer.classList.toggle('active');
+          document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+          link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            menuContainer.classList.remove('active');
+            document.body.style.overflow = '';
+          });
+        });
       }
-    });
 
-    // Garantia adicional para a linha do hover
-    document.querySelectorAll('.mobile-menu a').forEach(link => {
-      link.style.setProperty('--line-color', '#ff3700');
-    });
+      // Hover dos botões (não é animação de entrada)
+      document.querySelectorAll('.nav-button').forEach(button => {
+        button.addEventListener('mouseenter', () => {
+          if (!button.classList.contains('contact-active')) {
+            button.style.backgroundColor = '#1e1e1e';
+            button.style.color = '#e8e8e8';
+          }
+        });
+        
+        button.addEventListener('mouseleave', () => {
+          if (!button.classList.contains('contact-active')) {
+            button.style.backgroundColor = 'transparent';
+            button.style.color = '#1e1e1e';
+          }
+        });
+      });
+    }
+
+    // ==================== SCROLL SUAVE ====================
+    function initSmoothScroll() {
+      const smoothScroll = {
+        target: document.documentElement || document.body,
+        scrollY: 0,
+        currentY: 0,
+        speed: 1,
+        ease: 0.05,
+        rafId: null,
+        isScrolling: false,
+
+        init() {
+          document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+              const targetId = anchor.getAttribute('href');
+              if (targetId === '#' || targetId === '#0') return;
+              
+              e.preventDefault();
+              const target = document.querySelector(targetId);
+              if (target) this.scrollTo(target.offsetTop);
+            });
+          });
+
+          window.addEventListener('wheel', this.handleWheel.bind(this), { passive: false });
+          window.addEventListener('touchmove', this.handleTouch.bind(this), { passive: false });
+        },
+
+        scrollTo(targetY) {
+          this.scrollY = targetY;
+          this.isScrolling = true;
+          if (!this.rafId) this.animateScroll();
+        },
+
+        animateScroll() {
+          const diff = this.scrollY - this.currentY;
+          this.currentY += diff * this.ease;
+          this.target.scrollTop = this.currentY;
+          
+          if (Math.abs(diff) > 0.5) {
+            this.rafId = requestAnimationFrame(this.animateScroll.bind(this));
+          } else {
+            this.currentY = this.scrollY;
+            this.isScrolling = false;
+            cancelAnimationFrame(this.rafId);
+            this.rafId = null;
+          }
+        },
+
+        handleWheel(e) {
+          if (this.isScrolling) return;
+          e.preventDefault();
+          this.scrollY += e.deltaY * this.speed;
+          this.scrollY = Math.max(0, Math.min(this.scrollY, 
+            document.body.scrollHeight - window.innerHeight));
+          if (!this.rafId) this.animateScroll();
+        },
+
+        handleTouch(e) {
+          if (this.isScrolling) return;
+          e.preventDefault();
+          this.scrollY += e.touches[0].clientY * 0.5 * this.speed;
+          this.scrollY = Math.max(0, Math.min(this.scrollY, 
+            document.body.scrollHeight - window.innerHeight));
+          if (!this.rafId) this.animateScroll();
+        }
+      };
+
+      smoothScroll.init();
+    }
   </script>
 </body>
 </html>
