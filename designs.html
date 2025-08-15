@@ -1307,6 +1307,12 @@
 
     // ==================== SCROLL E CARDS ====================
     function initScrollEffects() {
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  
+  // Se for mobile, não inicializa o smooth scroll
+  if (isMobile) return;
+
+
       // Scroll suave
       const smoothScroll = {
         target: document.documentElement || document.body,
