@@ -1398,73 +1398,75 @@ function setupStaticEventListeners() {
     });
   }
 
-  // Scroll suave
-  const smoothScroll = {
-    target: document.documentElement || document.body,
-    scrollY: 0,
-    currentY: 0,
-    speed: 1,
-    ease: 0.05,
-    rafId: null,
-    isScrolling: false,
+  // Scroll suave - APENAS PARA DESKTOP
+  if (!/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    const smoothScroll = {
+      target: document.documentElement || document.body,
+      scrollY: 0,
+      currentY: 0,
+      speed: 1,
+      ease: 0.05,
+      rafId: null,
+      isScrolling: false,
 
-    init() {
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-          const targetId = anchor.getAttribute('href');
-          if (targetId === '#' || targetId === '#0') return;
-          
-          e.preventDefault();
-          const target = document.querySelector(targetId);
-          if (target) this.scrollTo(target.offsetTop);
+      init() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', (e) => {
+            const targetId = anchor.getAttribute('href');
+            if (targetId === '#' || targetId === '#0') return;
+            
+            e.preventDefault();
+            const target = document.querySelector(targetId);
+            if (target) this.scrollTo(target.offsetTop);
+          });
         });
-      });
 
-      window.addEventListener('wheel', this.handleWheel.bind(this), { passive: false });
-      window.addEventListener('touchmove', this.handleTouch.bind(this), { passive: false });
-    },
+        window.addEventListener('wheel', this.handleWheel.bind(this), { passive: false });
+        window.addEventListener('touchmove', this.handleTouch.bind(this), { passive: false });
+      },
 
-    scrollTo(targetY) {
-      this.scrollY = targetY;
-      this.isScrolling = true;
-      if (!this.rafId) this.animateScroll();
-    },
+      scrollTo(targetY) {
+        this.scrollY = targetY;
+        this.isScrolling = true;
+        if (!this.rafId) this.animateScroll();
+      },
 
-    animateScroll() {
-      const diff = this.scrollY - this.currentY;
-      this.currentY += diff * this.ease;
-      this.target.scrollTop = this.currentY;
-      
-      if (Math.abs(diff) > 0.5) {
-        this.rafId = requestAnimationFrame(this.animateScroll.bind(this));
-      } else {
-        this.currentY = this.scrollY;
-        this.isScrolling = false;
-        cancelAnimationFrame(this.rafId);
-        this.rafId = null;
+      animateScroll() {
+        const diff = this.scrollY - this.currentY;
+        this.currentY += diff * this.ease;
+        this.target.scrollTop = this.currentY;
+        
+        if (Math.abs(diff) > 0.5) {
+          this.rafId = requestAnimationFrame(this.animateScroll.bind(this));
+        } else {
+          this.currentY = this.scrollY;
+          this.isScrolling = false;
+          cancelAnimationFrame(this.rafId);
+          this.rafId = null;
+        }
+      },
+
+      handleWheel(e) {
+        if (this.isScrolling) return;
+        e.preventDefault();
+        this.scrollY += e.deltaY * this.speed;
+        this.scrollY = Math.max(0, Math.min(this.scrollY, 
+          document.body.scrollHeight - window.innerHeight));
+        if (!this.rafId) this.animateScroll();
+      },
+
+      handleTouch(e) {
+        if (this.isScrolling) return;
+        e.preventDefault();
+        this.scrollY += e.touches[0].clientY * 0.5 * this.speed;
+        this.scrollY = Math.max(0, Math.min(this.scrollY, 
+          document.body.scrollHeight - window.innerHeight));
+        if (!this.rafId) this.animateScroll();
       }
-    },
+    };
 
-    handleWheel(e) {
-      if (this.isScrolling) return;
-      e.preventDefault();
-      this.scrollY += e.deltaY * this.speed;
-      this.scrollY = Math.max(0, Math.min(this.scrollY, 
-        document.body.scrollHeight - window.innerHeight));
-      if (!this.rafId) this.animateScroll();
-    },
-
-    handleTouch(e) {
-      if (this.isScrolling) return;
-      e.preventDefault();
-      this.scrollY += e.touches[0].clientY * 0.5 * this.speed;
-      this.scrollY = Math.max(0, Math.min(this.scrollY, 
-        document.body.scrollHeight - window.innerHeight));
-      if (!this.rafId) this.animateScroll();
-    }
-  };
-
-  smoothScroll.init();
+    smoothScroll.init();
+  }
 }
   </script>
 </body>
