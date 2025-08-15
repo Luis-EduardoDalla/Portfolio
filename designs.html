@@ -1307,156 +1307,155 @@
 
     // ==================== SCROLL E CARDS ====================
     function initScrollEffects() {
-    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  // Verifica se é mobile
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   
-  // Se for mobile, não inicializa o smooth scroll
-  if (isMobile) return;
+  // Scroll suave - APENAS PARA DESKTOP
+  if (!isMobile) {
+    const smoothScroll = {
+      target: document.documentElement || document.body,
+      scrollY: 0,
+      currentY: 0,
+      speed: 1,
+      ease: 0.05,
+      rafId: null,
+      isScrolling: false,
 
-
-      // Scroll suave
-      const smoothScroll = {
-        target: document.documentElement || document.body,
-        scrollY: 0,
-        currentY: 0,
-        speed: 1,
-        ease: 0.05,
-        rafId: null,
-        isScrolling: false,
-
-        init() {
-          // Previne o scroll padrão
-          window.addEventListener('scroll', (e) => {
-            if (!this.isScrolling) {
-              e.preventDefault();
-            }
-          }, { passive: false });
-
-          // Ativa o scroll suave
-          this.animateScroll();
-          
-          // Scroll para links internos
-          document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', (e) => {
-              e.preventDefault();
-              const targetId = anchor.getAttribute('href');
-              if (targetId === '#') return;
-              
-              const target = document.querySelector(targetId);
-              if (target) {
-                this.scrollTo(target.offsetTop);
-              }
-            });
-          });
-        },
-
-        scrollTo(targetY) {
-          this.scrollY = targetY;
-          this.isScrolling = true;
-          
-          if (!this.rafId) {
-            this.animateScroll();
+      init() {
+        // Previne o scroll padrão
+        window.addEventListener('scroll', (e) => {
+          if (!this.isScrolling) {
+            e.preventDefault();
           }
-        },
+        }, { passive: false });
 
-        animateScroll() {
-          const diff = this.scrollY - this.currentY;
-          this.currentY += diff * this.ease;
-          this.target.scrollTop = this.currentY;
-          
-          if (Math.abs(diff) > 0.5) {
-            this.rafId = requestAnimationFrame(this.animateScroll.bind(this));
-          } else {
-            this.currentY = this.scrollY;
-            this.isScrolling = false;
-            cancelAnimationFrame(this.rafId);
-            this.rafId = null;
-          }
-        },
-
-        handleWheel(e) {
-          if (this.isScrolling) return;
-          
-          e.preventDefault();
-          this.scrollY += e.deltaY * this.speed;
-          this.scrollY = Math.max(0, Math.min(this.scrollY, 
-            document.body.scrollHeight - window.innerHeight));
-          
-          if (!this.rafId) {
-            this.animateScroll();
-          }
-        }
-      };
-
-      smoothScroll.init();
-      
-      // Adiciona o evento de wheel (scroll do mouse)
-      window.addEventListener('wheel', (e) => {
-        smoothScroll.handleWheel(e);
-      }, { passive: false });
-      
-      // Adiciona o evento de touch (para dispositivos móveis)
-      window.addEventListener('touchmove', (e) => {
-        smoothScroll.handleWheel({ 
-          deltaY: e.touches[0].clientY * 0.5, 
-          preventDefault: () => e.preventDefault() 
-        });
-      }, { passive: false });
-
-      // Observador de Intersecção para os cards
-      const cards = document.querySelectorAll('.card-wrapper');
-      const cardRows = document.querySelectorAll('.card-row');
-      
-      const cardOptions = {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
-      };
-
-      const rowOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-      };
-
-      // Observer para cards individuais
-      const cardObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, cardOptions);
-
-      // Observer para linhas de cards
-      const rowObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const cardsInRow = entry.target.querySelectorAll('.card-wrapper');
-            cardsInRow.forEach(card => {
-              cardObserver.observe(card);
-            });
-          }
-        });
-      }, rowOptions);
-
-      // Observar as linhas em vez dos cards individuais inicialmente
-      cardRows.forEach(row => {
-        rowObserver.observe(row);
-      });
-
-      // Efeito Parallax sutil para as linhas de cards
-      window.addEventListener('scroll', () => {
-        const scrollPosition = window.scrollY + (window.innerHeight * 0.5);
+        // Ativa o scroll suave
+        this.animateScroll();
         
-        cardRows.forEach(row => {
-          const rowPosition = row.getBoundingClientRect().top + window.scrollY;
-          const distance = scrollPosition - rowPosition;
-          
-          if (distance > -window.innerHeight && distance < window.innerHeight * 2) {
-            const offset = distance * 0.1;
-            row.style.transform = `translateY(${offset}px)`;
-          }
+        // Scroll para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = anchor.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const target = document.querySelector(targetId);
+            if (target) {
+              this.scrollTo(target.offsetTop);
+            }
+          });
         });
+      },
+
+      scrollTo(targetY) {
+        this.scrollY = targetY;
+        this.isScrolling = true;
+        
+        if (!this.rafId) {
+          this.animateScroll();
+        }
+      },
+
+      animateScroll() {
+        const diff = this.scrollY - this.currentY;
+        this.currentY += diff * this.ease;
+        this.target.scrollTop = this.currentY;
+        
+        if (Math.abs(diff) > 0.5) {
+          this.rafId = requestAnimationFrame(this.animateScroll.bind(this));
+        } else {
+          this.currentY = this.scrollY;
+          this.isScrolling = false;
+          cancelAnimationFrame(this.rafId);
+          this.rafId = null;
+        }
+      },
+
+      handleWheel(e) {
+        if (this.isScrolling) return;
+        
+        e.preventDefault();
+        this.scrollY += e.deltaY * this.speed;
+        this.scrollY = Math.max(0, Math.min(this.scrollY, 
+          document.body.scrollHeight - window.innerHeight));
+        
+        if (!this.rafId) {
+          this.animateScroll();
+        }
+      }
+    };
+
+    smoothScroll.init();
+    
+    // Adiciona o evento de wheel (scroll do mouse)
+    window.addEventListener('wheel', (e) => {
+      smoothScroll.handleWheel(e);
+    }, { passive: false });
+  }
+  
+  // Adiciona o evento de touch (para dispositivos móveis) - sem smooth scroll
+  window.addEventListener('touchmove', (e) => {
+    // Comportamento padrão no mobile
+  }, { passive: true }); // passive: true para melhor performance no mobile
+
+  // Observador de Intersecção para os cards (funciona em ambos)
+  const cards = document.querySelectorAll('.card-wrapper');
+  const cardRows = document.querySelectorAll('.card-row');
+  
+  const cardOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const rowOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  };
+
+  // Observer para cards individuais
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, cardOptions);
+
+  // Observer para linhas de cards
+  const rowObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const cardsInRow = entry.target.querySelectorAll('.card-wrapper');
+        cardsInRow.forEach(card => {
+          cardObserver.observe(card);
+        });
+      }
+    });
+  }, rowOptions);
+
+  // Observar as linhas em vez dos cards individuais inicialmente
+  cardRows.forEach(row => {
+    rowObserver.observe(row);
+  });
+
+  // Efeito Parallax sutil para as linhas de cards (apenas desktop)
+  if (!isMobile) {
+    window.addEventListener('scroll', () => {
+      const scrollPosition = window.scrollY + (window.innerHeight * 0.5);
+      
+      cardRows.forEach(row => {
+        const rowPosition = row.getBoundingClientRect().top + window.scrollY;
+        const distance = scrollPosition - rowPosition;
+        
+        if (distance > -window.innerHeight && distance < window.innerHeight * 2) {
+          const offset = distance * 0.1;
+          row.style.transform = `translateY(${offset}px)`;
+        }
       });
-    }
+    });
+  }
+}
+
 
     // ==================== FILTROS ====================
     function initFilters() {
