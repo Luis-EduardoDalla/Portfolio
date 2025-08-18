@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eduardo Dalla Valle - Sobre</title>
@@ -256,16 +257,16 @@
       font-weight: 400;
       color: #1e1e1e;
       line-height: 0.8;
-      margin-bottom: 20px;
-      filter: blur(8px);
-      opacity: 0;
+      margin-bottom: 20px;  
       transition: all 2.5s ease-out;
     }
     
-    .title.animate {
-      filter: blur(0);
-      opacity: 1;
-    }
+
+    .title span {
+  display: inline-block;
+  transform: translateY(100px);
+  opacity: 0;
+}
     
     .subtitle {
       font-family: 'Poppins', sans-serif;
@@ -318,7 +319,7 @@
       top: 0;
       left: 50%;
       transform: translateX(-50%);
-      object-fit: cover;
+      object-fit: cover;  
     }
     
     .profile-decoration {
@@ -434,6 +435,7 @@
       body {
         padding-bottom: 60px;
       }
+      
 
       nav {
         height: 60px;
@@ -764,11 +766,16 @@
   <div class="main-container">
     <!-- Conteúdo Principal -->
     <div class="content">
-      <h1 class="title" id="mainTitle">EDUARDO DALLA</h1>
+      <h1 class="title" id="mainTitle">
+  <span>E</span><span>D</span><span>U</span><span>A</span><span>R</span><span>D</span><span>O</span>
+  <span> </span>
+  <span>D</span><span>A</span><span>L</span><span>L</span><span>A</span>
+</h1>
       <h2 class="subtitle">SOBRE MIM</h2>
       <p class="description">
-        PROFISSIONAL MULTIDISCIPLINAR COM HABILIDADES EM PROGRAMAÇÃO (HTML/CSS/JAVASCRIPT), DESIGN GRÁFICO E GESTÃO DE MÍDIAS SOCIAIS. SEMPRE BUSCANDO APRENDER NOVAS FERRAMENTAS PARA ME ADAPTAR ÀS DEMANDAS DO MERCADO.
-      </p>
+        DESIGN NÃO É APENAS ESTÉTICA; É A INTENÇÃO POR TRÁS DE CADA DETALHE.
+COM MINHA EXPERIÊNCIA EM HTML5, CSS3, JAVASCRIPT E ANIMAÇÕES AVANÇADAS COM GSAP, CRIO EXPERIÊNCIAS DIGITAIS QUE VÃO ALÉM DA SUPERFÍCIE. 
+A TECNOLOGIA NÃO É SÓ CÓDIGO, MAS LINGUAGEM: UM MEIO DE TRADUZIR IDEIAS EM INTERFACES IMERSIVAS, RESPONSIVAS E ENVOLVENTES. ESTOU SEMPRE EXPLORANDO NOVAS FORMAS DE UNIR DESIGN, INTERATIVIDADE E PERFORMANCE PARA DAR VIDA A PROJETOS QUE CONTEM HISTÓRIAS DIGITAIS DE IMPACTO..</p>
       
       <div class="profile-container">
         <div class="profile">
@@ -890,73 +897,88 @@
     });
 
     // ==================== CONTROLE PRINCIPAL DAS ANIMAÇÕES ====================
-    function initAllAnimations() {
-      console.log('Iniciando todas as animações após 1 segundos');
-      
-      // Remove o loader
-      const loader = document.querySelector('.matrix-loader-container');
-      if (loader) {
-        loader.classList.add('loaded');
-        setTimeout(() => {
-          loader.remove();
-          document.body.classList.remove('loading');
-          document.body.style.overflow = '';
-        }, 1000);
-      }
+   function initAllAnimations() {
+  console.log('Iniciando todas as animações após 1 segundos');
+  
+  // Remove o loader
+  const loader = document.querySelector('.matrix-loader-container');
+  if (loader) {
+    loader.classList.add('loaded');
+    setTimeout(() => {
+      loader.remove();
+      document.body.classList.remove('loading');
+      document.body.style.overflow = '';
+    }, 1000);
+  }
 
-      // 1. Animação do Título
-      const mainTitle = document.getElementById('mainTitle');
-      if (mainTitle) {
-        mainTitle.style.transition = 'opacity 2.5s ease-out, filter 2.5s ease-out';
-        mainTitle.classList.add('animate');
-      }
+  // 1. Animação das Letras do Título
+  initLetterAnimation();
 
-      // 2. Animação dos Botões - Corrigida
-      const buttons = document.querySelectorAll('.nav-button');
-      buttons.forEach((button, index) => {
-        // Remove todas as animações/transições prévias
-        button.style.animation = 'none';
-        button.style.transition = 'none';
-        
-        // Reseta para estado inicial
-        button.style.opacity = '0';
-        button.style.transform = 'translateY(20px)';
-        
-        // Força recálculo do layout
-        void button.offsetWidth;
-        
-        // Aplica animação com delay
-        setTimeout(() => {
-          button.style.transition = 'opacity 1s ease, transform 1s ease';
-          button.style.opacity = '1';
-          button.style.transform = 'translateY(0)';
-        }, 100 * index);
-      });
+  // 2. Animação dos Botões - Corrigida
+  const buttons = document.querySelectorAll('.nav-button');
+  buttons.forEach((button, index) => {
+    // Remove todas as animações/transições prévias
+    button.style.animation = 'none';
+    button.style.transition = 'none';
+    
+    // Reseta para estado inicial
+    button.style.opacity = '0';
+    button.style.transform = 'translateY(20px)';
+    
+    // Força recálculo do layout
+    void button.offsetWidth;
+    
+    // Aplica animação com delay
+    setTimeout(() => {
+      button.style.transition = 'opacity 1s ease, transform 1s ease';
+      button.style.opacity = '1';
+      button.style.transform = 'translateY(0)';
+    }, 100 * index);
+  });
 
-      // 3. Animação dos outros elementos (subtitle, description, profile, etc.)
-      const elementsToAnimate = [
-        { selector: '.subtitle', delay: 100 },
-        { selector: '.description', delay: 200 },
-        { selector: '.profile-container', delay: 300 },
-        { selector: '.skills-container', delay: 400 },
-        { selector: '.bottom-text', delay: 500 },
-        { selector: 'footer', delay: 600 }
-      ];
+  // Restante do código permanece igual...
+  // 3. Animação dos outros elementos (subtitle, description, profile, etc.)
+  const elementsToAnimate = [
+    { selector: '.subtitle', delay: 100 },
+    { selector: '.description', delay: 200 },
+    { selector: '.profile-container', delay: 300 },
+    { selector: '.skills-container', delay: 400 },
+    { selector: '.bottom-text', delay: 500 },
+    { selector: 'footer', delay: 600 }
+  ];
 
-      elementsToAnimate.forEach(item => {
-        const element = document.querySelector(item.selector);
-        if (element) {
-          setTimeout(() => {
-            element.style.opacity = '1';
-            element.style.transform = 'translateY(0)';
-          }, item.delay);
-        }
-      });
-
-      // 4. Scroll Suave
-      initSmoothScroll();
+  elementsToAnimate.forEach(item => {
+    const element = document.querySelector(item.selector);
+    if (element) {
+      setTimeout(() => {
+        element.style.opacity = '1';
+        element.style.transform = 'translateY(0)';
+      }, item.delay);
     }
+  });
 
+  // 4. Scroll Suave
+  initSmoothScroll();
+}
+
+// Função para animar as letras
+function initLetterAnimation() {
+  // Configuração GSAP para a animação das letras
+  gsap.set("#mainTitle span", {
+    y: 100,
+    opacity: 0
+  });
+
+  // Animação para todas as letras
+  gsap.to("#mainTitle span", {
+    y: 0,
+    opacity: 1,
+    duration: 1.1,
+    stagger: 0.08,
+    ease: "back.out(1.7)",
+    delay: 0
+  });
+}
     // ==================== CONFIGURAÇÃO DE EVENTOS ESTÁTICOS ====================
     function setupStaticEventListeners() {
       // Menu Mobile
@@ -999,12 +1021,13 @@
 
     // ==================== SCROLL SUAVE ====================
     function initSmoothScroll() {
-      // Verifica se é mobile
+
+    // Verifica se é mobile
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   
   // Se for mobile, não inicializa o smooth scroll
   if (isMobile) return;
-      
+  
       const smoothScroll = {
         target: document.documentElement || document.body,
         scrollY: 0,
