@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eduardo Dalla Valle - Portfólio</title>
@@ -129,16 +132,16 @@
       line-height: 88px;
       color: #e8e8e8;
       text-transform: uppercase;
-      filter: blur(8px);
-      opacity: 0;
       
     }
-    
-    .logo.animate {
-      filter: blur(0);
-      opacity: 1;
-    }
-    
+
+    .logo span {
+  display: inline-block;
+  transform: translateY(100px);
+  opacity: 0;
+}
+
+
     /* Navegação */
     nav {
       position: fixed;
@@ -240,6 +243,7 @@
       padding-bottom: 97px;
     }
     
+    
     /* Background */
     .video-background {
       position: fixed;
@@ -252,11 +256,7 @@
       filter: brightness(0.4) contrast(1.3);
     }
 
-    .video-overlay {
-      background: radial-gradient(circle at center, 
-                  rgba(0,0,0,0.8) 0%, 
-                  rgb(0, 0, 0) 100%);
-    }
+
 
     
     /* Seção de Habilidades */
@@ -299,7 +299,7 @@
   font-family: 'B612 Mono', monospace;
   font-weight: 700;
   font-size: 20px;
-  color: #ff3700;
+  color: #e8e8e8;
   backface-visibility: hidden;
   transition: opacity 0.6s ease, transform 0.6s ease;
   opacity: 0;
@@ -319,17 +319,17 @@
     position: relative;
     padding: 20px 45px;
     font-size: 14px;
-    border: 1px solid #ff3700;
+    border: 1px solid #e8e8e8;
     background: transparent;
-    color: #ff3700;
+    color: #e8e8e8;
     cursor: pointer;
-    transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.5s ease;
     outline: none;
      border-radius: 34px; 
   }
     
     .magnetic-btn:hover {
-      background: #ff3700;
+      background: #e8e8e84b;
       color: #e8e8e8;
     }
     
@@ -416,8 +416,8 @@
 }
 
 .about-text .read-more:hover {
-  color: #ff3700;
-  border-color: #ff3700;
+  color: #e8e8e89a;
+  border-color: #e8e8e89a;
 }
 
     /* Media Queries - Mobile */
@@ -765,9 +765,13 @@
     <!-- Conteúdo Principal -->
     <main>
       <header>
-        <div class="logo" id="firstName">EDUARDO</div>
-        <div class="logo" id="lastName">DALLA</div>
-      </header>
+  <div class="logo" id="firstName">
+    <span>E</span><span>D</span><span>U</span><span>A</span><span>R</span><span>D</span><span>O</span>
+  </div>
+  <div class="logo" id="lastName">
+    <span>D</span><span>A</span><span>L</span><span>L</span><span>A</span>
+  </div>
+</header>
       
       <section class="skills-section">
         <div class="flip-container">
@@ -801,7 +805,6 @@ QUALIDADE E PREÇO SÃO IGUALMENTE PROPORCIONAIS.</p>
   </div>
 
   <script>
-// ==================== INICIALIZAÇÃO ====================
 document.addEventListener('DOMContentLoaded', function() {
   // Inicia o loader imediatamente
   const loader = document.querySelector('.matrix-loader-container');
@@ -822,7 +825,6 @@ document.addEventListener('DOMContentLoaded', function() {
   setupStaticEventListeners();
 });
 
-// ==================== CONTROLE PRINCIPAL DAS ANIMAÇÕES ====================
 function initAllAnimations() {
   console.log('Iniciando todas as animações após 3 segundos');
   
@@ -837,31 +839,15 @@ function initAllAnimations() {
     }, 1000);
   }
 
-  // 1. Animação do Logo - Adiciona transição via JS
-  const firstName = document.getElementById('firstName');
-  const lastName = document.getElementById('lastName');
-  if (firstName && lastName) {
-    firstName.style.transition = 'opacity 2.5s ease-out, filter 2.5s ease-out';
-    lastName.style.transition = 'opacity 2.5s ease-out, filter 2.5s ease-out';
-    firstName.classList.add('animate');
-    lastName.classList.add('animate');
-  }
-
-  // 2. Animação dos Botões - Corrigida
+  // 1. Animação dos Botões - Corrigida
   const buttons = document.querySelectorAll('.nav-button');
   buttons.forEach((button, index) => {
-    // Remove todas as animações/transições prévias
     button.style.animation = 'none';
     button.style.transition = 'none';
-    
-    // Reseta para estado inicial
     button.style.opacity = '0';
     button.style.transform = 'translateY(20px)';
-    
-    // Força recálculo do layout
     void button.offsetWidth;
     
-    // Aplica animação com delay
     setTimeout(() => {
       button.style.transition = 'opacity 1s ease, transform 1s ease';
       button.style.opacity = '1';
@@ -869,46 +855,48 @@ function initAllAnimations() {
     }, 100 * index);
   });
 
-  // 3. Flip de Palavras
+  // 2. Flip de Palavras
   startWordFlip();
 
-  // 4. Botão Magnético
+  // 3. Botão Magnético
   initMagneticButton();
 
-  // 5. Scroll Suave
+  // 4. Scroll Suave
   initSmoothScroll();
+
+  // 5. Animação das Letras (inicia após 4s - 3s loader + 1s fade-out)
+  setTimeout(initLetterAnimation, 750);
 }
 
-// ==================== ANIMAÇÃO DO LOGO ====================
-function animateLogo() {
-  const firstName = document.getElementById('firstName');
-  const lastName = document.getElementById('lastName');
-  
-  if (firstName && lastName) {
-    firstName.classList.add('animate');
-    lastName.classList.add('animate');
-  }
-}
+function initLetterAnimation() {
+  // Configuração GSAP para a animação das letras
+  gsap.set("#firstName span, #lastName span", {
+    y: 100,
+    opacity: 0
+  });
 
-// ==================== ANIMAÇÃO DOS BOTÕES ====================
-function animateNavButtons() {
-  const buttons = document.querySelectorAll('.nav-button');
-  
-  buttons.forEach((button, index) => {
-    // Reseta estilos que possam bloquear a animação
-    button.style.opacity = '0';
-    button.style.transform = 'translateY(20px)';
-    
-    // Aplica animação com delay progressivo
-    setTimeout(() => {
-      button.style.transition = 'opacity 1s ease, transform 1s ease';
-      button.style.opacity = '1';
-      button.style.transform = 'translateY(0)';
-    }, 100 * index); // 100ms entre cada botão
+  // Animação para "EDUARDO"
+  gsap.to("#firstName span", {
+    y: 0,
+    opacity: 1,
+    duration: 1.1,
+    stagger: 0.08,
+    ease: "back.out(1.7)",
+    delay: 0
+  });
+
+  // Animação para "DALLA"
+  gsap.to("#lastName span", {
+    y: 0,
+    opacity: 1,
+    duration: 1.1,
+    stagger: 0.08,
+    ease: "back.out(1.7)",
+    delay: 0.1
   });
 }
 
-// ==================== FLIP DE PALAVRAS ====================
+// ==================== FUNÇÕES EXISTENTES (MANTIDAS INTACTAS) ====================
 function startWordFlip() {
   const frontFace = document.getElementById('frontFace');
   const backFace = document.getElementById('backFace');
@@ -927,12 +915,10 @@ function startWordFlip() {
   let currentIndex = 0;
   let showingFront = true;
 
-  // Inicialização
   frontFace.textContent = words[0];
   frontFace.classList.add('visible');
   backFace.textContent = words[1];
 
-  // Intervalo de animação
   setInterval(() => {
     currentIndex = (currentIndex + 1) % words.length;
     
@@ -950,17 +936,14 @@ function startWordFlip() {
   }, 1900);
 }
 
-// ==================== BOTÃO MAGNÉTICO ====================
 function initMagneticButton() {
   const btn = document.querySelector('.magnetic-btn');
   if (!btn) return;
 
-  // Efeito de clique
   btn.addEventListener('click', () => {
     window.location.href = 'portfolio.html';
   });
 
-  // Efeito magnético
   window.addEventListener('mousemove', (e) => {
     const rect = btn.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
@@ -969,14 +952,14 @@ function initMagneticButton() {
     const distY = e.clientY - centerY;
     const distance = Math.sqrt(distX * distX + distY * distY);
 
-    if (distance < 350) {
+    if (distance < 450) {
       const strength = (350 - distance) / 350;
-      const offsetX = (distX / distance) * 25 * strength;
-      const offsetY = (distY / distance) * 25 * strength;
+      const offsetX = (distX / distance) * 20 * strength;
+      const offsetY = (distY / distance) * 20 * strength;
       
       btn.style.boxShadow = `
-        ${offsetX}px ${offsetY}px 12px rgba(255, 55, 0, 0.7),
-        inset ${-offsetX}px ${-offsetY}px 12px rgba(255, 55, 0, 0.7)
+        ${offsetX}px ${offsetY}px 12px rgba(232, 232, 232, 0.7),
+        inset ${-offsetX}px ${-offsetY}px 12px rgba(232, 232, 232, 0.7)
       `;
     } else {
       btn.style.boxShadow = 'none';
@@ -988,7 +971,6 @@ function initMagneticButton() {
   });
 }
 
-// ==================== MENU MOBILE ====================
 function setupStaticEventListeners() {
   const menuToggle = document.querySelector('.mobile-menu-toggle');
   const menuContainer = document.querySelector('.mobile-menu-container');
@@ -1009,7 +991,6 @@ function setupStaticEventListeners() {
     });
   }
 
-  // Hover dos botões (não é animação de entrada)
   document.querySelectorAll('.nav-button').forEach(button => {
     button.addEventListener('mouseenter', () => {
       if (!button.classList.contains('active')) {
@@ -1027,13 +1008,8 @@ function setupStaticEventListeners() {
   });
 }
 
-// ==================== SCROLL SUAVE ====================
 function initSmoothScroll() {
-
-// Verifica se é mobile
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  
-  // Se for mobile, não inicializa o smooth scroll
   if (isMobile) return;
   
   const smoothScroll = {
@@ -1103,6 +1079,7 @@ function initSmoothScroll() {
 
   smoothScroll.init();
 }
+
   </script>
 </body>
 </html>
