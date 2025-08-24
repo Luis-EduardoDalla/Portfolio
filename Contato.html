@@ -461,14 +461,14 @@
       }
 
       /* Menu Mobile Toggle */
-      .mobile-menu-toggle {
-        display: flex;
+       .mobile-menu-toggle {
+        display: flex !important;
         flex-direction: column;
         justify-content: space-between;
-        width: 24px;
-        height: 18px;
+        width: 50px;
+        height: 9px;
         position: relative;
-        z-index: 1000;
+        z-index: 1001;
         cursor: pointer;
         background: transparent;
         border: none;
@@ -482,8 +482,9 @@
         height: 2px;
         background-color: #1e1e1e;
         position: relative;
-        transition: all 0.3s ease;
+        transition: all 0.7s ease;
       }
+
 
       .mobile-menu-toggle.active span:nth-child(1) {
         transform: rotate(45deg) translate(5px, 5px);
@@ -505,70 +506,66 @@
         width: 100%;
         height: 100vh;
         background-color: #1e1e1e;
-        z-index: 999;
-        display: flex;
-        flex-direction: column;
+        z-index: 1010;
+        display: flex !important;
+        visibility: hidden;
         justify-content: center;
         align-items: center;
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.7s ease, visibility 0.7s ease;
       }
 
       .mobile-menu-container.active {
         opacity: 1;
-        pointer-events: all;
+        visibility: visible;
+        pointer-events: auto;
       }
+      
 
       .mobile-menu {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 15px;
+        gap: 20px;
+        width: 100%;
       }
 
       .mobile-menu a {
         color: #e8e8e8;
         text-decoration: none;
         font-family: 'Anton', sans-serif;
-        font-size: 3.5rem;
-        line-height: 1.2;
+        font-size: 4rem !important;
+        line-height: 1;
         text-transform: uppercase;
-        letter-spacing: 2px;
-        padding: 15px 0;
+        letter-spacing: 1px; /* Espaçamento aplicado */
+        padding: 2px 0;
         display: block;
         width: 100%;
         text-align: center;
         position: relative;
-        transition: all 0.3s ease;
+        transition: all 0.7s ease;
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(50px);
+        transition: font-size 0.3s ease, color 0.3s ease, letter-spacing 0.3s ease;
       }
+      
 
-      /* Animação Quick para os links do menu mobile */
       .mobile-menu-container.active .mobile-menu a {
-        animation: fadeInUpQuick 0.5s cubic-bezier(0.4, 0.2, 0.2, 1) forwards;
+        animation: fadeInUpQuick 0.7s cubic-bezier(0.9, 0.7, 0.5, 1) forwards;
+        font-size: 4rem !important; 
       }
 
-      .mobile-menu a:nth-child(1) { animation-delay: 0.1s; }
-      .mobile-menu a:nth-child(2) { animation-delay: 0.2s; }
-      .mobile-menu a:nth-child(3) { animation-delay: 0.3s; }
-      .mobile-menu a:nth-child(4) { animation-delay: 0.4s; }
+      .mobile-menu a:nth-child(1) { animation-delay: 0.2s; }
+      .mobile-menu a:nth-child(2) { animation-delay: 0.5s; }
+      .mobile-menu a:nth-child(3) { animation-delay: 0.7s; }
+      .mobile-menu a:nth-child(4) { animation-delay: 0.9s; }
 
-      .mobile-menu a::after {
-        content: '';
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 0;
-        height: 2px;
-        background-color: #ff3700;
-        transition: all 0.3s ease;
-      }
+      
 
-      .mobile-menu a:hover {
-        color: #ff3700;
+       .mobile-menu a:hover {
+        color: #5a5a5a;
+        letter-spacing: 3px;
       }
 
       .mobile-menu a:hover::after {
@@ -576,9 +573,10 @@
       }
 
       .mobile-menu a.active {
-        color: #ff3700;
+        color: #6c6c6c;
       }
 
+      
       .main-container {
         margin-top: 60px;
         min-height: calc(100vh - 120px);
@@ -703,7 +701,6 @@
     
     <!-- Menu Mobile - Atualizado -->
     <button class="mobile-menu-toggle">
-      <span></span>
       <span></span>
       <span></span>
     </button>
@@ -851,7 +848,7 @@
 function initLetterAnimation() {
   // Configuração GSAP para a animação das letras
   gsap.set("#mainTitle span", {
-    y: 100,
+    y: -55,
     opacity: 0
   });
 
@@ -859,9 +856,9 @@ function initLetterAnimation() {
   gsap.to("#mainTitle span", {
     y: 0,
     opacity: 1,
-    duration: 1.1,
+    duration: 0.7,
     stagger: 0.08,
-    ease: "back.out(1.7)",
+    ease: "power4.in",
     delay: 0
   });
 }
