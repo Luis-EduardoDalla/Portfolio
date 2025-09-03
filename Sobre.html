@@ -248,7 +248,17 @@
       position: relative;
       padding-top: 50px;
       text-align: center;
+      
     }
+
+    /* Container com clip-path */
+.main-title-container {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  overflow: hidden;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+}
     
     /* Textos */
     .title {
@@ -259,6 +269,7 @@
       line-height: 0.8;
       margin-bottom: 20px;  
       transition: all 2.5s ease-out;
+      padding-top: 18px;
     }
     
 
@@ -281,19 +292,80 @@
       opacity: 0;
       animation: fadeIn 1s ease forwards 0.5s;
     }
+
+   .title-container,
+.description-container {
+  display: block;
+  overflow: hidden;
+}
+
+/* Container para cada palavra */
+.word {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  vertical-align: top;
+}
+
+/* Texto interno que será animado */
+.word-inner {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+/* Para o subtítulo */
+.subtitle {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+  margin-top: 30px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: #1e1e1e;
+  letter-spacing: -1.6px;
+}
+
+.subtitle .word {
+  white-space: nowrap;
+}
+
+/* Para a descrição */
+.description {
+  display: block;
+  max-width: 900px;
+  margin: 0 auto 50px;
+  line-height: 25px;
+  text-align: center;
+  font-family: 'B612 Mono', monospace;
+  font-size: 14px;
+  color: #1e1e1e;
+  letter-spacing: 2.6px;
+}
+
+.description .word {
+  margin: 0 2px;
+}
+
+/* Remova as animações antigas */
+.subtitle,
+.description {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
     
-    .description {
-      font-family: 'B612 Mono', monospace;
-      font-size: 14px;
-      color: #1e1e1e;
-      letter-spacing: 2.6px;
-      line-height: 25px;
-      max-width: 900px;
-      margin: 0 auto 50px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 1s ease forwards 0.7s;
-    }
+    
+    
+    
+    
+    
+    
+    
     
     /* Foto de Perfil */
     .profile-container {
@@ -462,121 +534,205 @@
         display: none;
       }
 
-      /* Menu Mobile Toggle */
-       .mobile-menu-toggle {
-        display: flex !important;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 50px;
-        height: 9px;
-        position: relative;
-        z-index: 1001;
-        cursor: pointer;
-        background: transparent;
-        border: none;
-        padding: 0;
-        margin-left: auto;
-      }
-
-      .mobile-menu-toggle span {
-        display: block;
-        width: 100%;
-        height: 2px;
-        background-color: #1e1e1e;
-        position: relative;
-        transition: all 0.7s ease;
-      }
 
 
-      .mobile-menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-      }
 
-      .mobile-menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-      }
 
-      .mobile-menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
-      }
+       /* Menu Mobile Corrigido */
+.mobile-menu-toggle {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50px;
+  height: 9px;
+  position: relative;
+  z-index: 1001;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-left: auto;
+}
 
-      /* Menu Mobile Container */
-      .mobile-menu-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background-color: #1e1e1e;
-        z-index: 1010;
-        display: flex !important;
-        visibility: hidden;
-        justify-content: center;
-        align-items: center;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.7s ease, visibility 0.7s ease;
-      }
+.mobile-menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #1e1e1e;
+  position: relative;
+  transition: all 0.7s ease;
+}
 
-      .mobile-menu-container.active {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-      }
-      
+.mobile-menu-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #e8e8e8;
+  z-index: 1010;
+  display: flex !important;
+  visibility: hidden;
+  justify-content: center;
+  align-items: center;
+   transform: translateY(100%);
+  transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  /* Mantenha as propriedades originais de opacity */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
 
-      .mobile-menu {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        width: 100%;
-      }
+.mobile-menu-container.active {
+  transform: translateY(0);
+  /* Mantenha as propriedades originais */
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 
-      .mobile-menu a {
-        color: #e8e8e8;
-        text-decoration: none;
-        font-family: 'Anton', sans-serif;
-        font-size: 4rem !important;
-        line-height: 1;
-        text-transform: uppercase;
-        letter-spacing: 1px; /* Espaçamento aplicado */
-        padding: 2px 0;
-        display: block;
-        width: 100%;
-        text-align: center;
-        position: relative;
-        transition: all 0.7s ease;
-        opacity: 0;
-        transform: translateY(50px);
-        transition: font-size 0.3s ease, color 0.3s ease, letter-spacing 0.3s ease;
-      }
-      
+}
 
-      .mobile-menu-container.active .mobile-menu a {
-        animation: fadeInUpQuick 0.7s cubic-bezier(0.9, 0.7, 0.5, 1) forwards;
-        font-size: 4rem !important; 
-      }
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+}
 
-      .mobile-menu a:nth-child(1) { animation-delay: 0.2s; }
-      .mobile-menu a:nth-child(2) { animation-delay: 0.5s; }
-      .mobile-menu a:nth-child(3) { animation-delay: 0.7s; }
-      .mobile-menu a:nth-child(4) { animation-delay: 0.9s; }
+.mobile-menu a {
+  display: block;
+  position: relative;
+  color: #1e1e1e;
+  text-decoration: none;
+  font-family: 'Anton', sans-serif;
+  font-size: 3.5rem;
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 2px 0;
+  width: 100%;
+  text-align: center;
+  transition: all 0.7s ease;
+  opacity: 0;
+  transform: translateY(30px);
+  overflow: hidden;
+}
 
-     
+/* Clip-path individual para cada link */
+.mobile-menu a:nth-child(1) {
+  clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+}
 
-       .mobile-menu a:hover {
-        color: #5a5a5a;
-        letter-spacing: 3px;
-      }
+.mobile-menu a:nth-child(2) {
+  clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+}
 
-      .mobile-menu a:hover::after {
-        width: 80%;
-      }
+.mobile-menu a:nth-child(3) {
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
+}
 
-      .mobile-menu a.active {
-        color: #6c6c6c;
-      }
+.mobile-menu a:nth-child(4) {
+  clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+}
+
+/* Container para cada letra */
+.mobile-menu a span {
+  display: inline-block;
+  position: relative;
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+/* Animação de revelação das letras */
+.mobile-menu-container.active .mobile-menu a span {
+  animation: letterReveal 0.8s cubic-bezier(0.2, 0.6, 0.3, 1) forwards;
+}
+
+@keyframes letterReveal {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Delays para cada link */
+.mobile-menu-container.active .mobile-menu a:nth-child(1) {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
+}
+
+.mobile-menu-container.active .mobile-menu a:nth-child(2) {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s;
+}
+
+.mobile-menu-container.active .mobile-menu a:nth-child(3) {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease 0.6s, transform 0.5s ease 0.6s;
+}
+
+.mobile-menu-container.active .mobile-menu a:nth-child(4) {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease 0.8s, transform 0.5s ease 0.8s;
+}
+
+/* Delays para as letras dentro de cada link - CORRIGIDO */
+.mobile-menu a:nth-child(1) span:nth-child(1) { animation-delay: 0.3s; }
+.mobile-menu a:nth-child(1) span:nth-child(2) { animation-delay: 0.35s; }
+.mobile-menu a:nth-child(1) span:nth-child(3) { animation-delay: 0.4s; }
+.mobile-menu a:nth-child(1) span:nth-child(4) { animation-delay: 0.45s; }
+.mobile-menu a:nth-child(1) span:nth-child(5) { animation-delay: 0.5s; }
+.mobile-menu a:nth-child(1) span:nth-child(6) { animation-delay: 0.55s; }
+
+.mobile-menu a:nth-child(2) span:nth-child(1) { animation-delay: 0.5s; }
+.mobile-menu a:nth-child(2) span:nth-child(2) { animation-delay: 0.55s; }
+.mobile-menu a:nth-child(2) span:nth-child(3) { animation-delay: 0.6s; }
+.mobile-menu a:nth-child(2) span:nth-child(4) { animation-delay: 0.65s; }
+.mobile-menu a:nth-child(2) span:nth-child(5) { animation-delay: 0.7s; }
+.mobile-menu a:nth-child(2) span:nth-child(6) { animation-delay: 0.75s; }
+.mobile-menu a:nth-child(2) span:nth-child(7) { animation-delay: 0.8s; }
+.mobile-menu a:nth-child(2) span:nth-child(8) { animation-delay: 0.85s; }
+.mobile-menu a:nth-child(2) span:nth-child(9) { animation-delay: 0.9s; }
+
+.mobile-menu a:nth-child(3) span:nth-child(1) { animation-delay: 0.7s; }
+.mobile-menu a:nth-child(3) span:nth-child(2) { animation-delay: 0.75s; }
+.mobile-menu a:nth-child(3) span:nth-child(3) { animation-delay: 0.8s; }
+.mobile-menu a:nth-child(3) span:nth-child(4) { animation-delay: 0.85s; }
+.mobile-menu a:nth-child(3) span:nth-child(5) { animation-delay: 0.9s; }
+
+.mobile-menu a:nth-child(4) span:nth-child(1) { animation-delay: 0.9s; }
+.mobile-menu a:nth-child(4) span:nth-child(2) { animation-delay: 0.95s; }
+.mobile-menu a:nth-child(4) span:nth-child(3) { animation-delay: 1.0s; }
+.mobile-menu a:nth-child(4) span:nth-child(4) { animation-delay: 1.05s; }
+.mobile-menu a:nth-child(4) span:nth-child(5) { animation-delay: 1.1s; }
+.mobile-menu a:nth-child(4) span:nth-child(6) { animation-delay: 1.15s; }
+.mobile-menu a:nth-child(4) span:nth-child(7) { animation-delay: 1.2s; }
+.mobile-menu a:nth-child(4) span:nth-child(8) { animation-delay: 1.25s; }
+
+.mobile-menu a:hover {
+  color: #5a5a5a;
+  letter-spacing: 3px;
+}
+
+.mobile-menu a.active {
+  color: #6c6c6c;
+}
+
+
+
+
+
+
+
 
       /* Ajustes para o conteúdo */
       .main-container {
@@ -655,7 +811,7 @@
   .skills-container > div > div:not(:last-child) {
     margin-bottom: 30px;
     padding-bottom: 30px;
-    border-bottom: 1px solid rgba(255, 55, 0, 0.5);
+    border-bottom: 1px solid rgba(25, 25, 25, 0.5);
   }
 }
       
@@ -749,29 +905,103 @@
   
   <!-- Menu Mobile Container -->
   <div class="mobile-menu-container">
-    <div class="mobile-menu">
-      <a href="index.html">Início</a>
-      <a href="portfolio.html">Portfólio</a>
-      <a href="Sobre.html" class="active">Sobre</a>
-      <a href="Contato.html">Contato</a>
-    </div>
+  <div class="mobile-menu">
+    <a href="index.html">
+      <span>I</span><span>n</span><span>í</span><span>c</span><span>i</span><span>o</span>
+    </a>
+    <a href="portfolio.html">
+      <span>P</span><span>o</span><span>r</span><span>t</span><span>f</span><span>ó</span><span>l</span><span>i</span><span>o</span>
+    </a>
+    <a href="Sobre.html" class="active">
+      <span>S</span><span>o</span><span>b</span><span>r</span><span>e</span>
+    </a>
+    <a href="Contato.html">
+      <span>C</span><span>o</span><span>n</span><span>t</span><span>a</span><span>t</span><span>o</span>
+    </a>
   </div>
+</div>
 
   <!-- Container Principal -->
   <div class="main-container">
     <!-- Conteúdo Principal -->
     <div class="content">
+      <div class="main-title-container">
       <h1 class="title" id="mainTitle">
   <span>E</span><span>D</span><span>U</span><span>A</span><span>R</span><span>D</span><span>O</span>
   <span> </span>
   <span>D</span><span>A</span><span>L</span><span>L</span><span>A</span>
 </h1>
-      <h2 class="subtitle">SOBRE MIM</h2>
-      <p class="description">
-        DESIGN NÃO É APENAS ESTÉTICA; É A INTENÇÃO POR TRÁS DE CADA DETALHE.
-COM MINHA EXPERIÊNCIA EM HTML5, CSS3, JAVASCRIPT E DESIGN. 
-A TECNOLOGIA É UM MEIO DE TRADUZIR IDEIAS EM INTERFACES IMERSIVAS E RESPONSIVAS. ESTOU SEMPRE EXPLORANDO NOVAS FORMAS DE UNIR DESIGN, INTERATIVIDADE E PERFORMANCE PARA DAR VIDA A PROJETOS QUE CONTEM HISTÓRIAS DIGITAIS...</p>
-      
+ </div>
+      <!-- Substitua o subtítulo atual por este código -->
+<!-- Substitua o subtítulo atual por este código -->
+<div class="title-container">
+  <h2 class="subtitle">
+    <span class="word"><span class="word-inner">SOBRE</span></span>
+    <span class="word"><span class="word-inner">MIM</span></span>
+  </h2>
+</div>
+
+<!-- Substitua a descrição atual por este código -->
+<div class="description-container">
+  <p class="description">
+    <span class="word"><span class="word-inner">DESIGN</span></span>
+    <span class="word"><span class="word-inner">NÃO</span></span>
+    <span class="word"><span class="word-inner">É</span></span>
+    <span class="word"><span class="word-inner">APENAS</span></span>
+    <span class="word"><span class="word-inner">ESTÉTICA;</span></span>
+    <span class="word"><span class="word-inner">É</span></span>
+    <span class="word"><span class="word-inner">A</span></span>
+    <span class="word"><span class="word-inner">INTENÇÃO</span></span>
+    <span class="word"><span class="word-inner">POR</span></span>
+    <span class="word"><span class="word-inner">TRÁS</span></span>
+    <span class="word"><span class="word-inner">DE</span></span>
+    <span class="word"><span class="word-inner">CADA</span></span>
+    <span class="word"><span class="word-inner">DETALHE.</span></span>
+    <span class="word"><span class="word-inner">COM</span></span>
+    <span class="word"><span class="word-inner">MINHA</span></span>
+    <span class="word"><span class="word-inner">EXPERIÊNCIA</span></span>
+    <span class="word"><span class="word-inner">EM</span></span>
+    <span class="word"><span class="word-inner">HTML5,</span></span>
+    <span class="word"><span class="word-inner">CSS3,</span></span>
+    <span class="word"><span class="word-inner">JAVASCRIPT</span></span>
+    <span class="word"><span class="word-inner">E</span></span>
+    <span class="word"><span class="word-inner">DESIGN.</span></span>
+    <span class="word"><span class="word-inner">A</span></span>
+    <span class="word"><span class="word-inner">TECNOLOGIA</span></span>
+    <span class="word"><span class="word-inner">É</span></span>
+    <span class="word"><span class="word-inner">UM</span></span>
+    <span class="word"><span class="word-inner">MEIO</span></span>
+    <span class="word"><span class="word-inner">DE</span></span>
+    <span class="word"><span class="word-inner">TRADUZIR</span></span>
+    <span class="word"><span class="word-inner">IDEIAS</span></span>
+    <span class="word"><span class="word-inner">EM</span></span>
+    <span class="word"><span class="word-inner">INTERFACES</span></span>
+    <span class="word"><span class="word-inner">IMERSIVAS</span></span>
+    <span class="word"><span class="word-inner">E</span></span>
+    <span class="word"><span class="word-inner">RESPONSIVAS.</span></span>
+    <span class="word"><span class="word-inner">ESTOU</span></span>
+    <span class="word"><span class="word-inner">SEMPRE</span></span>
+    <span class="word"><span class="word-inner">EXPLORANDO</span></span>
+    <span class="word"><span class="word-inner">NOVAS</span></span>
+    <span class="word"><span class="word-inner">FORMAS</span></span>
+    <span class="word"><span class="word-inner">DE</span></span>
+    <span class="word"><span class="word-inner">UNIR</span></span>
+    <span class="word"><span class="word-inner">DESIGN,</span></span>
+    <span class="word"><span class="word-inner">INTERATIVIDADE</span></span>
+    <span class="word"><span class="word-inner">E</span></span>
+    <span class="word"><span class="word-inner">PERFORMANCE</span></span>
+    <span class="word"><span class="word-inner">PARA</span></span>
+    <span class="word"><span class="word-inner">DAR</span></span>
+    <span class="word"><span class="word-inner">VIDA</span></span>
+    <span class="word"><span class="word-inner">A</span></span>
+    <span class="word"><span class="word-inner">PROJETOS</span></span>
+    <span class="word"><span class="word-inner">QUE</span></span>
+    <span class="word"><span class="word-inner">CONTEM</span></span>
+    <span class="word"><span class="word-inner">HISTÓRIAS</span></span>
+    <span class="word"><span class="word-inner">DIGITAIS...</span></span>
+  </p>
+</div>
+
       <div class="profile-container">
         <div class="profile">
           <img class="profile-img" src="https://c.animaapp.com/WvWqhXWp/img/fundo-de-luis01-removido-1.png" alt="Eduardo Dalla">
@@ -790,8 +1020,8 @@ A TECNOLOGIA É UM MEIO DE TRADUZIR IDEIAS EM INTERFACES IMERSIVAS E RESPONSIVAS
       <div class="skills-container" style="max-width: 900px; margin: 0 auto 50px; opacity: 0; animation: fadeInUp 1s ease forwards 1.3s;">
         <div style="display: flex; justify-content: space-between; position: relative;">
           <!-- Linha vertical divisória -->
-          <div style="position: absolute; left: 33.33%; top: 0; bottom: 0; width: 1px; background-color: rgba(255, 55, 0, 1.0);"></div>
-          <div style="position: absolute; left: 66.66%; top: 0; bottom: 0; width: 1px; background-color: rgba(255, 55, 0, 1.0);"></div>
+          <div style="position: absolute; left: 33.33%; top: 0; bottom: 0; width: 1px; background-color: rgb(18, 18, 18);"></div>
+          <div style="position: absolute; left: 66.66%; top: 0; bottom: 0; width: 1px; background-color: rgb(18, 18, 18);"></div>
           
           <!-- Coluna 1 -->
           <div style="flex: 1; padding: 0 30px;">
@@ -892,7 +1122,7 @@ A TECNOLOGIA É UM MEIO DE TRADUZIR IDEIAS EM INTERFACES IMERSIVAS E RESPONSIVAS
     });
 
     // ==================== CONTROLE PRINCIPAL DAS ANIMAÇÕES ====================
-   function initAllAnimations() {
+function initAllAnimations() {
   console.log('Iniciando todas as animações após 1 segundos');
   
   // Remove o loader
@@ -906,24 +1136,38 @@ A TECNOLOGIA É UM MEIO DE TRADUZIR IDEIAS EM INTERFACES IMERSIVAS E RESPONSIVAS
     }, 1000);
   }
 
-  // 1. Animação das Letras do Título
+  // 1. Animação das Letras do Título principal
   initLetterAnimation();
 
-  // 2. Animação dos Botões - Corrigida
+  // 2. Animação do Subtítulo "SOBRE MIM" - palavra por palavra
+  gsap.to(".subtitle .word-inner", {
+    y: 0,
+    opacity: 1,
+    duration: 1.2,
+    stagger: 0.2,
+    ease: "power2.out",
+    delay: 0.5
+  });
+
+  // 3. Animação da Descrição - palavra por palavra
+  gsap.to(".description .word-inner", {
+    y: 0,
+    opacity: 1,
+    duration: 1.0,
+    stagger: 0.06,
+    ease: "power2.out",
+    delay: 0.8
+  });
+
+  // 4. Animação dos Botões
   const buttons = document.querySelectorAll('.nav-button');
   buttons.forEach((button, index) => {
-    // Remove todas as animações/transições prévias
     button.style.animation = 'none';
     button.style.transition = 'none';
-    
-    // Reseta para estado inicial
     button.style.opacity = '0';
     button.style.transform = 'translateY(20px)';
-    
-    // Força recálculo do layout
     void button.offsetWidth;
     
-    // Aplica animação com delay
     setTimeout(() => {
       button.style.transition = 'opacity 1s ease, transform 1s ease';
       button.style.opacity = '1';
@@ -931,15 +1175,12 @@ A TECNOLOGIA É UM MEIO DE TRADUZIR IDEIAS EM INTERFACES IMERSIVAS E RESPONSIVAS
     }, 100 * index);
   });
 
-  // Restante do código permanece igual...
-  // 3. Animação dos outros elementos (subtitle, description, profile, etc.)
+  // 5. Animação dos outros elementos
   const elementsToAnimate = [
-    { selector: '.subtitle', delay: 100 },
-    { selector: '.description', delay: 200 },
-    { selector: '.profile-container', delay: 300 },
-    { selector: '.skills-container', delay: 400 },
-    { selector: '.bottom-text', delay: 500 },
-    { selector: 'footer', delay: 600 }
+    { selector: '.profile-container', delay: 1500 },
+    { selector: '.skills-container', delay: 1700 },
+    { selector: '.bottom-text', delay: 1900 },
+    { selector: 'footer', delay: 2100 }
   ];
 
   elementsToAnimate.forEach(item => {
@@ -952,67 +1193,97 @@ A TECNOLOGIA É UM MEIO DE TRADUZIR IDEIAS EM INTERFACES IMERSIVAS E RESPONSIVAS
     }
   });
 
-  // 4. Scroll Suave
+  // 6. Scroll Suave
   initSmoothScroll();
 }
 
-// Função para animar as letras
+// ==================== ANIMAÇÃO DAS LETRAS DO TÍTULO PRINCIPAL ====================
 function initLetterAnimation() {
   // Configuração GSAP para a animação das letras
   gsap.set("#mainTitle span", {
-    y: -55,
+    y: 60,
     opacity: 0
   });
 
-  // Animação para todas as letras
+  // Animação para todas as letras subindo juntas
   gsap.to("#mainTitle span", {
     y: 0,
     opacity: 1,
-    duration: 0.7,
-    stagger: 0.08,
-    ease: "power4.in",
-    delay: 0
+    duration: 0.9,
+    stagger: { 
+      each: 0.02,
+      from: "start" 
+    },
+    ease: "power2.out",
+    delay: 0.3
   });
 }
+
+
+
+
+function initLetterAnimation() {
+  // Configuração GSAP para a animação das letras com clip
+  gsap.set("#mainTitle span", {
+    y: 100,
+    opacity: 0
+  });
+
+  // Animação para todas as letras subindo juntas
+  gsap.to("#mainTitle span", {
+    y: 0,
+    opacity: 1,
+    duration: 1.2,
+    stagger: { 
+      each: 0.02, // Valor muito baixo para quase simultâneo
+      from: "start" 
+    },
+    ease: "power2.out",
+    delay: 0.3
+  });
+}
+
+
+
+
+
+
     // ==================== CONFIGURAÇÃO DE EVENTOS ESTÁTICOS ====================
     function setupStaticEventListeners() {
-      // Menu Mobile
-      const menuToggle = document.querySelector('.mobile-menu-toggle');
-      const menuContainer = document.querySelector('.mobile-menu-container');
+  const menuToggle = document.querySelector('.mobile-menu-toggle');
+  const menuContainer = document.querySelector('.mobile-menu-container');
+  
+  if (menuToggle && menuContainer) {
+    menuToggle.addEventListener('click', function() {
+      this.classList.toggle('active');
+      menuContainer.classList.toggle('active');
+      document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
       
-      if (menuToggle && menuContainer) {
-        menuToggle.addEventListener('click', function() {
-          this.classList.toggle('active');
-          menuContainer.classList.toggle('active');
-          document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
-        });
-
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
-          link.addEventListener('click', () => {
-            menuToggle.classList.remove('active');
-            menuContainer.classList.remove('active');
-            document.body.style.overflow = '';
-          });
-        });
-      }
-
-      // Hover dos botões (não é animação de entrada)
-      document.querySelectorAll('.nav-button').forEach(button => {
-        button.addEventListener('mouseenter', () => {
-          if (!button.classList.contains('active')) {
-            button.style.backgroundColor = '#1e1e1e';
-            button.style.color = '#e8e8e8';
-          }
+      // Reset das animações quando o menu é fechado
+      if (!this.classList.contains('active')) {
+        const spans = document.querySelectorAll('.mobile-menu a span');
+        spans.forEach(span => {
+          span.style.animation = 'none';
         });
         
-        button.addEventListener('mouseleave', () => {
-          if (!button.classList.contains('active')) {
-            button.style.backgroundColor = 'transparent';
-            button.style.color = '#1e1e1e';
-          }
+        const links = document.querySelectorAll('.mobile-menu a');
+        links.forEach(link => {
+          link.style.opacity = '0';
+          link.style.transform = 'translateY(30px)';
+          link.style.transition = 'none';
         });
+      }
+    });
+
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        menuContainer.classList.remove('active');
+        document.body.style.overflow = '';
       });
-    }
+    });
+  }
+}
 
     // ==================== SCROLL SUAVE ====================
     function initSmoothScroll() {
@@ -1090,6 +1361,28 @@ function initLetterAnimation() {
 
       smoothScroll.init();
     }
+
+    mobileMenuLinks.forEach(link => {
+  link.style.opacity = '1';
+  link.style.transform = 'translateY(0)';
+});
+
+// E adicione esta função para animar as palavras:
+function animateMenuWords() {
+  const wordContainers = document.querySelectorAll('.word-container span');
+  wordContainers.forEach((word, index) => {
+    word.style.animation = `wordReveal 0.7s cubic-bezier(0.9, 0.7, 0.5, 1) forwards`;
+    word.style.animationDelay = `${0.2 + index * 0.2}s`;
+  });
+}
+
+// Chame a função quando o menu mobile for ativado
+document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+  // ... código existente ...
+  if (this.classList.contains('active')) {
+    setTimeout(animateMenuWords, 100);
+  }
+});
   </script>
 </body>
 </html>
