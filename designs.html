@@ -179,6 +179,7 @@
       pointer-events: none;
     }
 
+
     nav a {
       text-decoration: none;
     }
@@ -192,7 +193,7 @@
       height: 54px;
       border-radius: 36px;
       border: 1px solid #1e1e1e;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 400;
       padding: 0 24px;
       display: flex;
@@ -418,7 +419,7 @@ display: block;
 
 .filter-text {
   font-family: 'B612 Mono', monospace;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 0.5px;
   color: #e8e8e8;
   text-align: center;
@@ -494,7 +495,7 @@ display: block;
 }
 
 .filter-footer p {
-  font-size: 0.75rem;   /* pequeno */
+  font-size: 10px;   /* pequeno */
   font-weight: 400;
   color: #e8e8e8;          /* cor discreta */
   margin: 5px 0 0 0;    /* espaço acima */
@@ -582,7 +583,11 @@ display: block;
       nav {
         height: 60px;
         padding: 0 20px;
+        z-index: 1020;
+
       }
+
+
 
       .nav-buttons {
         gap: 10px;
@@ -609,15 +614,47 @@ display: block;
 
 
 
+
+/* Novo botão com borda fina */
+.mobile-menu-button {
+    display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 0.5px solid #1e1e1e;
+  border-radius: 20px;
+  background: transparent;
+  padding: 10px 25px;
+  cursor: pointer;
+  font-family: 'B612 Mono', monospace;
+  font-size: 12px;
+  color: #1e1e1e;
+  gap: 10px;
+  z-index: 1020; /* acima do menu */
+  position: fixed; /* mantém visível sobre o menu */
+  top: 20px;
+  right: 20px;
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+
+}
+
+/* Botão ativo (menu aberto) */
+.mobile-menu-button.active {
+  color: #ffffff;           /* cor do texto */
+  border-color: #ffffff;    /* cor da borda */
+  background: #1e1e1e; /* fundo semi-transparente */
+}
+
+
+
       /* Menu Mobile Corrigido */
 .mobile-menu-toggle {
   display: flex !important;
   flex-direction: column;
   justify-content: space-between;
-  width: 50px;
-  height: 9px;
+  width: 10px;
+  height: 4px;
   position: relative;
-  z-index: 1001;
+  z-index: 1020;
   cursor: pointer;
   background: transparent;
   border: none;
@@ -628,11 +665,16 @@ display: block;
 .mobile-menu-toggle span {
   display: block;
   width: 100%;
-  height: 2px;
+  height: 1px;
   background-color: #1e1e1e;
   position: relative;
-  transition: all 0.7s ease;
+  transition: all 0.3s ease;
 }
+
+.mobile-menu-button.active .mobile-menu-toggle span {
+  background-color: #e8e8e8; /* muda a cor para branco */
+}
+
 
 .mobile-menu-container {
   position: fixed;
@@ -641,7 +683,7 @@ display: block;
   width: 100%;
   height: 100vh;
   background-color: #e8e8e8;
-  z-index: 1010;
+  z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -664,7 +706,7 @@ display: block;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 10px;
   width: 100%;
 }
 
@@ -744,6 +786,11 @@ display: block;
 .mobile-menu a.active {
   color: #6c6c6c;
 }
+
+
+
+
+
 
 
 
@@ -873,7 +920,9 @@ display: block;
 
 
 
-
+.filter-card {
+  z-index: 999;
+}
 
 .filter-menu {
    min-width: 250px;
@@ -939,6 +988,10 @@ display: block;
     }
 
     @media (min-width: 769px) {
+        .mobile-menu-button {
+    display: none !important;
+  }
+
       .mobile-menu-toggle {
         display: none !important;
       }
@@ -984,11 +1037,14 @@ display: block;
       <a href="Contato.html" class="nav-button" style="width: 115px; opacity: 0.83;">Contato+</a>
       
       <!-- Menu Mobile -->
-      <button class="mobile-menu-toggle">
-        <span></span>
-        <span></span>
-      </button>
-    </nav>
+       <button class="mobile-menu-button">
+  <span>Menu</span>
+   <div class="mobile-menu-toggle">
+      <span></span>
+      <span></span>
+     </div>
+</button>
+  </nav>
     
     <!-- Menu Mobile Container -->
   <div class="mobile-menu-container">
@@ -1380,42 +1436,47 @@ function initLetterAnimation() {
 }
 
     // ==================== CONFIGURAÇÃO DE EVENTOS ESTÁTICOS ====================
-   function setupStaticEventListeners() {
-  const menuToggle = document.querySelector('.mobile-menu-toggle');
-  const menuContainer = document.querySelector('.mobile-menu-container');
-  
-  if (menuToggle && menuContainer) {
-    menuToggle.addEventListener('click', function() {
-      this.classList.toggle('active');
-      menuContainer.classList.toggle('active');
-      document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
-      
-      // Reset das animações quando o menu é fechado
-      if (!this.classList.contains('active')) {
-        const spans = document.querySelectorAll('.mobile-menu a span');
-        spans.forEach(span => {
-          span.style.animation = 'none';
-        });
-        
-        const links = document.querySelectorAll('.mobile-menu a');
-        links.forEach(link => {
-          link.style.opacity = '0';
-          link.style.transform = 'translateY(30px)';
-          link.style.transition = 'none';
-        });
-      }
-    });
+    const menuButton = document.querySelector('.mobile-menu-button');
+const menuToggle = document.querySelector('.mobile-menu-toggle');
+const menuContainer = document.querySelector('.mobile-menu-container');
 
-    document.querySelectorAll('.mobile-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        menuContainer.classList.remove('active');
-        document.body.style.overflow = '';
-      });
+menuButton.addEventListener('click', () => {
+  const isActive = menuContainer.classList.toggle('active');
+  menuButton.classList.toggle('active', isActive);
+  
+  // Controle overflow
+  document.body.style.overflow = isActive ? 'hidden' : '';
+
+  // Animação das letras do menu ao abrir
+  if (isActive) {
+    const spans = document.querySelectorAll('.mobile-menu a span');
+    spans.forEach((span, index) => {
+      span.style.animation = `letterReveal 0.8s cubic-bezier(0.2,0.6,0.3,1) forwards`;
+      span.style.animationDelay = `${0.1 + index * 0.03}s`;
+    });
+  } else {
+    // Ao fechar, reseta os spans
+    const spans = document.querySelectorAll('.mobile-menu a span');
+    spans.forEach(span => {
+      span.style.animation = 'none';
     });
   }
-}
+});
 
+// Fechar menu ao clicar em qualquer link
+document.querySelectorAll('.mobile-menu a').forEach(link => {
+  link.addEventListener('click', () => {
+    menuContainer.classList.remove('active');
+    menuButton.classList.remove('active');
+    document.body.style.overflow = '';
+    
+    // Reset das animações
+    const spans = document.querySelectorAll('.mobile-menu a span');
+    spans.forEach(span => {
+      span.style.animation = 'none';
+    });
+  });
+});
 
     // ==================== SCROLL E CARDS ====================
    function initScrollEffects() {
