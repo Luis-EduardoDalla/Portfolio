@@ -163,6 +163,7 @@
   pointer-events: none; /* Permite interação com os elementos abaixo */
 }
 
+
     nav a {
       text-decoration: none;
     }
@@ -176,7 +177,7 @@
       height: 54px;
       border-radius: 36px;
       border: 1px solid #1e1e1e;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 400;
       padding: 0 24px;
       display: flex;
@@ -325,7 +326,7 @@
     /* Título dentro do card */
     .card-title {
       font-family: 'Anton', sans-serif;
-      font-size: 1.2rem;
+      font-size: 14px;
       font-weight: 400;
       color: #ffffff;
     }
@@ -473,7 +474,7 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 
 .filter-text {
   font-family: 'B612 Mono', monospace;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 0.5px;
   color: #e8e8e8;
   text-align: center;
@@ -549,7 +550,7 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .filter-footer p {
-  font-size: 0.75rem;   /* pequeno */
+  font-size: 10px;   /* pequeno */
   font-weight: 400;
   color: #e8e8e8;          /* cor discreta */
   margin: 5px 0 0 0;    /* espaço acima */
@@ -642,6 +643,7 @@ transition: opacity 0.5s ease, transform 0.5s ease;
       nav {
         height: 60px;
         padding: 0 20px;
+        z-index: 1020;
       }
 
       .nav-buttons {
@@ -668,15 +670,53 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 
 
       
-       /* Menu Mobile Corrigido */
+
+
+
+
+
+
+
+/* Novo botão com borda fina */
+.mobile-menu-button {
+    display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 0.5px solid #1e1e1e;
+  border-radius: 20px;
+  background: transparent;
+  padding: 10px 25px;
+  cursor: pointer;
+  font-family: 'B612 Mono', monospace;
+  font-size: 12px;
+  color: #1e1e1e;
+  gap: 10px;
+  z-index: 1020; /* acima do menu */
+  position: fixed; /* mantém visível sobre o menu */
+  top: 20px;
+  right: 20px;
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+
+}
+
+/* Botão ativo (menu aberto) */
+.mobile-menu-button.active {
+  color: #ffffff;           /* cor do texto */
+  border-color: #ffffff;    /* cor da borda */
+  background: #1e1e1e; /* fundo semi-transparente */
+}
+
+
+
+      /* Menu Mobile Corrigido */
 .mobile-menu-toggle {
   display: flex !important;
   flex-direction: column;
   justify-content: space-between;
-  width: 50px;
-  height: 9px;
+  width: 10px;
+  height: 4px;
   position: relative;
-  z-index: 1001;
+  z-index: 1020;
   cursor: pointer;
   background: transparent;
   border: none;
@@ -687,11 +727,16 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 .mobile-menu-toggle span {
   display: block;
   width: 100%;
-  height: 2px;
+  height: 1px;
   background-color: #1e1e1e;
   position: relative;
-  transition: all 0.7s ease;
+  transition: all 0.3s ease;
 }
+
+.mobile-menu-button.active .mobile-menu-toggle span {
+  background-color: #e8e8e8; /* muda a cor para branco */
+}
+
 
 .mobile-menu-container {
   position: fixed;
@@ -700,7 +745,7 @@ transition: opacity 0.5s ease, transform 0.5s ease;
   width: 100%;
   height: 100vh;
   background-color: #e8e8e8;
-  z-index: 1010;
+  z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -723,7 +768,7 @@ transition: opacity 0.5s ease, transform 0.5s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 10px;
   width: 100%;
 }
 
@@ -806,6 +851,10 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 
 
 
+
+
+
+
 .title-container {
   height: 60px; /* Altura aumentada para evitar corte */
  
@@ -813,7 +862,7 @@ transition: opacity 0.5s ease, transform 0.5s ease;
  
       .title-section {
         padding: 0 20px 90px;
-        margin-top: -30px !important;
+        margin-top: -55px !important;
         flex-direction: column;
         align-items: flex-start;
         justify-content: space-between;
@@ -845,12 +894,12 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 
     
 
-.cards-container {
+   .cards-container {
         grid-template-columns: 1fr;
         width: 300px;
       }
       
-.card {
+   .card {
   width: 360px;
         height: 360px;
       }
@@ -871,6 +920,10 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 
 
 
+
+    .filter-card {
+  z-index: 999;
+}
 
 .filter-menu {
    min-width: 250px;
@@ -969,6 +1022,10 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 
     /* Garantir que o menu mobile não apareça em desktop */
     @media (min-width: 769px) {
+        .mobile-menu-button {
+    display: none !important;
+  }
+
       .mobile-menu-toggle {
         display: none !important;
       }
@@ -1013,11 +1070,14 @@ transition: opacity 0.5s ease, transform 0.5s ease;
       <a href="Contato.html" class="nav-button" style="width: 115px; opacity: 0.83;">Contato+</a>
       
       <!-- Menu Mobile - Atualizado -->
-      <button class="mobile-menu-toggle">
-        <span></span>
-        <span></span>
-      </button>
-    </nav>
+       <button class="mobile-menu-button">
+  <span>Menu</span>
+   <div class="mobile-menu-toggle">
+      <span></span>
+      <span></span>
+     </div>
+</button>
+  </nav>
     
    <!-- Menu Mobile Container -->
   <div class="mobile-menu-container">
@@ -1065,7 +1125,7 @@ transition: opacity 0.5s ease, transform 0.5s ease;
   <p class="card-subtitle"><span>(Branding, Art, UI/UX Design)</span></p>
 </div>
         <div class="card-overlay">
-          <h3 class="card-title">Projeto J-P</h3>
+          <h3 class="card-title">PROJETO J-P</h3>
         </div>
        
       </div>
@@ -1080,7 +1140,7 @@ transition: opacity 0.5s ease, transform 0.5s ease;
   <p class="card-subtitle"><span>(Art Design, UI/UX Design)</span></p>
 </div>
         <div class="card-overlay">
-          <h3 class="card-title">Projeto R-A</h3>
+          <h3 class="card-title">PROJETO R-A</h3>
         </div>
        
       </div>
@@ -1095,7 +1155,7 @@ transition: opacity 0.5s ease, transform 0.5s ease;
   <p class="card-subtitle"><span>(Design, UI/UX Design)</span></p>
 </div>
         <div class="card-overlay">
-          <h3 class="card-title">Projeto N-T</h3>
+          <h3 class="card-title">PROJETO N-T</h3>
         </div>
    
       </div>
@@ -1110,7 +1170,7 @@ transition: opacity 0.5s ease, transform 0.5s ease;
   <p class="card-subtitle"><span>(Media, UI/UX Design)</span></p>
 </div>
         <div class="card-overlay">
-          <h3 class="card-title">Projeto C-E</h3>
+          <h3 class="card-title">PROJETO C-E</h3>
         </div>
       
       </div>
@@ -1125,7 +1185,7 @@ transition: opacity 0.5s ease, transform 0.5s ease;
   <p class="card-subtitle"><span>(Art Design, UI/UX Design)</span></p>
 </div>
         <div class="card-overlay">
-          <h3 class="card-title">Projeto E-V</h3>
+          <h3 class="card-title">PROJETO E-V</h3>
         </div>
  
       </div>
@@ -1140,7 +1200,7 @@ transition: opacity 0.5s ease, transform 0.5s ease;
   <p class="card-subtitle"><span>(Art Design, UI/UX)</span></p>
 </div>
         <div class="card-overlay">
-          <h3 class="card-title">KSS D'Amico</h3>
+          <h3 class="card-title">KSS D'</h3>
         </div>
       
       </div>
@@ -1155,7 +1215,7 @@ transition: opacity 0.5s ease, transform 0.5s ease;
   <p class="card-subtitle"><span>(Art Design, UI/UX)</span></p>
 </div>
         <div class="card-overlay">
-          <h3 class="card-title">KSS D'Amico</h3>
+          <h3 class="card-title">KSS D'</h3>
         </div>
         
       </div>
@@ -1354,40 +1414,47 @@ function animateFooter() {
 }
 
 // ==================== EVENTOS ESTÁTICOS ====================
- function setupStaticEventListeners() {
-  const menuToggle = document.querySelector('.mobile-menu-toggle');
-  const menuContainer = document.querySelector('.mobile-menu-container');
-  
-  if (menuToggle && menuContainer) {
-    menuToggle.addEventListener('click', function() {
-      this.classList.toggle('active');
-      menuContainer.classList.toggle('active');
-      document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
-      
-      // Reset das animações quando o menu é fechado
-      if (!this.classList.contains('active')) {
-        const spans = document.querySelectorAll('.mobile-menu a span');
-        spans.forEach(span => {
-          span.style.animation = 'none';
-        });
-        
-        const links = document.querySelectorAll('.mobile-menu a');
-        links.forEach(link => {
-          link.style.opacity = '0';
-          link.style.transform = 'translateY(30px)';
-          link.style.transition = 'none';
-        });
-      }
-    });
+  const menuButton = document.querySelector('.mobile-menu-button');
+const menuToggle = document.querySelector('.mobile-menu-toggle');
+const menuContainer = document.querySelector('.mobile-menu-container');
 
-    document.querySelectorAll('.mobile-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        menuContainer.classList.remove('active');
-        document.body.style.overflow = '';
-      });
+menuButton.addEventListener('click', () => {
+  const isActive = menuContainer.classList.toggle('active');
+  menuButton.classList.toggle('active', isActive);
+  
+  // Controle overflow
+  document.body.style.overflow = isActive ? 'hidden' : '';
+
+  // Animação das letras do menu ao abrir
+  if (isActive) {
+    const spans = document.querySelectorAll('.mobile-menu a span');
+    spans.forEach((span, index) => {
+      span.style.animation = `letterReveal 0.8s cubic-bezier(0.2,0.6,0.3,1) forwards`;
+      span.style.animationDelay = `${0.1 + index * 0.03}s`;
+    });
+  } else {
+    // Ao fechar, reseta os spans
+    const spans = document.querySelectorAll('.mobile-menu a span');
+    spans.forEach(span => {
+      span.style.animation = 'none';
     });
   }
+});
+
+// Fechar menu ao clicar em qualquer link
+document.querySelectorAll('.mobile-menu a').forEach(link => {
+  link.addEventListener('click', () => {
+    menuContainer.classList.remove('active');
+    menuButton.classList.remove('active');
+    document.body.style.overflow = '';
+    
+    // Reset das animações
+    const spans = document.querySelectorAll('.mobile-menu a span');
+    spans.forEach(span => {
+      span.style.animation = 'none';
+    });
+  });
+});
 
 
 
@@ -1494,7 +1561,7 @@ function animateFooter() {
 
     smoothScroll.init();
   }
-}
+
 
 
 // === PARALLAX VIDEOS/IMAGENS ===
