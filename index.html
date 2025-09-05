@@ -1127,7 +1127,8 @@ menuButton.addEventListener('click', () => {
   if (isActive) {
     const spans = document.querySelectorAll('.mobile-menu a span');
     spans.forEach((span, index) => {
-      span.style.animationDelay = `${0.1 + index * 0.03}s`;
+       span.style.animation = `letterReveal 2.5s cubic-bezier(0.2,0.6,0.3,1) forwards`;
+       span.style.animationDelay = `0s`;
     });
   } else {
     // Ao fechar, reseta os spans
