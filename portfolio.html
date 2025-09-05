@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfólio Geral</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="INICIO/LOGO.png">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Anton&family=B612+Mono:wght@400;700&family=Poppins:wght@700&display=swap');
     
@@ -399,27 +400,25 @@ transition: opacity 0.5s ease, transform 0.5s ease;
     bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(190, 190, 190, 0.528);
-  
+    background: rgba(86, 86, 86, 0.528);
     backdrop-filter: saturate(180%) blur(10px);
     border-radius: 150px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    padding: 12px 16px;
+    padding: 15px 16px;
     cursor: pointer;
     z-index: 1000;
     display: flex;
     align-items: center;
     gap: 8px;
-    width: 300px;
+    width: 160px;
     user-select: none;
-    transition: width 0.7s ease, border-radius 0.7s ease, padding 0.3s ease;
+    transition: width 0.7s ease, border-radius 1.3s ease, padding 0.3s ease;
 }
 
 .filter-card.active {
     width: 35px; /* círculo quase perfeito pra burger */
     border-radius: 10%;
     padding: 8px;
-    transition: width 0.7s ease, border-radius 0.7s ease, padding 0.3s ease;
+    transition: width 1.3s ease, border-radius 1.3s ease, padding 0.3s ease;
   }
 
 .burger {
@@ -473,9 +472,11 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .filter-text {
+  font-family: 'B612 Mono', monospace;
   font-size: 13px;
   letter-spacing: 0.5px;
   color: #e8e8e8;
+  text-align: center;
 }
 
 /* Esconder texto quando ativo */
@@ -489,24 +490,27 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 /* Menu suspenso */
 .filter-menu {
   position: fixed;
-    bottom: 85px; /* acima do card */
+    bottom: 110px; /* acima do card */
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(190, 190, 190, 0.528);
+    background: rgba(86, 86, 86, 0.528);
     backdrop-filter: saturate(180%) blur(12px);
-    border-radius: 5px;
+    border-radius: 26px;
     padding: 12px 0;
-    opacity: 0;
+    opacity: 1;
     pointer-events: none;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
     z-index: 999;
-    min-width: 300px !important;
-    max-width: none !important;
+    min-width: 450px;
+    height: 350px;
     user-select: none;
+     clip-path: inset(100% 0 0 0); /* começa escondido (100% de baixo) */
+  transition: clip-path 0.5s ease;
 }
 
 .filter-menu.active {
+  opacity: 1;
   pointer-events: auto;
+  clip-path: inset(0 0 0 0); /* revela totalmente */
 }
 
 .filter-menu ul {
@@ -517,13 +521,18 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .filter-menu li {
-  padding: 8px 20px;
-  margin-right: 12px;
-  margin-left: 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s;
+  font-family: 'Anton', sans-serif;
+  font-size: 3rem;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+  text-transform: uppercase; /* opcional */
+  text-align: center;
   color: #e8e8e8;
+  padding: 5px 20px;
+  margin: 5px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .filter-menu li:hover {
@@ -531,11 +540,36 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 
-    /* Footer */
+.filter-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.2); /* linha fina */
+  padding: 10px 20px;
+  margin: 0 20px;
+  text-align: center;
+  margin-top: 7.2rem; /* joga o footer para a base */
+}
+
+.filter-footer p {
+  font-size: 0.75rem;   /* pequeno */
+  font-weight: 400;
+  color: #e8e8e8;          /* cor discreta */
+  margin: 5px 0 0 0;    /* espaço acima */
+  letter-spacing: 0.3px;
+}
+
+
+
+
+
+
+  
+
+
+
+/* Footer */
     footer {
       width: 100%;
        padding: 15px 0 !important; 
-  margin-top: 60px !important;
+       margin-top: 60px !important;
       border-top: 1px solid rgba(0, 0, 0, 0.1);
       opacity: 0;
       animation: fadeIn 1s ease forwards 1.3s;
@@ -772,7 +806,11 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 
 
 
-
+.title-container {
+  height: 60px; /* Altura aumentada para evitar corte */
+ 
+}
+ 
       .title-section {
         padding: 0 20px 90px;
         margin-top: -30px !important;
@@ -830,6 +868,21 @@ transition: opacity 0.5s ease, transform 0.5s ease;
       height: 100%;
      
     }
+
+
+
+
+.filter-menu {
+   min-width: 250px;
+}
+
+.filter-menu li {
+  text-align: center;
+  font-size: 3rem;
+}
+
+
+
 
 
       footer {
@@ -1125,8 +1178,16 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 <div class="filter-menu" id="filterMenu">
   <ul>
     <li><a href="portfolio.html" style="text-decoration: none; color: inherit;">SITES</a></li>
-    <li><a href="designs.html" style="text-decoration: none; color: inherit;">DESIGNS</a></li>
+    <li>
+  <a href="designs.html" style="text-decoration: none; color: inherit;">
+    DESIGNS <span style="font-size: 0.4em; color: #c0c0c0; position: relative; top: -1.5em;">(18)</span>
+  </a>
+</li>
   </ul>
+   <!-- Rodapé do card -->
+  <div class="filter-footer">
+    <p>© 2025 Eduardo Dalla</p>
+  </div>
 </div>
  
     <!-- Footer -->
