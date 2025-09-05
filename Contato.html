@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eduardo Dalla Valle - Contato</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="INICIO/LOGO.png">
   <style>
 /* Matrix Loader Styles */
     @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
@@ -358,9 +359,9 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 2px;
+  height: 1.8px;
   background-color: #1e1e1e;
-  transform: scaleX(0);
+  transform: scaleX(1);
   transform-origin: right;
   transition: transform 0.6s ease;
 }
@@ -370,7 +371,7 @@
 }
 
 .social-link:hover::before {
-  transform: scaleX(1);
+  transform: scaleX(0);
   transform-origin: left;
 }
 
@@ -635,28 +636,59 @@
     left: auto;
     transform: none;
     width: 100%;
-    padding: 20px;
+   
     margin-top: 1vh; /* Ajuste este valor para mover o conteúdo mais para baixo */
     text-align: center;
       }
 
+   
+
+
+ .title-container {
+  margin-bottom: 0;
+   height: 50px;
+ }
+
+
       .title {
-        font-size: 48px;
+        font-size: 48px; /* 64px - tamanho aumentado */
         line-height: 1;
+        font-weight: 800;
       }
+
 
       .subtitle {
         font-size: 14px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+
       }
 
       .contact-item {
-        font-size: 16px;
+        font-size: 14px;
       }
 
       .social-links {
         flex-direction: column;
         gap: 15px;
       }
+
+   
+.social-link::before {
+  content: '';
+  width: 0%;
+}
+
+.social-link:hover {
+  color: #6e6d6de8;
+}
+
+.social-link:hover::before {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+
 
       footer {
         padding: 15px;
@@ -665,9 +697,7 @@
 
     /* Ajustes para telas muito pequenas */
     @media (max-width: 480px) {
-      .title {
-        font-size: 36px;
-      }
+   
 
       .nav-buttons {
         gap: 6px;
@@ -778,7 +808,7 @@
   <span>D</span><span>A</span><span>L</span><span>L</span><span>A</span>
 </h1>
 </div>
-      <h2 class="subtitle">ENTRE-EM-CONTATO</h2>
+      <h2 class="subtitle">ENTRE EM CONTATO</h2>
       
       <div class="contact-info">
         <div class="contact-item">(46) 99120-7326</div>
