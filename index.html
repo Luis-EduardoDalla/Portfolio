@@ -1113,7 +1113,6 @@ function initMagneticButton() {
 
 
 const menuButton = document.querySelector('.mobile-menu-button');
-const menuToggle = document.querySelector('.mobile-menu-toggle');
 const menuContainer = document.querySelector('.mobile-menu-container');
 
 menuButton.addEventListener('click', () => {
@@ -1123,18 +1122,32 @@ menuButton.addEventListener('click', () => {
   // Controle overflow
   document.body.style.overflow = isActive ? 'hidden' : '';
 
-  // Animação das letras do menu ao abrir
+  const allLinks = document.querySelectorAll('.mobile-menu a');
+
   if (isActive) {
-    const spans = document.querySelectorAll('.mobile-menu a span');
-    spans.forEach((span, index) => {
-       span.style.animation = `letterReveal 0s cubic-bezier(0.2,0.6,0.3,1) forwards`;
-       span.style.animationDelay = `0s`;
+    // Para cada link, anima letra por letra de baixo para cima
+    allLinks.forEach((link, linkIndex) => {
+      const letters = link.querySelectorAll('span');
+      letters.forEach((letter, letterIndex) => {
+        gsap.fromTo(letter, 
+          { y: '100%', opacity: 0 }, 
+          { 
+            y: '0%', 
+            opacity: 1, 
+            duration: 0.6, 
+            ease: 'power2.out', 
+            delay: 0.1 + linkIndex * 0.15 + letterIndex * 0.05 
+          }
+        );
+      });
     });
   } else {
-    // Ao fechar, reseta os spans
-    const spans = document.querySelectorAll('.mobile-menu a span');
-    spans.forEach(span => {
-      span.style.animation = 'none';
+    // Resetar letras ao fechar
+    allLinks.forEach(link => {
+      const letters = link.querySelectorAll('span');
+      letters.forEach(letter => {
+        gsap.set(letter, { y: '100%', opacity: 0 });
+      });
     });
   }
 });
@@ -1145,15 +1158,14 @@ document.querySelectorAll('.mobile-menu a').forEach(link => {
     menuContainer.classList.remove('active');
     menuButton.classList.remove('active');
     document.body.style.overflow = '';
-    
-    // Reset das animações
-    const spans = document.querySelectorAll('.mobile-menu a span');
-    spans.forEach(span => {
-      span.style.animation = 'none';
+
+    // Resetar animação das letras
+    const letters = link.querySelectorAll('span');
+    letters.forEach(letter => {
+      gsap.set(letter, { y: '100%', opacity: 0 });
     });
   });
 });
-
 
 
 function initSmoothScroll() {
