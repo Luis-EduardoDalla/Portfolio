@@ -159,20 +159,6 @@
       background-color: transparent;
     }
 
-    nav::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 75px; /* Altura do gradiente (ajuste conforme necessário) */
-  background: linear-gradient(
-    to bottom,
-    rgba(253, 253, 253, 0.819) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  pointer-events: none; /* Permite interação com os elementos abaixo */
-}
 
 
 
@@ -491,7 +477,6 @@
 
 
 
-
 /* Novo botão com borda fina */
 .mobile-menu-button {
     display: flex;
@@ -516,14 +501,15 @@
 
 /* Botão ativo (menu aberto) */
 .mobile-menu-button.active {
-  color: #ffffff;           /* cor do texto */
-  border-color: #ffffff;    /* cor da borda */
-  background: #1e1e1e; /* fundo semi-transparente */
+  color: #1e1e1e;           /* cor do texto */
+  border-color: #1e1e1e;    /* cor da borda */
+  background: #e8e8e8; /* fundo semi-transparente */
 }
 
 
-
-      /* Menu Mobile Corrigido */
+      
+     
+    /* Menu Mobile Corrigido */
 .mobile-menu-toggle {
   display: flex !important;
   flex-direction: column;
@@ -549,7 +535,7 @@
 }
 
 .mobile-menu-button.active .mobile-menu-toggle span {
-  background-color: #e8e8e8; /* muda a cor para branco */
+  background-color: #1e1e1e; /* muda a cor para branco */
 }
 
 
@@ -559,7 +545,7 @@
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: #e8e8e8;
+  background-color: #1e1e1e;
   z-index: 1000;
   display: flex;
   justify-content: center;
@@ -590,13 +576,13 @@
 .mobile-menu a {
   display: block;
   position: relative;
-  color: #1e1e1e;
+  color: #e8e8e8;
   text-decoration: none;
   font-family: 'Anton', sans-serif;
   font-size: 3.5rem;
   line-height: 0.9;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: -1.9px;
   padding: 2px 0;
   width: 100%;
   text-align: center;
@@ -760,16 +746,6 @@
       .social-link {
         font-size: 14px;
       }
-
-      .mobile-menu a {
-        font-size: 2.5rem;
-        letter-spacing: 1px;
-      }
-
-      .mobile-menu a::after {
-        bottom: 5px;
-        height: 1.5px;
-    }
 }
 
     /* Garantir que o menu mobile não apareça em desktop */
@@ -1011,8 +987,7 @@ function initLetterAnimation() {
 
 
     // ==================== CONFIGURAÇÃO DE EVENTOS ESTÁTICOS ====================
-   const menuButton = document.querySelector('.mobile-menu-button');
-const menuToggle = document.querySelector('.mobile-menu-toggle');
+  const menuButton = document.querySelector('.mobile-menu-button');
 const menuContainer = document.querySelector('.mobile-menu-container');
 
 menuButton.addEventListener('click', () => {
@@ -1022,18 +997,32 @@ menuButton.addEventListener('click', () => {
   // Controle overflow
   document.body.style.overflow = isActive ? 'hidden' : '';
 
-  // Animação das letras do menu ao abrir
+  const allLinks = document.querySelectorAll('.mobile-menu a');
+
   if (isActive) {
-    const spans = document.querySelectorAll('.mobile-menu a span');
-    spans.forEach((span, index) => {
-     span.style.animation = `letterReveal 0s cubic-bezier(0.2,0.6,0.3,1) forwards`;
-       span.style.animationDelay = `0s`;
+    // Para cada link, anima letra por letra de baixo para cima
+    allLinks.forEach((link, linkIndex) => {
+      const letters = link.querySelectorAll('span');
+      letters.forEach((letter, letterIndex) => {
+        gsap.fromTo(letter, 
+          { y: '100%', opacity: 0 }, 
+          { 
+            y: '0%', 
+            opacity: 1, 
+            duration: 0.6, 
+            ease: 'power2.out', 
+            delay: 0.1 + linkIndex * 0.15 + letterIndex * 0.05 
+          }
+        );
+      });
     });
   } else {
-    // Ao fechar, reseta os spans
-    const spans = document.querySelectorAll('.mobile-menu a span');
-    spans.forEach(span => {
-      span.style.animation = 'none';
+    // Resetar letras ao fechar
+    allLinks.forEach(link => {
+      const letters = link.querySelectorAll('span');
+      letters.forEach(letter => {
+        gsap.set(letter, { y: '100%', opacity: 0 });
+      });
     });
   }
 });
@@ -1044,14 +1033,16 @@ document.querySelectorAll('.mobile-menu a').forEach(link => {
     menuContainer.classList.remove('active');
     menuButton.classList.remove('active');
     document.body.style.overflow = '';
-    
-    // Reset das animações
-    const spans = document.querySelectorAll('.mobile-menu a span');
-    spans.forEach(span => {
-      span.style.animation = 'none';
+
+    // Resetar animação das letras
+    const letters = link.querySelectorAll('span');
+    letters.forEach(letter => {
+      gsap.set(letter, { y: '100%', opacity: 0 });
     });
   });
 });
+
+
 
     // ==================== SCROLL SUAVE ====================
     function initSmoothScroll() {
