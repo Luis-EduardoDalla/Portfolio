@@ -164,21 +164,6 @@
       background-color: transparent;
     }
 
-    nav::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 75px;
-      background: linear-gradient(
-        to bottom,
-        rgba(253, 253, 253, 0.819) 0%,
-        rgba(255, 255, 255, 0) 100%
-      );
-      pointer-events: none;
-    }
-
 
     nav a {
       text-decoration: none;
@@ -328,10 +313,6 @@
 display: block; 
     }
 
-    
-
-  
-
     /* Remove linhas e rows antigas */
     .card-row {
       display: none;
@@ -340,13 +321,19 @@ display: block;
 
 
     
-    /* Card fixo com burger */
+
+
+
+
+
+
+   /* Card fixo com burger */
 .filter-card {
   position: fixed;
     bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(86, 86, 86, 0.528);
+    background: rgba(36, 36, 36, 0.528);
     backdrop-filter: saturate(180%) blur(10px);
     border-radius: 150px;
     padding: 15px 16px;
@@ -439,15 +426,15 @@ display: block;
     bottom: 110px; /* acima do card */
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(86, 86, 86, 0.528);
+    background: rgba(36, 36, 36, 0.528);
     backdrop-filter: saturate(180%) blur(12px);
     border-radius: 26px;
     padding: 12px 0;
     opacity: 1;
     pointer-events: none;
     z-index: 999;
-    min-width: 450px ;
-    height: 350px;
+    min-width: 450px;
+    height: 110px;
     user-select: none;
      clip-path: inset(100% 0 0 0); /* começa escondido (100% de baixo) */
   transition: clip-path 0.5s ease;
@@ -464,25 +451,31 @@ display: block;
   margin: 0;
   padding: 0;
   text-decoration: none;
+  display: flex;
+  justify-content: center; /* centraliza no meio */
+  flex-wrap: wrap; /* quebra linha se não couber */
+  gap: 20px; 
 }
 
 .filter-menu li {
-  font-family: 'Anton', sans-serif;
-  font-size: 3rem;
+  font-family: 'B612 Mono', monospace;
+  font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.2px;
   text-transform: uppercase; /* opcional */
   text-align: center;
   color: #e8e8e8;
   padding: 5px 20px;
-  margin: 5px 20px;
+  margin: 5px 0;
+  margin-top: 15px;
   border-radius: 25px;
+  border: 1px solid #e8e8e8;
   cursor: pointer;
   transition: background 0.3s ease, color 0.3s ease;
 }
 
 .filter-menu li:hover {
-  background: rgba(77, 77, 77, 0.429);  
+  background: rgba(152, 152, 152, 0.429);
 }
 
 
@@ -491,7 +484,7 @@ display: block;
   padding: 10px 20px;
   margin: 0 20px;
   text-align: center;
-  margin-top: 7.2rem; /* joga o footer para a base */
+  margin-top: 0.5rem; /* joga o footer para a base */
 }
 
 .filter-footer p {
@@ -615,6 +608,9 @@ display: block;
 
 
 
+
+
+
 /* Novo botão com borda fina */
 .mobile-menu-button {
     display: flex;
@@ -639,14 +635,15 @@ display: block;
 
 /* Botão ativo (menu aberto) */
 .mobile-menu-button.active {
-  color: #ffffff;           /* cor do texto */
-  border-color: #ffffff;    /* cor da borda */
-  background: #1e1e1e; /* fundo semi-transparente */
+  color: #1e1e1e;           /* cor do texto */
+  border-color: #1e1e1e;    /* cor da borda */
+  background: #e8e8e8; /* fundo semi-transparente */
 }
 
 
-
-      /* Menu Mobile Corrigido */
+      
+     
+    /* Menu Mobile Corrigido */
 .mobile-menu-toggle {
   display: flex !important;
   flex-direction: column;
@@ -672,7 +669,7 @@ display: block;
 }
 
 .mobile-menu-button.active .mobile-menu-toggle span {
-  background-color: #e8e8e8; /* muda a cor para branco */
+  background-color: #1e1e1e; /* muda a cor para branco */
 }
 
 
@@ -682,7 +679,7 @@ display: block;
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: #e8e8e8;
+  background-color: #1e1e1e;
   z-index: 1000;
   display: flex;
   justify-content: center;
@@ -713,13 +710,13 @@ display: block;
 .mobile-menu a {
   display: block;
   position: relative;
-  color: #1e1e1e;
+  color: #e8e8e8;
   text-decoration: none;
   font-family: 'Anton', sans-serif;
   font-size: 3.5rem;
   line-height: 0.9;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: -1.9px;
   padding: 2px 0;
   width: 100%;
   text-align: center;
@@ -920,17 +917,33 @@ display: block;
 
 
 
-.filter-card {
+
+
+
+
+
+.filter-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  display: flex;
+  justify-content: center; /* centraliza no meio */
+  flex-wrap: wrap; /* quebra linha se não couber */
+  gap: 10px; 
+}
+
+    .filter-card {
   z-index: 999;
 }
 
 .filter-menu {
-   min-width: 250px;
+   min-width: 280px;
 }
 
 .filter-menu li {
   text-align: center;
-  font-size: 3rem;
+  font-size: 14px;
 }
 
 
@@ -970,16 +983,6 @@ display: block;
 
       .card-subtitle {
         font-size: 14px;
-      }
-
-      .mobile-menu a {
-        font-size: 2.5rem;
-        letter-spacing: 1px;
-      }
-
-      .mobile-menu a::after {
-        bottom: 5px;
-        height: 1.5px;
       }
 
       .card-number {
@@ -1284,7 +1287,7 @@ display: block;
           <li><a href="portfolio.html" style="text-decoration: none; color: inherit;">SITES</a></li>
       <li>
   <a href="designs.html" style="text-decoration: none; color: inherit;">
-    DESIGNS <span style="font-size: 0.4em; color: #c0c0c0; position: relative; top: -1.5em;">(18)</span>
+    DESIGNS <span style="font-size: 0.7em; color: #e8e8e8; position: relative; top: -0.5em;">(18)</span>
   </a>
 </li>
         </ul>
@@ -1436,8 +1439,7 @@ function initLetterAnimation() {
 }
 
     // ==================== CONFIGURAÇÃO DE EVENTOS ESTÁTICOS ====================
-    const menuButton = document.querySelector('.mobile-menu-button');
-const menuToggle = document.querySelector('.mobile-menu-toggle');
+   const menuButton = document.querySelector('.mobile-menu-button');
 const menuContainer = document.querySelector('.mobile-menu-container');
 
 menuButton.addEventListener('click', () => {
@@ -1447,18 +1449,32 @@ menuButton.addEventListener('click', () => {
   // Controle overflow
   document.body.style.overflow = isActive ? 'hidden' : '';
 
-  // Animação das letras do menu ao abrir
+  const allLinks = document.querySelectorAll('.mobile-menu a');
+
   if (isActive) {
-    const spans = document.querySelectorAll('.mobile-menu a span');
-    spans.forEach((span, index) => {
-     span.style.animation = `letterReveal 0s cubic-bezier(0.2,0.6,0.3,1) forwards`;
-       span.style.animationDelay = `0s`;
+    // Para cada link, anima letra por letra de baixo para cima
+    allLinks.forEach((link, linkIndex) => {
+      const letters = link.querySelectorAll('span');
+      letters.forEach((letter, letterIndex) => {
+        gsap.fromTo(letter, 
+          { y: '100%', opacity: 0 }, 
+          { 
+            y: '0%', 
+            opacity: 1, 
+            duration: 0.6, 
+            ease: 'power2.out', 
+            delay: 0.1 + linkIndex * 0.15 + letterIndex * 0.05 
+          }
+        );
+      });
     });
   } else {
-    // Ao fechar, reseta os spans
-    const spans = document.querySelectorAll('.mobile-menu a span');
-    spans.forEach(span => {
-      span.style.animation = 'none';
+    // Resetar letras ao fechar
+    allLinks.forEach(link => {
+      const letters = link.querySelectorAll('span');
+      letters.forEach(letter => {
+        gsap.set(letter, { y: '100%', opacity: 0 });
+      });
     });
   }
 });
@@ -1469,14 +1485,17 @@ document.querySelectorAll('.mobile-menu a').forEach(link => {
     menuContainer.classList.remove('active');
     menuButton.classList.remove('active');
     document.body.style.overflow = '';
-    
-    // Reset das animações
-    const spans = document.querySelectorAll('.mobile-menu a span');
-    spans.forEach(span => {
-      span.style.animation = 'none';
+
+    // Resetar animação das letras
+    const letters = link.querySelectorAll('span');
+    letters.forEach(letter => {
+      gsap.set(letter, { y: '100%', opacity: 0 });
     });
   });
 });
+
+
+
 
     // ==================== SCROLL E CARDS ====================
    function initScrollEffects() {
