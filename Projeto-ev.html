@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalhes do Projeto</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="INICIO/LOGO.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Anton&family=B612+Mono:wght@400;700&family=Poppins:wght@700&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    
+    body {
+      font-family: 'B612 Mono', monospace;
+      background-color: #e8e8e8;
+      color: #e8e8e8;
+      overflow-x: hidden;
+      padding-bottom: 0;
+    }
+    
+    /* Background */
+    .background-pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(0deg, rgba(232,232,232,1) 0%, rgba(232,232,232,1) 100%),
+        linear-gradient(0deg, rgba(30,30,30,1) 0%, rgba(30,30,30,1) 100%);
+      z-index: -2;
+    }
+    
+    .background-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://c.animaapp.com/qEWoqghI/img/image.png');
+      background-size: cover;
+      mix-blend-mode: luminosity;
+      opacity: 0.1;
+      z-index: -1;
+    }
+
+    .background-image-new {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('SOBRE/foto2.png');
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+      
+    }
+    
+    /* Main Layout */
+    .page-wrapper {
+      padding-top: 108px; /* Space for fixed nav */
+    }
+
+    /* ===== LOADER STYLES ===== */
+.matrix-loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #e8e8e8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.matrix-loader-container.loaded {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ai-matrix-loader {
+  width: 180px;
+  height: 160px;
+  margin: 30px auto;
+  position: relative;
+  perspective: 800px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.digit {
+  color: #1e1e1e;
+  font-family: 'Anton', sans-serif;
+  font-size: 18px;
+  text-align: center;
+  animation: 
+    matrix-fall 2s infinite,
+    matrix-flicker 0.5s infinite;
+  opacity: 0;
+}
+
+.digit:nth-child(1) { animation-delay: 0.1s; }
+.digit:nth-child(2) { animation-delay: 0.3s; }
+.digit:nth-child(3) { animation-delay: 0.5s; }
+.digit:nth-child(4) { animation-delay: 0.7s; }
+.digit:nth-child(5) { animation-delay: 0.9s; }
+.digit:nth-child(6) { animation-delay: 1.1s; }
+.digit:nth-child(7) { animation-delay: 1.3s; }
+.digit:nth-child(8) { animation-delay: 1.5s; }
+.digit:nth-child(9) { animation-delay: 1.7s; }
+
+@keyframes matrix-fall {
+  0% { transform: translateY(-50px) rotateX(90deg); opacity: 0; }
+  20%, 80% { transform: translateY(0) rotateX(0deg); opacity: 0.8; }
+  100% { transform: translateY(50px) rotateX(-90deg); opacity: 0; }
+}
+
+@keyframes matrix-flicker {
+  0%, 19%, 21%, 100% { opacity: 0.8; }
+  20% { opacity: 0.2; }
+}
+    
+    /* Navigation (fixed) */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 110px;
+      padding: 0 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background-color: transparent;
+    }
+
+
+    nav a {
+      text-decoration: none;
+    }
+    
+    .nav-buttons {
+      display: flex;
+      gap: 35px;
+    }
+    
+    .nav-button {
+      height: 54px;
+      border-radius: 36px;
+      border: 0.5px solid #e8e8e8;
+      font-size: 12px;
+      font-weight: 400;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: transparent;
+      color: #e8e8e8;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUpQuick 1900ms cubic-bezier(0.4, 0.2, 0.2, 1) forwards;
+
+      transition: background 0.3s ease, color 0.3s ease, opacity 1s ease, transform 1s ease;
+    }
+    
+    .nav-button:nth-child(1) { animation-delay: 0.1s; }
+    .nav-button:nth-child(2) { animation-delay: 0.2s; }
+    .nav-button:nth-child(3) { animation-delay: 0.3s; }
+    .nav-button:nth-child(4) { animation-delay: 0.4s; }
+    
+    .nav-button.active {
+      background: #e8e8e8;
+      color: #1e1e1e;
+      width: 121px;
+    }
+    
+    .nav-button:hover {
+      background: #e8e8e8;
+      color: #1e1e1e;
+    }
+
+    /* Animação Quick para os botões */
+    @keyframes fadeInUpQuick {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+.title-container {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  overflow: hidden;
+  height: 110px; /* Altura aumentada para evitar corte */
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: -25px;
+}
+
+    /* Title Section (normal flow) */
+    .title-section {
+      padding: 0px 30px 150px;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .page-title {
+      font-family: 'Anton', sans-serif;
+      font-size: 88px;
+      line-height: 0.9;
+      color: #e8e8e8;
+      text-transform: uppercase;
+      margin: 0;
+      transition: all 2.5s ease-out;
+       padding-top: 15px;
+    }
+    
+    .page-title span {
+  display: inline-block;
+  transform: translateY(100px);
+  opacity: 0;
+}
+    
+ 
+    
+   
+
+
+.page-wrapper {
+      padding: 120px 0px 0px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    /* NOVA ESTRUTURA PARA PÁGINA DE PROJETO - 30%/70% */
+    .project-container {
+      display: flex;
+      padding: 0 30px;
+      margin-bottom: 100px;
+    }
+
+    .project-info {
+      width: 30%; /* Alterado de 20% para 30% */
+      position: sticky;
+      top: 150px;
+      height: fit-content;
+      padding-right: 50px;
+      align-self: flex-start;
+    }
+
+    .project-info h2 {
+      font-family:'Poppins', sans-serif;
+      font-size: 14px;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      font-weight: 800;
+    }
+
+    .website-link {
+      font-family: 'Poppins', sans-serif;
+      display: inline-block;
+      color: #e8e8e8;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+      padding-bottom: 4px;
+      position: relative;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .website-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 1px;
+      width: 100%;
+      height: 0.5px;
+      background: #e8e8e8;
+      transform: scaleX(1);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .website-link:hover::after {
+      transform: scaleX(0);
+      transform-origin: right;
+    }
+
+    .project-detail {
+       font-family:'B612 Mono', monospace;
+       font-weight: 300;
+      font-size: 12px;
+      line-height: 1;
+      text-transform: uppercase;
+      margin-bottom: 170px;
+      color: #e8e8e8;
+    }
+
+
+    .project-detail.highlight {
+      font-weight: 700;
+      margin-top: 20px;
+      margin-bottom: 5px;
+      color: #7b7b7b;
+    }
+
+    .project-description {
+      font-family:  'B612 Mono', monospace;
+      font-size: 10px;
+      line-height: 1.2;
+      text-transform: uppercase;
+      margin: 0 0;
+      padding: 0 0;
+      margin-bottom: 50px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0px;
+      margin-top: 35px;
+    }
+
+    .info-section {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-title {
+      font-family: 'Poppins', sans-serif;
+       font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+      color: #e8e8e8;
+      padding-bottom: 10px;
+     border-bottom: solid 0.5px #e8e8e832;
+    }
+
+    .info-items {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .info-item {
+      font-size: 10px;
+      color: #e8e8e8;
+      position: relative;
+      text-transform: uppercase;
+    }
+
+
+   
+
+
+    .project-content {
+      width: 70%; /* Alterado de 80% para 70% */
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+    }
+
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      background: #1e1e1e;
+    }
+
+    .project-card.video-card {
+      grid-column: 1 / -1;
+      height: 500px;
+    }
+
+    .project-card.image-card {
+      height: 350px;
+      overflow: hidden;
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+        transform: scale(1.3); /* aumenta 10% já no estado normal */
+      transition: transform 0.5s ease;
+    }
+
+    .project-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .project-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .next-project {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 128px;
+    }
+
+    .next-project h2 {
+      font-family: 'Poppins', sans-serif;
+       font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: -0.6px;
+      margin-bottom: 15px;
+    }
+
+    .next-project p {
+      font-size: 14px;
+      margin-bottom: 30px;
+      max-width: 430px;
+      text-transform: uppercase;
+    }
+
+    .next-project a {
+      color: #e8e8e8;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 400;
+      position: relative;
+      padding-bottom: 7px;
+      text-transform: uppercase;
+      letter-spacing: -0.6px;
+    }
+
+    .next-project a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 100%;
+      height: 0.5px;
+      background: #e8e8e8;
+      transform: scaleX(1);
+      transform-origin: left;
+      transition: transform 0.7s ease;
+    }
+
+    .next-project a:hover::after {
+      transform: scaleX(0);
+      transform-origin: right;
+    }
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+.footer-briefing {
+  width: 100%;
+  height: auto;
+  min-height: 30vh;
+  background-color: #ffffffb0;
+  padding: 60px 30px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: row;
+  overflow: hidden;
+  z-index: 1000;
+  text-transform: uppercase;
+}
+
+
+.footer-briefing .layout {
+  width: 100%;
+}
+
+.footer-briefing .left-col {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.footer-briefing .footer-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 88px;
+  line-height: 1;
+  color: #1e1e1e;
+  margin-bottom: 20px;
+  min-width: 900px;
+  text-align: left;
+}
+
+.footer-briefing .title-link {
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+
+
+.footer-briefing .availability {
+ font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  letter-spacing: -0.6px;
+  color: #1e1e1e;
+  font-weight: 700;
+  padding-right: 20px;
+}
+
+
+/* círculo pulsante */
+.availability::after {
+  content: "";
+  position: absolute;
+  right: 5px;
+  top: 48%;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 7px;
+  background-color: #4CAF50; /* verde "disponível" */
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+/* animação do pulso */
+@keyframes pulse {
+  0% {
+    transform: translateY(-50%) scale(0.9);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-50%) scale(1.3);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50%) scale(0.9);
+    opacity: 0.7;
+  }
+}
+
+.footer-briefing .description {
+  font-size: 12px;
+  line-height: 1;
+  color: #1e1e1e;
+  max-width: 400px;
+  text-align: left;
+  margin-top: -10px;
+}
+
+.footer-briefing .briefing {
+  font-size: 12px;
+  color: #1e1e1e;
+  text-decoration: none;
+  margin-top: 20px;
+  display: inline-block;
+  position: relative;
+  margin-right: 73rem;
+  min-width: 130px;
+  text-align: left;
+}
+
+
+
+.footer-briefing .social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 0;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-top: -7rem;
+}
+
+.footer-briefing .social-links a {
+  font-size: 12px;
+  color: #1e1e1e;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+
+
+
+
+/* Hover para o link do título */
+.footer-briefing .title-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #1e1e1e;
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 0.7s ease;
+  will-change: transform;
+}
+
+.footer-briefing .title-link:hover::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+/* Hover para o link "briefing" */
+.footer-briefing .briefing::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: #1e1e1e;
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 0.7s ease;
+  will-change: transform;
+}
+
+.footer-briefing .briefing:hover::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+/* Hover para os links sociais */
+.footer-briefing .social-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0.5px;
+  background: #1e1e1e;
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 0.7s ease;
+  will-change: transform;
+}
+
+.footer-briefing .social-links a:hover::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+/* Estado inicial para animação */
+.footer-briefing .footer-title,
+.footer-briefing .availability,
+.footer-briefing .description,
+.footer-briefing .briefing,
+.footer-briefing .social-links a {
+  -webkit-clip-path: inset(0 0 100% 0);
+  clip-path: inset(0 0 100% 0);
+  transform: translateY(40px);
+  opacity: 0;
+  will-change: transform, clip-path, opacity;
+}
+
+
+
+
+
+
+
+
+    /* Animações */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Menu Mobile */
+    .mobile-menu-toggle {
+      display: none;
+    }
+
+    .mobile-menu-container {
+      display: none;
+    }
+
+
+    /* Media Queries - Mobile */
+    @media (max-width: 768px) {
+      body {
+        padding-bottom: 0;
+      }
+
+      nav {
+        height: 60px;
+        padding: 0 20px;
+        z-index: 1020;
+      }
+
+      .nav-buttons {
+        gap: 10px;
+        display: none;
+      }
+
+      .nav-button {
+        height: 36px;
+        font-size: 12px;
+        padding: 0 15px;
+        border-radius: 20px;
+      }
+
+      .nav-button.active {
+        width: 80px;
+      }
+
+      .nav-button[href="Contato.html"] {
+        display: none;
+      }
+
+     
+
+
+      
+
+
+
+
+
+
+
+/* Novo botão com borda fina */
+.mobile-menu-button {
+    display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 0.5px solid #e8e8e8;
+  border-radius: 20px;
+  background: transparent;
+  padding: 10px 25px;
+  cursor: pointer;
+  font-family: 'B612 Mono', monospace;
+  font-size: 12px;
+  color: #e8e8e8;
+  gap: 10px;
+  z-index: 1020; /* acima do menu */
+  position: fixed; /* mantém visível sobre o menu */
+  top: 20px;
+  right: 20px;
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+
+}
+
+/* Botão ativo (menu aberto) */
+.mobile-menu-button.active {
+  color: #1e1e1e;           /* cor do texto */
+  border-color: #1e1e1e;    /* cor da borda */
+  background: #e8e8e8; /* fundo semi-transparente */
+}
+
+
+      
+     
+    /* Menu Mobile Corrigido */
+.mobile-menu-toggle {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 10px;
+  height: 4px;
+  position: relative;
+  z-index: 1020;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-left: auto;
+}
+
+.mobile-menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #e8e8e8;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-button.active .mobile-menu-toggle span {
+  background-color: #1e1e1e; /* muda a cor para branco */
+}
+
+
+.mobile-menu-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #1e1e1e;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(100%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+              opacity 0.7s ease;
+}
+
+.mobile-menu-container.active {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.mobile-menu a {
+  display: block;
+  position: relative;
+  color: #e8e8e8;
+  text-decoration: none;
+  font-family: 'Anton', sans-serif;
+  font-size: 3.5rem;
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: -1.9px;
+  padding: 2px 0;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(50%);
+  transition: color 0.3s ease, letter-spacing 0.3s ease;
+  clip-path: inset(0 0 100% 0); /* Clip base inicial */
+}
+
+/* Container para cada letra */
+.mobile-menu a span {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+/* Animação de revelação das letras */
+@keyframes letterReveal {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Quando o menu estiver ativo */
+.mobile-menu-container.active .mobile-menu a {
+  opacity: 1;
+  transform: translateY(0);
+  clip-path: inset(0 0 0 0);
+}
+
+/* Delay individual dos links */
+.mobile-menu-container.active .mobile-menu a:nth-child(1) span {
+  animation: letterReveal 0.8s cubic-bezier(0.2, 0.6, 0.3, 1) forwards;
+  animation-delay: 0.1s;
+}
+
+.mobile-menu-container.active .mobile-menu a:nth-child(2) span {
+  animation: letterReveal 0.8s cubic-bezier(0.2, 0.6, 0.3, 1) forwards;
+  animation-delay: 0.25s;
+}
+
+.mobile-menu-container.active .mobile-menu a:nth-child(3) span {
+  animation: letterReveal 0.8s cubic-bezier(0.2, 0.6, 0.3, 1) forwards;
+  animation-delay: 0.4s;
+}
+
+.mobile-menu-container.active .mobile-menu a:nth-child(4) span {
+  animation: letterReveal 0.8s cubic-bezier(0.2, 0.6, 0.3, 1) forwards;
+  animation-delay: 0.55s;
+}
+
+/* Hover dos links */
+.mobile-menu a:hover {
+  color: #5a5a5a;
+  letter-spacing: 3px;
+}
+
+.mobile-menu a.active {
+  color: #6c6c6c;
+}
+
+
+
+
+
+
+
+
+.title-container {
+  height: 60px; /* Altura aumentada para evitar corte */
+ 
+}
+ 
+      .title-section {
+         padding: 0 20px 90px;
+        margin-top: -30px !important;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-direction: row;
+      }
+
+      .page-title {
+        font-size: 3rem !important;
+        line-height: 1;
+        margin-bottom: 0;
+        width: auto;
+        white-space: nowrap;
+      }
+
+      #firstTitle {
+    text-align: left; /* Alinha à esquerda */
+    padding-right: 10px; /* Espaço entre os títulos */
+  }
+
+  #secondTitle {
+    text-align: right; /* Alinha à direita */
+    padding-left: 10px; /* Espaço entre os títulos */
+  }
+
+      .main-container {
+        padding: 60px 0px 0px;
+        margin-top: 60px;
+      }
+
+      /* Ajustes para a nova estrutura em mobile */
+      .project-container {
+        flex-direction: column;
+        padding: 0 20px;
+      }
+
+      .project-info, .project-content {
+        width: 100%;
+      }
+
+      .project-info {
+        position: relative;
+        top: 0;
+        margin-bottom: 40px;
+      }
+
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card.video-card {
+        height: 300px;
+      }
+
+      .project-card.image-card {
+        height: 250px;
+      }
+
+      .next-project {
+        padding: 0 20px;
+      }
+
+      .next-project h2 {
+        font-family: 'Poppins', sans-serif;
+       font-weight: 800;
+      font-size: 12px;
+      margin-bottom: 10px;
+      }
+
+.next-project p {
+      font-size: 12px;
+     max-width: 250px;
+    }
+.next-project a {
+      font-size: 12px; 
+    }
+
+
+
+
+
+
+
+   .footer-briefing {
+    padding: 30px 15px;
+    text-align: center;
+    z-index: 999;
+  }
+
+  .footer-briefing .title-link {
+    font-size: 48px; 
+    font-weight: bold;
+    padding-bottom: 4px;
+  }
+
+  .footer-briefing .description {
+    max-width: 230px;
+  }
+
+    }
+
+    /* Ajustes para telas muito pequenas */
+    @media (max-width: 480px) {
+      .page-title {
+        font-size: 36px;
+      }
+
+      .nav-buttons {
+        gap: 6px;
+      }
+
+      .nav-button {
+        height: 30px;
+        font-size: 10px;
+        padding: 0 10px;
+      }
+
+      .page-title {
+        font-size: 2.2rem;
+      }
+      
+      .page-subtitle {
+        font-size: 1rem;
+        padding: 0 15px;
+      }
+      
+      .card-title {
+        font-size: 1.1rem;
+      }
+      
+      .card-description {
+        font-size: 0.8rem;
+      }
+
+    
+
+      /* Ajustes adicionais para cards em telas muito pequenas */
+      .card-image, .square-card .card-image {
+        height: 360px;
+      }
+
+      .card-video, 
+  .square-card .card-video {
+    height: 360px;
+  }
+
+  .card:nth-child(even) {
+    top: 0;
+    margin-bottom: 20px;
+  }
+
+      .service-card-body {
+        padding: 20px;
+      }
+
+      .service-feature {
+        padding: 10px 0;
+      }
+
+      .feature-title, .feature-value {
+        font-size: 13px;
+      }
+    }
+
+    /* Garantir que o menu mobile não apareça em desktop */
+    @media (min-width: 769px) {
+        .mobile-menu-button {
+    display: none !important;
+  }
+
+      .mobile-menu-toggle {
+        display: none !important;
+      }
+      
+      .mobile-menu-container {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+   <!-- Loader Matrix -->
+  <div class="matrix-loader-container">
+    <div class="ai-matrix-loader">
+      <div class="digit">E</div>
+      <div class="digit">D</div>
+      <div class="digit">V</div>
+      <div class="digit">L</div>
+      <div class="digit">E</div>
+      <div class="digit">D</div>
+      <div class="digit">V</div>
+      <div class="digit">L</div>
+      <div class="digit">E</div>
+    </div>
+  </div>
+
+
+
+  <div class="page-wrapper">
+    <!-- Background -->
+    <div class="background-pattern"></div>
+    <div class="background-image"></div>
+    <div class="background-image-new"></div>
+    
+    <!-- Fixed Navigation -->
+    <nav>
+      <div class="nav-buttons">
+        <a href="index.html" class="nav-button">Início</a>
+        <a href="portfolio.html" class="nav-button active">Portfólio</a>
+        <a href="Sobre.html" class="nav-button">Sobre</a>
+      </div>
+      <a href="Contato.html" class="nav-button" style="width: 115px; opacity: 0.83;">Contato+</a>
+      
+      <!-- Menu Mobile - Atualizado -->
+       <button class="mobile-menu-button">
+  <span>Menu</span>
+   <div class="mobile-menu-toggle">
+      <span></span>
+      <span></span>
+     </div>
+</button>
+  </nav>
+    
+   <!-- Menu Mobile Container -->
+  <div class="mobile-menu-container">
+  <div class="mobile-menu">
+    <a href="index.html">
+      <span>I</span><span>n</span><span>í</span><span>c</span><span>i</span><span>o</span>
+    </a>
+    <a href="portfolio.html" class="active">
+      <span>P</span><span>o</span><span>r</span><span>t</span><span>f</span><span>ó</span><span>l</span><span>i</span><span>o</span>
+    </a>
+    <a href="Sobre.html">
+      <span>S</span><span>o</span><span>b</span><span>r</span><span>e</span>
+    </a>
+    <a href="Contato.html">
+      <span>C</span><span>o</span><span>n</span><span>t</span><span>a</span><span>t</span><span>o</span>
+    </a>
+  </div>
+</div>
+    
+    <!-- Title Section (normal flow) -->
+    <div class="title-section">
+  <div class="title-container">
+    <h1 class="page-title" id="firstTitle">
+      <span>P</span><span>R</span><span>O</span><span>J</span><span>E</span><span>T</span><span>O</span><span>S</span>
+    </h1>
+  </div>
+</div>
+  
+    <!-- Main Content -->
+    <div class="project-container">
+      <!-- Informações do projeto (30%) -->
+      <div class="project-info">
+    <h2>PROJETO E-V</h2>
+    <a href="https://inertia-studios-27e36d.webflow.io/" class="website-link">Visitar Website</a>
+    
+    <p class="project-detail">Stack Nativa <br>2024</p>
+   
+    
+    <p class="project-description">Este template foi desenvolvido para quem busca um design moderno e minimalista. A composição limpa, o uso inteligente do espaço e a paleta equilibrada traduzem sofisticação e funcionalidade, criando uma experiência visual clara e impactante.</p>
+  
+    <div class="info-grid">
+      <div class="info-section">
+        <div class="info-title">Ferramentas</div>
+        <div class="info-items">
+         <div class="info-item">HTML</div>
+           <div class="info-item">CSS</div>
+            <div class="info-item">JS</div>
+          <div class="info-item">Gsap</div>
+        </div>
+      </div>
+      
+      <div class="info-section">
+        <div class="info-title">Membros</div>
+        <div class="info-items">
+          <div class="info-item">@eduardodalla</div>
+        </div>
+      </div>
+    </div>
+  </div>    
+
+      <!-- Conteúdo do projeto (70%) -->
+      <div class="project-content">
+        <div class="project-grid">
+          <!-- Card de vídeo (retangular) -->
+          <div class="project-card video-card">
+            <video muted loop autoplay>
+              <source src="SOBRE/videoPF5.mp4" type="video/mp4">
+            </video>
+          </div>
+          
+          <!-- Cards de imagens (4 cards em grid 2x2) -->
+          <div class="project-card image-card">
+            <img src="IMGPRO/P00001.png" alt="Imagem do projeto 1">
+          </div>
+          <div class="project-card image-card">
+            <img src="IMGPRO/P00002.png" alt="Imagem do projeto 2">
+          </div>
+          <div class="project-card image-card">
+            <img src="IMGPRO/P00003.png" alt="Imagem do projeto 3">
+          </div>
+          <div class="project-card image-card">
+            <img src="IMGPRO/P00004.png" alt="Imagem do projeto 4">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seção do próximo projeto -->
+    <div class="next-project">
+      <h2>Próximo Projeto</h2>
+      <p>Confira nosso trabalho mais recente</p>
+      <a href="Projeto-ra.html">Ver projeto completo</a>
+    </div>
+
+     
+ 
+   <!-- ===== Footer Briefing Section ===== -->
+<section class="footer-briefing">
+  <div class="layout">
+    <!-- Coluna da esquerda -->
+    <div class="left-col">
+      <h2 class="footer-title">
+        <a href="https://wa.me/5546991207326?text=Ol%C3%A1%20Eduardo%20Dalla%20Valle%2C%20tudo%20bem%3F%20Estou%20entrando%20em%20contato%20pelo%20seu%20site%20para%20solicitar%20um%20or%C3%A7amento." class="title-link">CONTATO</a>
+</h2>
+      <p class="availability">Disponível para novos projetos</p>
+      <p class="description">Entre em contato e vamos construir algo incrível juntos.</p>
+    </div>
+
+    <!-- Coluna da direita -->
+    <div class="right-col">
+      <a href="https://tally.so/r/3lpOEN" class="briefing">Briefing Inicial</a>
+      <div class="social-links">
+        <a href="https://www.instagram.com/luis.eduardo_dalla/">Instagram</a>
+        <a href="https://wa.me/5546991207326?text=Ol%C3%A1%20Eduardo%20Dalla%20Valle%2C%20tudo%20bem%3F%20Estou%20entrando%20em%20contato%20pelo%20seu%20site%20para%20solicitar%20um%20or%C3%A7amento.">Whatsapp</a>
+        <a href="#">Behance</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Inicia o loader imediatamente
+  const loader = document.querySelector('.matrix-loader-container');
+  
+  if (loader) {
+    // Configura estado inicial
+    document.body.classList.add('loading');
+    document.body.style.overflow = 'hidden';
+
+    // Timer principal (3 segundos)
+    setTimeout(initAllAnimations, 1000);
+  } else {
+    // Fallback se não houver loader
+    initAllAnimations();
+  }
+
+  // Configura eventos estáticos (hover, clicks)
+  setupStaticEventListeners();
+
+});
+
+// 3. Função principal que inicia TODAS as animações
+function initAllAnimations() {
+  console.log('Iniciando todas as animações após 1 segundos');
+  
+  // Remove o loader
+  const loader = document.querySelector('.matrix-loader-container');
+  if (loader) {
+    loader.classList.add('loaded');
+    setTimeout(() => {
+      loader.remove();
+      document.body.classList.remove('loading');
+      document.body.style.overflow = '';
+    }, 1000);
+  }
+
+  // A. Animação dos títulos
+  animateTitles();
+
+  // B. Animação dos botões de navegação
+  animateNavButtons();
+
+  // C. Animação dos cards (via Intersection Observer)
+  initScrollTriggers();
+
+  // D. Animação do parallax para as imagens
+  initParallaxEffect();
+
+  // E. Animação do footer
+  initFooterBriefingAnimations();
+}
+
+// ==================== ANIMAÇÕES INDIVIDUAIS ====================
+
+// 1. Animação dos títulos
+function animateTitles() {
+  // Configuração GSAP para a animação das letras com clip
+  gsap.set("#firstTitle span", {
+    y: 110, // Ajustado para a nova altura (110px)
+    opacity: 0
+  });
+
+  // Animação para "UNCAGED"
+  gsap.to("#firstTitle span", {
+    y: 0,
+    opacity: 1,
+    duration: 1.2,
+    stagger: { 
+      each: 0.02, // Valor muito baixo para quase simultâneo
+      from: "start" 
+    },
+    ease: "power2.out",
+    delay: 0.3
+  });
+}
+
+// 2. Animação dos botões de navegação
+function animateNavButtons() {
+  const buttons = document.querySelectorAll('.nav-button');
+  
+  buttons.forEach((button, index) => {
+    // Remove todas as animações/transições prévias
+    button.style.animation = 'none';
+    button.style.transition = 'none';
+    
+    // Reseta para estado inicial
+    button.style.opacity = '0';
+    button.style.transform = 'translateY(20px)';
+    
+    // Força recálculo do layout
+    void button.offsetWidth;
+    
+    // Aplica animação com delay progressivo
+    setTimeout(() => {
+      button.style.transition = 'opacity 1s ease, transform 1s ease, background 0.3s ease, color 0.3s ease';
+      button.style.opacity = '1';
+      button.style.transform = 'translateY(0)';
+    }, 100 * index); // 100ms entre cada botão
+  });
+}
+
+// 3. Animação dos cards via Intersection Observer
+function initScrollTriggers() {
+  const cards = document.querySelectorAll('.project-card');
+  const options = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Aplica transição suave
+        entry.target.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        
+      
+      }
+    });
+  }, options);
+
+  cards.forEach(card => {
+    // Configura estado inicial
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(50px)';
+    observer.observe(card);
+
+  });
+}
+
+// 4. Efeito parallax para as imagens
+function initParallaxEffect() {
+  const imageCards = document.querySelectorAll('.project-card.image-card img');
+  
+  imageCards.forEach(img => {
+    gsap.to(img, {
+      yPercent: 22,   // movimento mais rápido/forte
+      ease: "none",
+      scrollTrigger: {
+        trigger: img,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true    // acompanha melhor o scroll
+      }
+    });
+  });
+}
+
+// 5. Animação do footer
+function initFooterBriefingAnimations() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    console.warn('GSAP ou ScrollTrigger não disponível.');
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const elements = gsap.utils.toArray(".footer-briefing .footer-title, .footer-briefing .availability, .footer-briefing .description, .footer-briefing .briefing, .footer-briefing .social-links a");
+
+  elements.forEach((el, i) => {
+    gsap.to(el, {
+      scrollTrigger: {
+        trigger: ".footer-briefing",
+        start: "top 80%",
+        toggleActions: "play none none reverse"
+      },
+      duration: 1,
+      delay: i * 0.2,
+      y: 0,
+      opacity: 1,
+      clipPath: "inset(0 0 0% 0)",
+      ease: "power3.out"
+    });
+  });
+}
+
+// ==================== EVENTOS ESTÁTICOS ====================
+function setupStaticEventListeners() {
+  // Menu mobile
+  const menuButton = document.querySelector('.mobile-menu-button');
+  const menuContainer = document.querySelector('.mobile-menu-container');
+
+  if (menuButton && menuContainer) {
+    menuButton.addEventListener('click', () => {
+      const isActive = menuContainer.classList.toggle('active');
+      menuButton.classList.toggle('active', isActive);
+      
+      // Controle overflow
+      document.body.style.overflow = isActive ? 'hidden' : '';
+
+      const allLinks = document.querySelectorAll('.mobile-menu a');
+
+      if (isActive) {
+        // Para cada link, anima letra por letra de baixo para cima
+        allLinks.forEach((link, linkIndex) => {
+          const letters = link.querySelectorAll('span');
+          letters.forEach((letter, letterIndex) => {
+            gsap.fromTo(letter, 
+              { y: '100%', opacity: 0 }, 
+              { 
+                y: '0%', 
+                opacity: 1, 
+                duration: 0.6, 
+                ease: 'power2.out', 
+                delay: 0.1 + linkIndex * 0.15 + letterIndex * 0.05 
+              }
+            );
+          });
+        });
+      } else {
+        // Resetar letras ao fechar
+        allLinks.forEach(link => {
+          const letters = link.querySelectorAll('span');
+          letters.forEach(letter => {
+            gsap.set(letter, { y: '100%', opacity: 0 });
+          });
+        });
+      }
+    });
+
+    // Fechar menu ao clicar em qualquer link
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuContainer.classList.remove('active');
+        menuButton.classList.remove('active');
+        document.body.style.overflow = '';
+
+        // Resetar animação das letras
+        const letters = link.querySelectorAll('span');
+        letters.forEach(letter => {
+          gsap.set(letter, { y: '100%', opacity: 0 });
+        });
+      });
+    });
+  }
+
+  // Scroll suave - APENAS PARA DESKTOP
+  if (!/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    const smoothScroll = {
+      target: document.documentElement || document.body,
+      scrollY: 0,
+      currentY: 0,
+      speed: 1,
+      ease: 0.05,
+      rafId: null,
+      isScrolling: false,
+
+      init() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', (e) => {
+            const targetId = anchor.getAttribute('href');
+            if (targetId === '#' || targetId === '#0') return;
+            
+            e.preventDefault();
+            const target = document.querySelector(targetId);
+            if (target) this.scrollTo(target.offsetTop);
+          });
+        });
+
+        window.addEventListener('wheel', this.handleWheel.bind(this), { passive: false });
+        window.addEventListener('touchmove', this.handleTouch.bind(this), { passive: false });
+      },
+
+      scrollTo(targetY) {
+        this.scrollY = targetY;
+        this.isScrolling = true;
+        if (!this.rafId) this.animateScroll();
+      },
+
+      animateScroll() {
+        const diff = this.scrollY - this.currentY;
+        this.currentY += diff * this.ease;
+        this.target.scrollTop = this.currentY;
+        
+        if (Math.abs(diff) > 0.5) {
+          this.rafId = requestAnimationFrame(this.animateScroll.bind(this));
+        } else {
+          this.currentY = this.scrollY;
+          this.isScrolling = false;
+          cancelAnimationFrame(this.rafId);
+          this.rafId = null;
+        }
+      },
+
+      handleWheel(e) {
+        if (this.isScrolling) return;
+        e.preventDefault();
+        this.scrollY += e.deltaY * this.speed;
+        this.scrollY = Math.max(0, Math.min(this.scrollY, 
+          document.body.scrollHeight - window.innerHeight));
+        if (!this.rafId) this.animateScroll();
+      },
+
+      handleTouch(e) {
+        if (this.isScrolling) return;
+        e.preventDefault();
+        this.scrollY += e.touches[0].clientY * 0.5 * this.speed;
+        this.scrollY = Math.max(0, Math.min(this.scrollY, 
+          document.body.scrollHeight - window.innerHeight));
+        if (!this.rafId) this.animateScroll();
+      }
+    };
+
+    smoothScroll.init();
+  }
+}
+
+  </script>
+</body>
+</html>
