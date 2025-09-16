@@ -103,6 +103,7 @@
       position: relative;
       min-height: 100vh;
       padding-bottom: 90px;
+      
     }
     
     /* Background */
@@ -151,7 +152,7 @@
       left: 0;
       width: 100%;
       height: 110px;
-      padding: 0 128px;
+      padding: 0 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -181,12 +182,13 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.3s ease;
       background: transparent;
       color: #1e1e1e;
       opacity: 0;
       transform: translateY(20px);
       animation: fadeInUpQuick 1900ms cubic-bezier(0.4, 0.2, 0.2, 1) forwards;
+
+       transition: background 0.3s ease, color 0.3s ease, opacity 1s ease, transform 1s ease;
     }
     
     .nav-button:nth-child(1) { animation-delay: 0.1s; }
@@ -200,15 +202,10 @@
       width: 121px;
     }
     
-    .nav-button:hover {
-      background: #e8e8e8;
-      color: #1e1e1e;
-    }
     
     .nav-button:not(.active):hover {
       background: #1e1e1e !important;
       color: #e8e8e8 !important;
-      border: 1px solid #1e1e1e !important;
     }
 
     /* Animação Quick para os botões */
@@ -412,7 +409,11 @@
 .skills-table .row span {
   display: flex;
   align-items: center;
+ font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  font-size: 12px;
   color: #1e1e1e;
+   letter-spacing: -1.3px;
 }
 
 .skills-table .highlight {
@@ -478,11 +479,8 @@
   width: 100%;
   height: auto;
   min-height: 50vh;
-  background-image: url(SOBRE/foto2.png);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  padding: 60px 80px;
+ background-color: #121212;
+  padding: 60px 30px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between; /* <- separa esquerda e direita */
@@ -523,30 +521,13 @@
   padding-bottom: 5px; /* espaço para a linha */
 }
 
-.title-link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 3px; /* espessura da linha */
-  background-color: #ffffff; /* cor da linha */
-  transition: transform 0.7s ease;
-  transform: scaleX(1);       
-  transform-origin: left;
-}
-
-.title-link:hover::after {
-  transform: scaleX(0);
-  transform-origin: right;
-}
 
 .availability {
+  font-family: 'Poppins', sans-serif;
   font-size: 12px;
-  letter-spacing: 2px;
+  letter-spacing: -0.6px;
   color: #e8e8e8;
   font-weight: 700;
-  letter-spacing: -0.6px;
   padding-right: 20px;
 }
 
@@ -581,12 +562,12 @@
 }
 
 .description {
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1;
   color: #e8e8e8;
-  opacity: 0.9;
   max-width: 400px;
   text-align: left;
+  margin-top: -10px;
 }
 
 .briefing {
@@ -595,38 +576,20 @@
   text-decoration: none;
   margin-top: 20px;
   display: inline-block;
-  font-weight: 600;
   position: relative;
-  margin-right: 72rem;
-  
+  margin-left: -78.2rem;  
 }
 
-.briefing::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 1px;
-  background: #e8e8e8;
-  transition: transform 0.7s ease;
-  transform: scaleX(1);       
-  transform-origin: left;
-}
-
-.briefing:hover::after {
-  transform: scaleX(0);
-  transform-origin: right;
-}
 
 
 .footer-section .social-links {
-  display: flex;
-  flex-direction: column; /* links ficam empilhados */
+ display: flex;
+  flex-direction: column;
   gap: 16px;
   margin-top: 0;
-  align-items: flex-end;  /* alinhado à direita */
-  justify-content: flex-start;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-top: -7rem;
 }
 
 
@@ -651,9 +614,48 @@
 
 
 
+/* Hover para o link do título */
+.title-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #e8e8e8;
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 0.7s ease;
+  will-change: transform;
+}
 
-/* Linha embaixo */
-.footer-section .social-links a::after {
+.title-link:hover::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+/* Hover para o link "briefing" */
+ .briefing::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: #e8e8e8;
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 0.7s ease;
+  will-change: transform;
+}
+
+.briefing:hover::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+/* Hover para os links sociais */
+.social-links a::after {
   content: '';
   position: absolute;
   left: 0;
@@ -661,16 +663,21 @@
   width: 100%;
   height: 0.5px;
   background: #e8e8e8;
-  transform: scaleX(1);          /* linha já aparece */
+  transform: scaleX(1);
   transform-origin: left;
   transition: transform 0.7s ease;
+  will-change: transform;
 }
 
-/* Hover → anima linha da esquerda para direita */
-.footer-section .social-links a:hover::after {
+.social-links a:hover::after {
   transform: scaleX(0);
   transform-origin: right;
 }
+
+
+
+
+
 
 
 /* Estado inicial apenas para os textos */
@@ -1264,11 +1271,18 @@ padding: 30px 15px;
 <!-- Substitua a descrição atual por este código -->
   <section class="about-section">
   <div class="about-text">
-    <p>DESIGN NÃO É APENAS ESTÉTICA; É A INTENÇÃO POR TRÁS DE CADA DETALHE.</p>
-    <p>COM MINHA EXPERIÊNCIA EM HTML5, CSS3, JAVASCRIPT E DESIGN.</p>
-    <p>A TECNOLOGIA É UM MEIO DE TRADUZIR IDEIAS EM INTERFACES IMERSIVAS E RESPONSIVAS.</p>
-    <p>ESTOU SEMPRE EXPLORANDO NOVAS FORMAS DE UNIR DESIGN, INTERATIVIDADE E PERFORMANCE.</p>
-    <p>PARA DAR VIDA A PROJETOS QUE CONTEM HISTÓRIAS DIGITAIS...</p>
+    <p>SOU WEB DESIGNER E SOCIAL MEDIA COM MAIS DE 5 ANOS DE EXPERIÊNCIA,</p>
+    <p>ATUANDO DESDE 2019 NA CRIAÇÃO DE SOLUÇÕES DIGITAIS COMPLETAS.</p>
+    <p>MINHA TRAJETÓRIA COMBINA DESIGN, MARKETING E ESTRATÉGIA, O QUE</p>
+    <p>PERMITE DESENVOLVER PROJETOS QUE UNEM ESTÉTICA, FUNCIONALIDADE</p>
+    <p>E PERFORMANCE.<br><br><br>AO LONGO DESSES ANOS, TRABALHEI TANTO EM PROJETOS AUTORAIS QUANTO</p>
+    <p>COMO FREELANCER, ATENDENDO EMPRESAS E PROFISSIONAIS DE DIFERENTES</p>
+    <p>SEGMENTOS, SEMPRE COM FOCO EM CONSTRUIR PRESENÇAS DIGITAIS SÓLIDAS</p>
+    <p>E IMPACTANTES.<br><br><br> MEU PRINCIPAL OBJETIVO É CRIAR SITES, IDENTIDADES VISUAIS</p>
+    <p>E ESTRATÉGIAS DIGITAIS QUE AJUDEM MARCAS E PESSOAS A ATINGIREM SEUS</p>
+    <p>OBJETIVOS DE NEGÓCIO. PARA ISSO, APLICO UMA COMBINAÇÃO DE FERRAMENTAS</p>
+    <p>E HABILIDADES, COMO HTML, CSS, JS, GSAP E ESTRATÉGIAS DE MARKETING DIGITAL</p>
+    <p>ENTREGANDO RESULTADOS CONSISTENTES E ESCALÁVEIS.</p>
   </div>
 </section>
 
@@ -1292,13 +1306,14 @@ padding: 30px 15px;
 
   <!-- Linha 1 -->
   <div class="row">
-    <span>01 →</span>
+    <span>01 </span>
     <span class="highlight">DESENVOLVIMENTO WEB</span>
     <div>
       <p>HTML5 / CSS3</p>
       <p>JAVASCRIPT</p>
       <p>UI / UX DESIGN</p>
       <p>FIGMA</p>
+      <p>WEBFLOW</p>
     </div>
     <div>
       <p>INTERFACES MODERNAS</p>
@@ -1309,7 +1324,7 @@ padding: 30px 15px;
 
   <!-- Linha 2 -->
   <div class="row">
-    <span>02 →</span>
+    <span>02 </span>
     <span class="highlight">DESIGN GRÁFICO</span>
     <div>
       <p>ADOBE PHOTOSHOP</p>
@@ -1326,7 +1341,7 @@ padding: 30px 15px;
 
   <!-- Linha 3 -->
   <div class="row">
-    <span>03 →</span>
+    <span>03 </span>
     <span class="highlight">MÍDIAS SOCIAIS</span>
     <div>
       <p>GESTÃO DE REDES</p>
@@ -1352,7 +1367,7 @@ padding: 30px 15px;
     <!-- Coluna da esquerda -->
     <div class="left-col">
      <h2 class="footer-title">
-  <a href="https://wa.me/5546991207326?text=Ol%C3%A1%20Eduardo%20Dalla%20Valle%2C%20tudo%20bem%3F%20Estou%20entrando%20em%20contato%20pelo%20seu%20site%20para%20solicitar%20um%20or%C3%A7amento." class="title-link">VAMOS CONVERSAR</a>
+  <a href="https://wa.me/5546991207326" class="title-link">CONTATO</a>
 </h2>
       <p class="availability">Disponível para novos projetos</p>
       <p class="description">Entre em contato e vamos construir algo incrível juntos.</p>
@@ -1363,7 +1378,7 @@ padding: 30px 15px;
       <a href="https://tally.so/r/3lpOEN" class="briefing">Briefing Inicial</a>
       <div class="social-links">
         <a href="https://www.instagram.com/luis.eduardo_dalla/">Instagram</a>
-        <a href="https://wa.me/5546991207326?text=Ol%C3%A1%20Eduardo%20Dalla%20Valle%2C%20tudo%20bem%3F%20Estou%20entrando%20em%20contato%20pelo%20seu%20site%20para%20solicitar%20um%20or%C3%A7amento.">Whatsapp</a>
+        <a href="https://wa.me/5546991207326">Whatsapp</a>
         <a href="#">Behance</a>
         <a href="#">LinkedIn</a>
       </div>
@@ -1442,7 +1457,7 @@ function initAllAnimations() {
     void button.offsetWidth;
     
     setTimeout(() => {
-      button.style.transition = 'opacity 1s ease, transform 1s ease';
+      button.style.transition = 'opacity 1s ease, transform 1s ease, background 0.3s ease, color 0.3s ease';
       button.style.opacity = '1';
       button.style.transform = 'translateY(0)';
     }, 100 * index);
