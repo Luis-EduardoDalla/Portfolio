@@ -102,7 +102,7 @@
       overflow-x: hidden;
       position: relative;
       min-height: 100vh;
-      padding-bottom: 90px;
+      padding-bottom: 16vh;
       
     }
     
@@ -475,224 +475,28 @@
 
 
 
-.footer-section {
-  width: 100%;
-  height: auto;
-  min-height: 50vh;
- background-color: #121212;
-  padding: 60px 30px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between; /* <- separa esquerda e direita */
-  flex-direction: row;            /* <- organiza em linha */
+.footer-briefing {
   position: relative;
-  overflow: hidden;
-  z-index: 1000;
+  width: 100%;
+  height: 8vh;
+  background-color: #121212;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-container {
+  width: 90%;
+  max-width: 1400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.6);
 }
-
-.footer-section .layout {
-  width: 100%;
-}
-
-.footer-section .left-col {
-  max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-}
-
-.footer-title {
-  font-family: 'Anton', sans-serif;
-  font-size: 88px;
-  line-height: 1;
-  color: #e8e8e8;
-  margin-bottom: 20px;
-  min-width: 900px;
-  text-align: left;
-}
-
-.title-link {
-  color: inherit; /* mantém a cor do título */
-  text-decoration: none;
-  position: relative;
-  display: inline-block;
-  padding-bottom: 5px; /* espaço para a linha */
-}
-
-
-.availability {
-  font-family: 'Poppins', sans-serif;
-  font-size: 12px;
-  letter-spacing: -0.6px;
-  color: #e8e8e8;
-  font-weight: 700;
-  padding-right: 20px;
-}
-
-/* círculo pulsante */
-.availability::after {
-  content: "";
-  position: absolute;
-  right: 5px;
-  top: 48%;
-  transform: translateY(-50%);
-  width: 7px;
-  height: 7px;
-  background-color: #4CAF50; /* verde "disponível" */
-  border-radius: 50%;
-  animation: pulse 1.5s infinite;
-}
-
-/* animação do pulso */
-@keyframes pulse {
-  0% {
-    transform: translateY(-50%) scale(0.9);
-    opacity: 0.7;
-  }
-  50% {
-    transform: translateY(-50%) scale(1.3);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-50%) scale(0.9);
-    opacity: 0.7;
-  }
-}
-
-.description {
-  font-size: 12px;
-  line-height: 1;
-  color: #e8e8e8;
-  max-width: 400px;
-  text-align: left;
-  margin-top: -10px;
-}
-
-.briefing {
-  font-size: 12px;
-  color: #e8e8e8;
-  text-decoration: none;
-  margin-top: 20px;
-  display: inline-block;
-  position: relative;
-  margin-left: -78.2rem;  
-}
-
-
-
-.footer-section .social-links {
- display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 0;
-  align-items: flex-end;
-  justify-content: flex-end;
-  margin-top: -7rem;
-}
-
-
-.social-links {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-  margin-top: 30px;
-}
-
-.social-links a {
-  font-size: 12px;
-  color: #e8e8e8;
-  text-decoration: none;
-  position: relative;
-  padding-bottom: 2px;
-}
-
-
-
-
-
-
-
-/* Hover para o link do título */
-.title-link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 3px;
-  background-color: #e8e8e8;
-  transform: scaleX(1);
-  transform-origin: left;
-  transition: transform 0.7s ease;
-  will-change: transform;
-}
-
-.title-link:hover::after {
-  transform: scaleX(0);
-  transform-origin: right;
-}
-
-/* Hover para o link "briefing" */
- .briefing::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 1px;
-  background: #e8e8e8;
-  transform: scaleX(1);
-  transform-origin: left;
-  transition: transform 0.7s ease;
-  will-change: transform;
-}
-
-.briefing:hover::after {
-  transform: scaleX(0);
-  transform-origin: right;
-}
-
-/* Hover para os links sociais */
-.social-links a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 0.5px;
-  background: #e8e8e8;
-  transform: scaleX(1);
-  transform-origin: left;
-  transition: transform 0.7s ease;
-  will-change: transform;
-}
-
-.social-links a:hover::after {
-  transform: scaleX(0);
-  transform-origin: right;
-}
-
-
-
-
-
-
-
-/* Estado inicial apenas para os textos */
-.footer-section .footer-title,
-.footer-section .availability,
-.footer-section .description,
-.footer-section .briefing,
-.footer-section .social-links a {
-  -webkit-clip-path: inset(0 0 100% 0);
-  clip-path: inset(0 0 100% 0);
-  transform: translateY(40px);
-  opacity: 0;
-  will-change: transform, clip-path, opacity;
-}
-
 
 
 
@@ -842,7 +646,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 150vh;
   background-color: #1e1e1e;
   z-index: 1000;
   display: flex;
@@ -1013,42 +817,28 @@ margin: 15px;
 
 
 
- .footer-section {
-padding: 30px 15px;
-    text-align: center; /* centraliza conteúdo no mobile */
-    z-index: 999;
-  }
+.footer-briefing {
+  position: relative;
+  width: 100%;
+  height: 8vh;
+  background-color: #121212;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-
-  /* Linha abaixo do título para links */
-  .title-link {
-     font-size: 48px; 
-    font-weight: bold;
-    color: #e8e8e8;
-    text-decoration: none;
-    display: inline-block;
-    position: relative;
-    padding-bottom: 4px;
-  }
-
-  .title-link::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #e8e8e8;
-    transition: transform 0.3s ease;
-  }
-
-  /* Subtítulos */
-  .footer-subtitle {
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 6px;
-    color: #e8e8e8;
-  }
+.footer-container {
+  width: 90%;
+  max-width: 1400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.6);
+}
 
 
 
@@ -1362,29 +1152,12 @@ padding: 30px 15px;
 
 
 <!-- ===== Footer Section ===== -->
-<section class="footer-section">
-  <div class="layout">
-    <!-- Coluna da esquerda -->
-    <div class="left-col">
-     <h2 class="footer-title">
-  <a href="https://wa.me/5546991207326" class="title-link">CONTATO</a>
-</h2>
-      <p class="availability">Disponível para novos projetos</p>
-      <p class="description">Entre em contato e vamos construir algo incrível juntos.</p>
-    </div>
-
-    <!-- Coluna da direita -->
-    <div class="right-col">
-      <a href="https://tally.so/r/3lpOEN" class="briefing">Briefing Inicial</a>
-      <div class="social-links">
-        <a href="https://www.instagram.com/luis.eduardo_dalla/">Instagram</a>
-        <a href="https://wa.me/5546991207326">Whatsapp</a>
-        <a href="#">Behance</a>
-        <a href="#">LinkedIn</a>
-      </div>
-    </div>
-  </div> 
-</section>
+<footer class="footer-briefing">
+  <div class="footer-container">
+    <p class="footer-text">© 2025 Eduardo Dalla</p>
+    <p class="footer-text">Todos os direitos reservados</p>
+  </div>
+</footer>
 
 
   <script>
