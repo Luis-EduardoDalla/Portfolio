@@ -579,215 +579,29 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 
 
 
-
-
-
 .footer-briefing {
+  position: relative;
   width: 100%;
-  height: auto;
-  min-height: 50vh;
+  height: 8vh;
   background-color: #121212;
-  padding: 60px 30px;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.2);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-container {
+  width: 90%;
+  max-width: 1400px;
+  display: flex;
   justify-content: space-between;
-  flex-direction: row;
-  position: relative;
-  overflow: hidden;
-  z-index: 1000;
+  align-items: center;
+  font-size: 10px;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.6);
 }
 
-.footer-briefing .layout {
-  width: 100%;
-}
-
-.footer-briefing .left-col {
-  max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-}
-
-.footer-briefing .footer-title {
-  font-family: 'Anton', sans-serif;
-  font-size: 88px;
-  line-height: 1;
-  color: #e8e8e8;
-  margin-bottom: 20px;
-  min-width: 900px;
-  text-align: left;
-}
-
-.footer-briefing .title-link {
-  color: inherit;
-  text-decoration: none;
-  position: relative;
-  display: inline-block;
-  padding-bottom: 5px;
-}
-
-
-
-.footer-briefing .availability {
-  font-size: 12px;
-  letter-spacing: -0.6px;
-  color: #e8e8e8;
-  font-weight: 700;
-  padding-right: 20px;
-}
-
-
-/* círculo pulsante */
-.availability::after {
-  content: "";
-  position: absolute;
-  right: 5px;
-  top: 48%;
-  transform: translateY(-50%);
-  width: 7px;
-  height: 7px;
-  background-color: #4CAF50; /* verde "disponível" */
-  border-radius: 50%;
-  animation: pulse 1.5s infinite;
-}
-
-/* animação do pulso */
-@keyframes pulse {
-  0% {
-    transform: translateY(-50%) scale(0.9);
-    opacity: 0.7;
-  }
-  50% {
-    transform: translateY(-50%) scale(1.3);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-50%) scale(0.9);
-    opacity: 0.7;
-  }
-}
-
-.footer-briefing .description {
-  font-size: 12px;
-  line-height: 1;
-  color: #e8e8e8;
-  max-width: 400px;
-  text-align: left;
-  margin-top: -10px;
-}
-
-.footer-briefing .briefing {
-  font-size: 12px;
-  color: #e8e8e8;
-  text-decoration: none;
-  margin-top: 20px;
-  display: inline-block;
-  position: relative;
-  margin-right: 73rem;
-  min-width: 130px;
-  text-align: left;
-}
-
-
-.footer-briefing .social-links {
- display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 0;
-  align-items: flex-end;
-  justify-content: flex-end;
-  margin-top: -7rem;
-}
-
-.footer-briefing .social-links a {
-  font-size: 12px;
-  color: #e8e8e8;
-  text-decoration: none;
-  position: relative;
-  padding-bottom: 2px;
-}
-
-
-
-
-
-/* Hover para o link do título */
-.title-link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 3px;
-  background-color: #e8e8e8;
-  transform: scaleX(1);
-  transform-origin: left;
-  transition: transform 0.7s ease;
-  will-change: transform;
-}
-
-.title-link:hover::after {
-  transform: scaleX(0);
-  transform-origin: right;
-}
-
-/* Hover para o link "briefing" */
- .briefing::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 1px;
-  background: #e8e8e8;
-  transform: scaleX(1);
-  transform-origin: left;
-  transition: transform 0.7s ease;
-  will-change: transform;
-}
-
-.briefing:hover::after {
-  transform: scaleX(0);
-  transform-origin: right;
-}
-
-/* Hover para os links sociais */
-.social-links a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 0.5px;
-  background: #e8e8e8;
-  transform: scaleX(1);
-  transform-origin: left;
-  transition: transform 0.7s ease;
-  will-change: transform;
-}
-
-.social-links a:hover::after {
-  transform: scaleX(0);
-  transform-origin: right;
-}
-
-
-
-
-/* Estado inicial para animação */
-.footer-briefing .footer-title,
-.footer-briefing .availability,
-.footer-briefing .description,
-.footer-briefing .briefing,
-.footer-briefing .social-links a {
-  -webkit-clip-path: inset(0 0 100% 0);
-  clip-path: inset(0 0 100% 0);
-  transform: translateY(40px);
-  opacity: 0;
-  will-change: transform, clip-path, opacity;
-}
 
 
 
@@ -860,7 +674,9 @@ transition: opacity 0.5s ease, transform 0.5s ease;
       }
 
      
-
+.page-wrapper {
+      padding: 73px 0px 0px;
+    }
 
       
 
@@ -928,7 +744,7 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .mobile-menu-button.active .mobile-menu-toggle span {
-  background-color: #1e1e1e; /* muda a cor para branco */
+  background-color: #1e1e1e;
 }
 
 
@@ -1057,7 +873,7 @@ transition: opacity 0.5s ease, transform 0.5s ease;
  
       .title-section {
          padding: 0 20px 90px;
-        margin-top: -30px !important;
+        margin-top: 0;
         flex-direction: column;
         align-items: flex-start;
         justify-content: space-between;
@@ -1148,21 +964,6 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 
 
 
-   .footer-briefing {
-    padding: 30px 15px;
-    text-align: center;
-    z-index: 999;
-  }
-
-  .footer-briefing .title-link {
-    font-size: 48px; 
-    font-weight: bold;
-    padding-bottom: 4px;
-  }
-
-  .footer-briefing .description {
-    max-width: 230px;
-  }
 
     }
 
@@ -1383,31 +1184,31 @@ transition: opacity 0.5s ease, transform 0.5s ease;
       
       <!-- Card 4 -->
       <div class="card">
-         <a href="Projeto-ce.html" class="card-link"></a>
+         <a href="Projeto-sg.html" class="card-link"></a>
          <div class="video-container">
   <video muted loop preload="none">
-    <source src="SOBRE/videoPF7.mp4" type="video/mp4">
+    <source src="SOBRE/videoPF8.mp4" type="video/mp4">
   </video>
-  <img class="card-image" src="SOBRE/SITE7.png" alt="Design de Evento">
+  <img class="card-image" src="SOBRE/SITE8.png" alt="Design de Evento">
   <p class="card-subtitle">
     <span>Visual Design, Interactive Media</span><br>
   <span>Strategy, Design & Innovation</span>
 </p>
 </div>
         <div class="card-overlay">
-          <h3 class="card-title">PROJETO C-E</h3>
+          <h3 class="card-title">SIGNATUR™</h3>
         </div>
       
       </div>
       
       <!-- Card 5 -->
       <div class="card">
-         <a href="Projeto-ev.html" class="card-link"></a>
+         <a href="Projeto-ce.html" class="card-link"></a>
          <div class="video-container">
   <video muted loop preload="none">
-    <source src="SOBRE/videoPF5.mp4" type="video/mp4">
+    <source src="SOBRE/videoPF7.mp4" type="video/mp4">
   </video>
-  <img class="card-image" src="SOBRE/SITE5.png" alt="Design de Evento">
+  <img class="card-image" src="SOBRE/SITE7.png" alt="Design de Evento">
   <p class="card-subtitle">
     <span>Visual Design, Interactive Media</span><br>
   <span>Strategy, Design & Innovation</span>
@@ -1422,12 +1223,12 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 
  <!-- Card 7 -->
       <div class="card">
-         <a href="Projeto-cd.html" class="card-link"></a>
+         <a href="Projeto-ev.html"" class="card-link"></a>
          <div class="video-container">
   <video muted loop preload="none">
-    <source src="SOBRE/videoPF4.mp4" type="video/mp4">
+    <source src="SOBRE/videoPF5.mp4" type="video/mp4">
   </video>
-  <img class="card-image" src="SOBRE/SITE4.png" alt="Design de Evento">
+  <img class="card-image" src="SOBRE/SITE5.png" alt="Design de Evento">
   <p class="card-subtitle">
     <span>Visual Design, Interactive Media</span><br>
   <span>Strategy, Design & Innovation</span>
@@ -1441,12 +1242,12 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 
  <!-- Card 8 -->
       <div class="card">
-         <a href="Projeto-jp.html" class="card-link"></a>
+         <a href="Projeto-cd.html" class="card-link"></a>
          <div class="video-container">
   <video muted loop preload="none">
-    <source src="SOBRE/videoPF8.mp4" type="video/mp4">
+    <source src="SOBRE/videoPF4.mp4" type="video/mp4">
   </video>
-  <img class="card-image" src="SOBRE/SITE8.png" alt="Design de Evento">
+  <img class="card-image" src="SOBRE/SITE4.png" alt="Design de Evento">
   <p class="card-subtitle">
     <span>Visual Design, Interactive Media</span><br>
   <span>Strategy, Design & Innovation</span>
@@ -1508,29 +1309,12 @@ transition: opacity 0.5s ease, transform 0.5s ease;
 </div>
  
    <!-- ===== Footer Briefing Section ===== -->
-<section class="footer-briefing">
-  <div class="layout">
-    <!-- Coluna da esquerda -->
-    <div class="left-col">
-      <h2 class="footer-title">
-        <a href="https://wa.me/5546991207326" class="title-link">CONTATO</a>
-</h2>
-      <p class="availability">Disponível para novos projetos</p>
-      <p class="description">Entre em contato e vamos construir algo incrível juntos.</p>
-    </div>
-
-    <!-- Coluna da direita -->
-    <div class="right-col">
-      <a href="https://tally.so/r/3lpOEN" class="briefing">Briefing Inicial</a>
-      <div class="social-links">
-        <a href="https://www.instagram.com/luis.eduardo_dalla/">Instagram</a>
-        <a href="https://wa.me/5546991207326">Whatsapp</a>
-        <a href="#">Behance</a>
-        <a href="#">LinkedIn</a>
-      </div>
-    </div>
+<footer class="footer-briefing">
+  <div class="footer-container">
+    <p class="footer-text">© 2025 Eduardo Dalla</p>
+    <p class="footer-text">Todos os direitos reservados</p>
   </div>
-</section>
+</footer>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
